@@ -39,7 +39,7 @@ importers:
         specifier: 12.1.1
         version: 12.1.1(eslint@9.39.2(jiti@2.6.1))
       husky:
-        specifier: ^9.1.7
+        specifier: 9.1.7
         version: 9.1.7
       jiti:
         specifier: 2.6.1
@@ -198,9 +198,6 @@ importers:
       '@vanilla-extract/rollup-plugin':
         specifier: 1.5.1
         version: 1.5.1(rollup@4.57.1)
-      concurrently:
-        specifier: 9.1.2
-        version: 9.1.2
       tsdown:
         specifier: 0.20.1
         version: 0.20.1(typescript@5.9.3)
