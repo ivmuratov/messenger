@@ -6,9 +6,8 @@
   "scripts": {
     "lint": "eslint src",
     "typecheck": "tsc --noEmit",
-    "format": "prettier src --write",
-    "format:check": "prettier src --check",
-    
+    "format": "prettier src --write --ignore-path ../../.prettierignore",
+    "format:check": "prettier src --check --ignore-path ../../.prettierignore",
     "clean": "rm -rf dist"
   },
   "peerDependencies": {

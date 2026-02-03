@@ -13,12 +13,10 @@
     "build:web": "tsdown --config-loader unrun",
     "build:native": "tsdown --config tsdown.native.config.ts --config-loader unrun",
     "build": "concurrently \"pnpm run build:web\" \"pnpm run build:native\"",
-
     "lint": "eslint src",
     "typecheck": "tsc --noEmit",
-    "format": "prettier src --write",
-    "format:check": "prettier src --check",
-    
+    "format": "prettier src --write --ignore-path ../../.prettierignore",
+    "format:check": "prettier src --check --ignore-path ../../.prettierignore",
     "clean": "rm -rf dist dist-native"
   },
   "peerDependencies": {
