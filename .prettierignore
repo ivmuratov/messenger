@@ -39,5 +39,5 @@ coverage
 *.min.js
 *.min.css
 
-# TanStack Router
+# TanStack Router (автогенерируемые файлы)
 .tanstack

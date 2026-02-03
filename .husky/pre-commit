@@ -1,0 +1,6 @@
+pnpm exec concurrently --kill-others-on-fail \
+  "pnpm run build" \
+  "pnpm run lint" \
+  "pnpm run typecheck" \
+  "pnpm run format:check" \
+  "pnpm run syncpack:list"
