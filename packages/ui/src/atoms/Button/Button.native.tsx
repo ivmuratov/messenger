@@ -6,9 +6,9 @@ import type { ButtonBaseProps } from "./types";
 
 interface ButtonProps extends ButtonBaseProps, Omit<PressableProps, "children"> {}
 
-export const Button: FC<ButtonProps> = ({ onPress, children, ...props }) => {
+export const Button: FC<ButtonProps> = ({ children, ...props }) => {
   return (
-    <Pressable style={styles.button} onPress={onPress} {...props}>
+    <Pressable style={styles.button} {...props}>
       <Text>{children}</Text>
     </Pressable>
   );

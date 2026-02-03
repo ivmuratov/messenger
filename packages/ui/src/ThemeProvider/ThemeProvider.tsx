@@ -1,4 +1,4 @@
-import "../styles/reset.css.ts";
+import "@/styles/reset.css";
 
 import { useState } from "react";
 
