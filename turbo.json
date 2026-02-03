@@ -1,6 +1,7 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "globalDependencies": ["**/.env.*local", "eslint.config.ts", "tsconfig.base.json"],
+  "globalDependencies": ["eslint.config.ts", "tsconfig.base.json"],
+  "globalPassThroughEnv": ["WEB_PORT", "RCT_METRO_PORT"],
   "tasks": {
     "build": {
       "dependsOn": ["^build"],

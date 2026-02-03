@@ -14,12 +14,12 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "core": "workspace:*",
-    "ui": "workspace:*",
     "@tanstack/react-query": "5.90.18",
     "@tanstack/react-router": "1.153.1",
+    "core": "workspace:*",
     "react": "19.1.0",
     "react-dom": "19.1.0",
+    "ui": "workspace:*",
     "zustand": "5.0.10"
   },
   "devDependencies": {
