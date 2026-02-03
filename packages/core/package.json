@@ -1,0 +1,23 @@
+{
+  "name": "core",
+  "version": "1.0.0",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "scripts": {
+    "lint": "eslint src",
+    "typecheck": "tsc --noEmit",
+    "format": "prettier src --write",
+    "format:check": "prettier src --check",
+    
+    "clean": "rm -rf dist"
+  },
+  "peerDependencies": {
+    "@tanstack/react-query": "5.90.18",
+    "react": "19.1.0",
+    "zustand": "5.0.10"
+  },
+  "devDependencies": {
+    "@types/react": "19.1.17",
+    "typescript": "5.9.3"
+  }
+}

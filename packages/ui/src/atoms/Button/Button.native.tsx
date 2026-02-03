@@ -1,0 +1,15 @@
+import type { FC } from "react";
+import { Pressable, type PressableProps, Text } from "react-native";
+
+import { styles } from "./styles.native";
+import type { ButtonBaseProps } from "./types";
+
+interface ButtonProps extends ButtonBaseProps, Omit<PressableProps, "children"> {}
+
+export const Button: FC<ButtonProps> = ({ onPress, children, ...props }) => {
+  return (
+    <Pressable style={styles.button} onPress={onPress} {...props}>
+      <Text>{children}</Text>
+    </Pressable>
+  );
+};

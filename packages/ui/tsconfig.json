@@ -1,0 +1,14 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "incremental": false,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": ["src", "tsdown.config.ts", "tsdown.native.config.ts", "tsdown.base.config.ts"],
+  "exclude": ["node_modules", "dist", "dist-native"]
+}

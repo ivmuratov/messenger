@@ -1,0 +1,16 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "baseUrl": ".",
+    "moduleResolution": "bundler",
+    "customConditions": ["react-native"],
+    "paths": {
+      "@/*": ["./src/*"],
+      "@core": ["../../packages/core/src"]
+    }
+  },
+  "include": ["src", "index.ts"],
+  "exclude": ["node_modules", "dist", ".expo"]
+}
