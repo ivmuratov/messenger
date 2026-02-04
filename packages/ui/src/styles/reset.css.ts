@@ -1,6 +1,6 @@
-import { globalStyle, layer } from "@vanilla-extract/css";
+import { globalStyle } from "@vanilla-extract/css";
 
-const reset = layer("reset");
+import { resetLayer } from "./layers.css";
 
 /**
  * Удаляет все стили из "User-Agent-Stylesheet", кроме свойства 'display'
@@ -11,7 +11,7 @@ const reset = layer("reset");
  */
 globalStyle("*:where(:not(html, iframe, canvas, img, svg, video, audio):not(svg *, symbol *))", {
   "@layer": {
-    [reset]: {
+    [resetLayer]: {
       all: "unset",
       display: "revert",
     },
@@ -23,7 +23,7 @@ globalStyle("*:where(:not(html, iframe, canvas, img, svg, video, audio):not(svg 
  */
 globalStyle("*, *::before, *::after", {
   "@layer": {
-    [reset]: {
+    [resetLayer]: {
       boxSizing: "border-box",
     },
   },
@@ -34,7 +34,7 @@ globalStyle("*, *::before, *::after", {
  */
 globalStyle("html", {
   "@layer": {
-    [reset]: {
+    [resetLayer]: {
       MozTextSizeAdjust: "none",
       WebkitTextSizeAdjust: "none",
       textSizeAdjust: "none",
@@ -47,7 +47,7 @@ globalStyle("html", {
  */
 globalStyle("a, button", {
   "@layer": {
-    [reset]: {
+    [resetLayer]: {
       cursor: "pointer",
     },
   },
@@ -58,7 +58,7 @@ globalStyle("a, button", {
  */
 globalStyle("ol, ul, menu, summary", {
   "@layer": {
-    [reset]: {
+    [resetLayer]: {
       listStyle: "none",
     },
   },
@@ -69,7 +69,7 @@ globalStyle("ol, ul, menu, summary", {
  */
 globalStyle("img", {
   "@layer": {
-    [reset]: {
+    [resetLayer]: {
       maxInlineSize: "100%",
       maxBlockSize: "100%",
     },
@@ -81,7 +81,7 @@ globalStyle("img", {
  */
 globalStyle("table", {
   "@layer": {
-    [reset]: {
+    [resetLayer]: {
       borderCollapse: "collapse",
     },
   },
@@ -93,7 +93,7 @@ globalStyle("table", {
  */
 globalStyle("input, textarea", {
   "@layer": {
-    [reset]: {
+    [resetLayer]: {
       WebkitUserSelect: "auto",
     },
   },
@@ -104,7 +104,7 @@ globalStyle("input, textarea", {
  */
 globalStyle("textarea", {
   "@layer": {
-    [reset]: {
+    [resetLayer]: {
       whiteSpace: "revert",
     },
   },
@@ -115,7 +115,7 @@ globalStyle("textarea", {
  */
 globalStyle("meter", {
   "@layer": {
-    [reset]: {
+    [resetLayer]: {
       WebkitAppearance: "revert",
       appearance: "revert",
     },
@@ -127,7 +127,7 @@ globalStyle("meter", {
  */
 globalStyle(":where(pre)", {
   "@layer": {
-    [reset]: {
+    [resetLayer]: {
       all: "revert",
       boxSizing: "border-box",
     },
@@ -139,7 +139,7 @@ globalStyle(":where(pre)", {
  */
 globalStyle("::placeholder", {
   "@layer": {
-    [reset]: {
+    [resetLayer]: {
       color: "unset",
     },
   },
@@ -151,7 +151,7 @@ globalStyle("::placeholder", {
  */
 globalStyle(":where([hidden])", {
   "@layer": {
-    [reset]: {
+    [resetLayer]: {
       display: "none",
     },
   },
@@ -166,7 +166,7 @@ globalStyle(":where([hidden])", {
  */
 globalStyle(':where([contenteditable]:not([contenteditable="false"]))', {
   "@layer": {
-    [reset]: {
+    [resetLayer]: {
       MozUserModify: "read-write",
       WebkitUserModify: "read-write",
       overflowWrap: "break-word",
@@ -181,7 +181,7 @@ globalStyle(':where([contenteditable]:not([contenteditable="false"]))', {
  */
 globalStyle(':where([draggable="true"])', {
   "@layer": {
-    [reset]: {
+    [resetLayer]: {
       // @ts-expect-error: -webkit-user-drag — нестандартное свойство
       WebkitUserDrag: "element",
     },
@@ -193,7 +193,7 @@ globalStyle(':where([draggable="true"])', {
  */
 globalStyle(":where(dialog:modal)", {
   "@layer": {
-    [reset]: {
+    [resetLayer]: {
       all: "revert",
       boxSizing: "border-box",
     },
