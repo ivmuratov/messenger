@@ -1,19 +1,21 @@
 import { createThemeContract } from "@vanilla-extract/css";
 
+import type { ThemeContract } from "./types";
+
 export const theme = createThemeContract({
   bg: {
-    default: null, // основной фон приложения
-    subtle: null, // фон поверхностей/карточек
-    strong: null, // «инвертированный»/контрастный фон (например, popover/tooltip)
+    default: null,
+    subtle: null,
+    strong: null,
   },
   fg: {
-    default: null, // основной текст
-    subtle: null, // вторичный/приглушённый текст
-    strong: null, // максимально контрастный текст (часто для bg.strong)
+    default: null,
+    subtle: null,
+    strong: null,
   },
   border: {
     default: null,
     subtle: null,
     strong: null,
   },
-});
+} satisfies NullableTokens<ThemeContract>);

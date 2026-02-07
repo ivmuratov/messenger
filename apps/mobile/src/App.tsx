@@ -3,7 +3,7 @@ import { Button, ThemeProvider } from "ui";
 
 export default function App() {
   return (
-    <ThemeProvider defaultTheme="light">
+    <ThemeProvider defaultTheme="dark">
       <View>
         <Text>Hello World Mobile App!</Text>
         <Button>Click me</Button>

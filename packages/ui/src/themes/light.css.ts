@@ -1,21 +1,6 @@
 import { createTheme } from "@vanilla-extract/css";
 
 import { theme } from "./theme.css";
+import { lightToken } from "./tokens";
 
-export const light = createTheme(theme, {
-  bg: {
-    default: "#fafafa",
-    subtle: "#ffffff",
-    strong: "#111827",
-  },
-  fg: {
-    default: "#111827",
-    subtle: "#6b7280",
-    strong: "#000000",
-  },
-  border: {
-    default: "#e5e7eb",
-    subtle: "#f3f4f6",
-    strong: "#9ca3af",
-  },
-});
+export const light = createTheme(theme, lightToken);

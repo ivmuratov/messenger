@@ -1,18 +1,18 @@
 import "@/styles";
 
-import { useLayoutEffect, useState } from "react";
+import { type FC, useLayoutEffect, useState } from "react";
 
 import { dark, light } from "@/themes";
 
 import { SetThemeContext, ThemeContext } from "./context";
 import type { Theme, ThemeProviderProps } from "./types";
 
-const themes: Record<Theme, string> = {
+const themes = {
   dark,
   light,
-};
+} as const;
 
-export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children, defaultTheme }) => {
+export const ThemeProvider: FC<ThemeProviderProps> = ({ children, defaultTheme }) => {
   const [theme, setTheme] = useState<Theme>(defaultTheme);
 
   useLayoutEffect(() => {

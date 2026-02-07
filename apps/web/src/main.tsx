@@ -25,7 +25,7 @@ const router = createRouter({
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider defaultTheme="light">
+      <ThemeProvider defaultTheme="dark">
         <RouterProvider router={router} />
       </ThemeProvider>
     </QueryClientProvider>
