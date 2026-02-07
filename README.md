@@ -92,16 +92,110 @@ packages/core/src/
 
 ### ui
 
-UI-библиотека по Atomic Design.
+UI-библиотека по Atomic Design с поддержкой платформо-специфичных реализаций для web и mobile.
+
+#### Структура
 
 ```
 packages/ui/src/
-├── index.ts          # Public API
-├── atoms/            # Базовые элементы (Button, Input...)
-├── molecules/        # Комбинации атомов
-├── organisms/        # Сложные блоки UI
-└── theme/            # ThemeProvider, токены
+├── index.ts              # Public API для web
+├── index.native.ts       # Public API для mobile
+│
+├── atoms/                # Базовые элементы (Button, Input, Text...)
+│   └── Button/
+│       ├── index.ts            # Экспорт web-версии
+│       ├── index.native.ts     # Экспорт mobile-версии
+│       ├── tokens.ts           # Общие токены (используются web и mobile)
+│       ├── types.ts            # Общие типы (базовые пропсы)
+│       ├── web/                # Web-реализация
+│       │   ├── Button.tsx      # React компонент
+│       │   ├── Button.css.ts   # Стили (vanilla-extract)
+│       │   └── index.ts
+│       └── mobile/             # Mobile-реализация
+│           ├── Button.tsx      # React Native компонент
+│           └── index.ts
+│
+├── molecules/            # Комбинации атомов
+├── organisms/            # Сложные блоки UI
+│
+├── themes/               # Система тем
+│   ├── index.ts            # Экспорт web-тем
+│   ├── index.native.ts     # Экспорт mobile-тем
+│   ├── tokens.ts           # Общие токены тем (цвета, отступы...)
+│   ├── types.ts            # Типы тем (ThemeContract)
+│   ├── web/                # Web-темы (vanilla-extract)
+│   │   ├── theme.css.ts    # Базовый контракт темы
+│   │   ├── light.css.ts    # Светлая тема
+│   │   ├── dark.css.ts     # Темная тема
+│   │   └── index.ts
+│   └── mobile/             # Mobile-темы (StyleSheet)
+│       ├── light.ts         # Светлая тема
+│       ├── dark.ts          # Темная тема
+│       └── index.ts
+│
+├── ThemeProvider/        # Провайдер тем
+│   ├── index.ts            # Экспорт web-провайдера
+│   ├── index.native.ts     # Экспорт mobile-провайдера
+│   ├── context.ts          # React Context (общий)
+│   ├── types.ts            # Типы провайдера (общие)
+│   ├── useTheme.ts         # Хук useTheme (общий)
+│   ├── web/                # Web-реализация
+│   │   ├── ThemeProvider.tsx
+│   │   └── index.ts
+│   └── mobile/             # Mobile-реализация
+│       ├── ThemeProvider.tsx
+│       └── index.ts
+│
+└── styles/               # Глобальные стили
+    ├── globals.css.ts
+    ├── reset.css.ts
+    ├── layers.css.ts
+    └── index.ts
 ```
+
+#### Правила организации компонентов
+
+1. **Платформо-специфичные реализации**: каждый компонент имеет две реализации:
+   - `web/` — React + vanilla-extract (`.css.ts` файлы)
+   - `mobile/` — React Native + StyleSheet
+
+2. **Общие файлы компонента**:
+   - `tokens.ts` — единый источник истинности для стилей (используется и web, и mobile)
+   - `types.ts` — общие типы (базовые пропсы)
+
+3. **Экспорты**:
+   - `index.ts` → экспортирует из `web/`
+   - `index.native.ts` → экспортирует из `mobile/`
+
+#### Правила организации тем
+
+1. **Общие файлы**: `tokens.ts` (токены) и `types.ts` (типы)
+2. **Платформо-специфичные темы**:
+   - `web/` — vanilla-extract (`createTheme`, `createThemeContract`)
+   - `mobile/` — StyleSheet из React Native
+3. **Экспорты**: `index.ts` (web) и `index.native.ts` (mobile)
+
+#### Правила организации ThemeProvider
+
+1. **Общие файлы**: `context.ts`, `types.ts`, `useTheme.ts`
+2. **Платформо-специфичные реализации**:
+   - `web/` — применяет тему через `document.body.className`
+   - `mobile/` — применяет тему через `style` проп View
+3. **Экспорты**: `index.ts` (web) и `index.native.ts` (mobile)
+
+#### Запрещенные практики
+
+❌ Нельзя:
+- Импортировать из `packages/core` или `apps/*`
+- Использовать бизнес-логику (Zustand, TanStack Query)
+- Делать HTTP-запросы
+- Смешивать web и mobile код в одном файле
+
+✅ Можно:
+- React / React Native
+- Стили (vanilla-extract, StyleSheet)
+- Иконки
+- Внутренние уровни Atomic Design (atoms → molecules → organisms)
 
 ### web
 
