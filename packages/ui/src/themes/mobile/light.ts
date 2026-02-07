@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 
-import { lightToken } from "./tokens";
+import { lightToken } from "../tokens";
 
 export const light = StyleSheet.create({
   default: {

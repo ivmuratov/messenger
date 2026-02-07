@@ -1,7 +1,7 @@
 import type { FC } from "react";
 
-import { buttonStyles } from "./styles.css";
-import type { ButtonBaseProps } from "./types";
+import type { ButtonBaseProps } from "../types";
+import { buttonStyles } from "./Button.css";
 
 interface ButtonProps extends ButtonBaseProps {
   onClick?: VoidFunction;

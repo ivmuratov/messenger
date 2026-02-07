@@ -4,8 +4,8 @@ import { type FC, useLayoutEffect, useState } from "react";
 
 import { dark, light } from "@/themes";
 
-import { SetThemeContext, ThemeContext } from "./context";
-import type { Theme, ThemeProviderProps } from "./types";
+import { SetThemeContext, ThemeContext } from "../context";
+import type { Theme, ThemeProviderProps } from "../types";
 
 const themes = {
   dark,

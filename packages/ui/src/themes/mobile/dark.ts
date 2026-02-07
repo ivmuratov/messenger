@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 
-import { darkToken } from "./tokens";
+import { darkToken } from "../tokens";
 
 export const dark = StyleSheet.create({
   default: {

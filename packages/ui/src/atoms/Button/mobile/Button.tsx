@@ -1,8 +1,14 @@
 import type { FC } from "react";
-import { Pressable, type PressableProps, Text } from "react-native";
+import { Pressable, type PressableProps, StyleSheet, Text } from "react-native";
 
-import { styles } from "./styles.native";
-import type { ButtonBaseProps } from "./types";
+import { buttonToken } from "../tokens";
+import type { ButtonBaseProps } from "../types";
+
+const styles = StyleSheet.create({
+  button: {
+    backgroundColor: buttonToken.backgroundColor,
+  },
+});
 
 interface ButtonProps extends ButtonBaseProps, Omit<PressableProps, "children"> {}
 

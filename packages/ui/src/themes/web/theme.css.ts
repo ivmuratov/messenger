@@ -1,6 +1,6 @@
 import { createThemeContract } from "@vanilla-extract/css";
 
-import type { ThemeContract } from "./types";
+import type { ThemeContract } from "../types";
 
 export const theme = createThemeContract({
   bg: {

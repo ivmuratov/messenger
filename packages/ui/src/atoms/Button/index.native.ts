@@ -1,1 +1,1 @@
-export { Button } from "./Button.native";
+export * from "./mobile";

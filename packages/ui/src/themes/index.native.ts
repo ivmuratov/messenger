@@ -1,2 +1,1 @@
-export { dark } from "./dark.native";
-export { light } from "./light.native";
+export * from "./mobile";

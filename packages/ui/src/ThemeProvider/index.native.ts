@@ -1,1 +1,2 @@
-export { ThemeProvider } from "./ThemeProvider.native";
+export * from "./mobile";
+export { useTheme } from "./useTheme";

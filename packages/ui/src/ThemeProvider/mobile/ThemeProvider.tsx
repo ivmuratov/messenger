@@ -3,8 +3,8 @@ import { View } from "react-native";
 
 import { dark, light } from "@/themes/index.native";
 
-import { SetThemeContext, ThemeContext } from "./context";
-import type { Theme, ThemeProviderProps } from "./types";
+import { SetThemeContext, ThemeContext } from "../context";
+import type { Theme, ThemeProviderProps } from "../types";
 
 const themes = {
   dark,

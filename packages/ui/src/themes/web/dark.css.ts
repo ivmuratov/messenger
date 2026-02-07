@@ -1,6 +1,6 @@
 import { createTheme } from "@vanilla-extract/css";
 
+import { darkToken } from "../tokens";
 import { theme } from "./theme.css";
-import { darkToken } from "./tokens";
 
 export const dark = createTheme(theme, darkToken);
