@@ -7,150 +7,182 @@
 ```
 .
 ├── apps/
-│   ├── web/              # Vite + React 19 + TanStack Router
-│   └── mobile/           # Expo + React Native
+│   ├── web/              # Приложение для веба
+│   └── mobile/           # Приложение для мобилки
 ├── packages/
-│   ├── core/             # Бизнес-логика (store, hooks, api)
-│   └── ui/               # UI kit (Atomic Design)
+│   ├── core/             # Общая бизнес-логика
+│   └── ui/               # UI kit
+```
+
+## Зависимости между слоями
+
+```mermaid
+flowchart BT
+  subgraph packages["packages"]
+    ui["ui"]
+    core["core"]
+  end
+
+  subgraph apps["apps"]
+    web["web"]
+    mobile["mobile"]
+  end
+
+  web --> ui
+  web --> core
+  mobile --> ui
+  mobile --> core
 ```
 
 ## Технологии
 
-- **pnpm** + **Turborepo** — монорепозиторий
-- **TypeScript** — везде
-- **Vite 7** + **React 19** + **TanStack Router** — web
+- **pnpm** + **Turborepo** + **TypeScript** — монорепозиторий
+- **Vite** + **React** + **TanStack Router** — web
 - **Expo** + **React Native** — mobile
-- **@tanstack/react-query** — серверное состояние
-- **zustand** — клиентское состояние
-- **ESLint 9** (flat config) — линтинг
-- **Prettier** — форматирование
+- **@tanstack/react-query** + **zustand** — core
+- **tsdown** + **React** + **React Native** + **@vanilla-extract/css** — ui 
+- **ESLint** + **Prettier** — линтинг, форматирование
 
-## Установка
+## Установка пакетов
 
 ```bash
-pnpm install
+pnpm install              
 ```
+Создать в корне проекта файл `.env` и заполнить его по примеру `.env.example`
 
 ## Команды
 
 ### Разработка
 
 ```bash
-pnpm dev              # Все приложения параллельно
+pnpm run dev              
 ```
 
-### Сборка
+### Сборка dist артефактов
 
 ```bash
-pnpm build            # Сборка всех пакетов
+pnpm run build           
 ```
 
-### Линтинг
+### Линтинг и проверка типов
 
 ```bash
-pnpm lint             # ESLint для всех пакетов
-pnpm typecheck        # TypeScript проверка
+pnpm run lint             
+pnpm run typecheck        
 ```
 
 ### Форматирование
 
 ```bash
-pnpm format           # Prettier + Stylelint (fix)
-pnpm format:check     # Проверка без изменений
+pnpm run format           
+pnpm run format:check     
 ```
 
 ### Синхронизация версий
 
 ```bash
-pnpm syncpack:list    # Показать рассинхронизированные версии
-pnpm syncpack:fix     # Исправить версии
+pnpm syncpack:list        # Показать рассинхронизированные версии пакетов
+pnpm syncpack:fix         # Синхронизировать версии пакетов
 ```
 
-### Очистка
+### Очистка dist артефактов
 
 ```bash
-pnpm clean            # Удалить build артефакты
+pnpm clean                
 ```
 
 ## Структура пакетов
 
 ### core
 
-Бизнес-логика, переиспользуемая между web и mobile.
+#### Назначение
+
+Общая бизнес-логика, состояние и API-слой, переиспользуемый для web и mobile.
+
+#### Структура
 
 ```
-packages/core/src/
-├── index.ts          # Public API
-├── modules/          # Доменные модули (auth, posts, chat...)
-│   └── {module}/
-│       ├── api/      # TanStack Query
-│       ├── hooks/    # React hooks
-│       ├── model/    # Zustand stores
-│       └── lib/      # Helpers
-└── shared/           # Общая инфраструктура
+packages/core/
+└── src/
+    ├── modules/               # Модули (auth, posts, chat, user и т.д.)
+    │   └── {module}/
+    │       ├── model/         # Zustand stores + локальные типы
+    │       │   ├── store.ts
+    │       │   └── types.ts
+    │       ├── api/           # TanStack Query + HTTP-клиент
+    │       │   ├── {module}Api.ts
+    │       │   └── {module}Queries.ts
+    │       ├── hooks/         # UI-агностичные hooks
+    │       │   ├── useLogin.ts
+    │       │   ├── useLogout.ts
+    │       │   └── useAuthUser.ts
+    │       ├── lib/           # Чистая бизнес-логика, helpers
+    │       │    ├── {module}Mapper.ts
+    │       │    └── {module}Validators.ts
+    │       └──  index.ts      # Public API {module}
+    │
+    ├── shared/                # Общая инфраструктура для всех модулей
+    │   ├── api/
+    │   │   ├── httpClient.ts  # axios/fetch-обёртка
+    │   │   └── endpoints.ts
+    │   ├── store/
+    │   │   ├── appStore.ts
+    │   │   └── middlewares.ts
+    │   ├── config/
+    │   │   └── env.ts
+    │   └── lib/
+    │       └── date.ts
+    │          
+    └── index.ts               # Public API core
 ```
 
 ### ui
 
-UI-библиотека по Atomic Design с поддержкой платформо-специфичных реализаций для web и mobile.
+#### Назначение
+
+UI-библиотека (по Atomic Design) с поддержкой платформо-специфичных реализаций для web и mobile.
 
 #### Структура
 
 ```
 packages/ui/src/
-├── index.ts              # Public API для web
-├── index.native.ts       # Public API для mobile
+├── index.ts                    # Public API для web
+├── index.native.ts             # Public API для mobile
 │
-├── atoms/                # Базовые элементы (Button, Input, Text...)
-│   └── Button/
+├── atoms/                      # Базовые элементы (Button, Input, Text...)
+│   └── {Atom}/
 │       ├── index.ts            # Экспорт web-версии
 │       ├── index.native.ts     # Экспорт mobile-версии
 │       ├── tokens.ts           # Общие токены (используются web и mobile)
 │       ├── types.ts            # Общие типы (базовые пропсы)
 │       ├── web/                # Web-реализация
-│       │   ├── Button.tsx      # React компонент
-│       │   ├── Button.css.ts   # Стили (vanilla-extract)
+│       │   ├── {Atom}.tsx      # React компонент
+│       │   ├── {Atom}.css.ts   # Стили (vanilla-extract)
 │       │   └── index.ts
 │       └── mobile/             # Mobile-реализация
-│           ├── Button.tsx      # React Native компонент
+│           ├── {Atom}.tsx      # React Native компонент
 │           └── index.ts
 │
-├── molecules/            # Комбинации атомов
-├── organisms/            # Сложные блоки UI
+├── molecules/                  # Комбинации атомов
+├── organisms/                  # Сложные блоки UI
 │
-├── themes/               # Система тем
-│   ├── index.ts            # Экспорт web-тем
-│   ├── index.native.ts     # Экспорт mobile-тем
-│   ├── tokens.ts           # Общие токены тем (цвета, отступы...)
-│   ├── types.ts            # Типы тем (ThemeContract)
-│   ├── web/                # Web-темы (vanilla-extract)
-│   │   ├── theme.css.ts    # Базовый контракт темы
-│   │   ├── light.css.ts    # Светлая тема
-│   │   ├── dark.css.ts     # Темная тема
+├── themes/                     # Система тем
+│   ├── index.ts                # Экспорт web-тем
+│   ├── index.native.ts         # Экспорт mobile-тем
+│   ├── tokens.ts               # Общие токены тем (цвета, отступы...)
+│   ├── types.ts                # Типы тем (ThemeContract)
+│   ├── web/                    # Web-темы (vanilla-extract)
+│   │   ├── theme.css.ts        # Базовый контракт темы
+│   │   ├── light.css.ts        # Светлая тема
+│   │   ├── dark.css.ts         # Темная тема
 │   │   └── index.ts
-│   └── mobile/             # Mobile-темы (StyleSheet)
-│       ├── light.ts         # Светлая тема
-│       ├── dark.ts          # Темная тема
+│   └── mobile/                 # Mobile-темы (StyleSheet)
+│       ├── light.ts            # Светлая тема
+│       ├── dark.ts             # Темная тема
 │       └── index.ts
 │
-├── ThemeProvider/        # Провайдер тем
-│   ├── index.ts            # Экспорт web-провайдера
-│   ├── index.native.ts     # Экспорт mobile-провайдера
-│   ├── context.ts          # React Context (общий)
-│   ├── types.ts            # Типы провайдера (общие)
-│   ├── useTheme.ts         # Хук useTheme (общий)
-│   ├── web/                # Web-реализация
-│   │   ├── ThemeProvider.tsx
-│   │   └── index.ts
-│   └── mobile/             # Mobile-реализация
-│       ├── ThemeProvider.tsx
-│       └── index.ts
-│
-└── styles/               # Глобальные стили
-    ├── globals.css.ts
-    ├── reset.css.ts
-    ├── layers.css.ts
-    └── index.ts
+├── ThemeProvider/              # Провайдер тем
+└── styles/                     # Глобальные стили
 ```
 
 #### Правила организации компонентов
@@ -167,73 +199,64 @@ packages/ui/src/
    - `index.ts` → экспортирует из `web/`
    - `index.native.ts` → экспортирует из `mobile/`
 
-#### Правила организации тем
-
-1. **Общие файлы**: `tokens.ts` (токены) и `types.ts` (типы)
-2. **Платформо-специфичные темы**:
-   - `web/` — vanilla-extract (`createTheme`, `createThemeContract`)
-   - `mobile/` — StyleSheet из React Native
-3. **Экспорты**: `index.ts` (web) и `index.native.ts` (mobile)
-
-#### Правила организации ThemeProvider
-
-1. **Общие файлы**: `context.ts`, `types.ts`, `useTheme.ts`
-2. **Платформо-специфичные реализации**:
-   - `web/` — применяет тему через `document.body.className`
-   - `mobile/` — применяет тему через `style` проп View
-3. **Экспорты**: `index.ts` (web) и `index.native.ts` (mobile)
-
-#### Запрещенные практики
-
-❌ Нельзя:
-- Импортировать из `packages/core` или `apps/*`
-- Использовать бизнес-логику (Zustand, TanStack Query)
-- Делать HTTP-запросы
-- Смешивать web и mobile код в одном файле
-
-✅ Можно:
-- React / React Native
-- Стили (vanilla-extract, StyleSheet)
-- Иконки
-- Внутренние уровни Atomic Design (atoms → molecules → organisms)
-
 ### web
 
-SPA на Vite + TanStack Router.
+#### Назначение
+
+SPA на Vite + TanStack Router
+
+#### Структура
 
 ```
 apps/web/
-├── index.html        # Entry point HTML
-├── vite.config.ts    # Vite конфигурация
+├── index.html                  # Entry point HTML
+├── vite.config.ts              # Vite конфигурация
 └── src/
-    ├── main.tsx      # Entry point React
-    ├── routes/       # TanStack Router (file-based)
-    │   ├── __root.tsx    # Корневой layout
-    │   ├── index.tsx     # /
-    │   ├── login.tsx     # /login
+    ├── main.tsx                # Entry point React
+    ├── routes/                 # TanStack Router (file-based)
+    │   ├── __root.tsx          # Корневой layout
+    │   ├── index.tsx           # /
+    │   ├── login.tsx           # /login
     │   └── chat/
-    │       ├── route.tsx     # /chat layout
-    │       ├── index.tsx     # /chat
-    │       └── $id.tsx       # /chat/:id
-    ├── modules/      # Фичи приложения
-    └── shared/       # Общие компоненты
+    │       ├── route.tsx       # /chat layout
+    │       ├── index.tsx       # /chat
+    │       └── $id.tsx         # /chat/:id
+    ├── modules/                # Фичи приложения
+    └── shared/                 # Общие компоненты
 ```
+### mobile
 
-## Алиасы
+#### Назначение
 
-В проекте настроены алиасы через tsconfig paths и vite.config.ts:
+Нативное приложение на Expo
 
-```typescript
-import { ThemeProvider } from "@ui";
-import { useAuthStore } from "@core";
-import { MyComponent } from "@/modules/auth"; // локальный алиас
+#### Структура
+
 ```
-
-| Алиас   | Путь                |
-| ------- | ------------------- |
-| `@core` | `packages/core/src` |
-| `@ui`   | `packages/ui/src`   |
-| `@/*`   | `./src/*`           |
+apps/mobile/
+├── index.ts                    # Entry point (registerRootComponent)
+├── app.json                    # Expo конфигурация
+└── src/
+    ├── App.tsx                 # Корневой компонент
+    ├── screens/                # Expo Router / stack / screens
+    │   ├── LoginScreen.tsx
+    │   ├── HomeScreen.tsx
+    │   └── ChatScreen.tsx
+    │
+    ├── modules/
+    │   ├── auth/
+    │   │   ├── ui/             # RN-компоненты, использующие core + ui
+    │   │   ├── model/
+    │   │   ├── lib/
+    │   │   └── index.ts
+    │   ├── chat/
+    │   └── ...
+    │
+    └── shared/
+        ├── ui/                 # mobile-специфичные общие компоненты
+        ├── hooks/
+        └── lib/
+```
 
 ## Требования
 

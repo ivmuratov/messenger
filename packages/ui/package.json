@@ -28,7 +28,6 @@
     "@vanilla-extract/css": "1.17.4",
     "@vanilla-extract/rollup-plugin": "1.5.1",
     "tsdown": "0.20.1",
-    "tsup": "8.5.1",
     "typescript": "5.9.3"
   },
   "exports": {
