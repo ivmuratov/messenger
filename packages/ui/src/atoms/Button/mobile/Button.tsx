@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
   },
 });
 
-interface ButtonProps extends ButtonBaseProps, Omit<PressableProps, "children"> {}
+type ButtonProps = ButtonBaseProps & Omit<PressableProps, "children">;
 
 export const Button: FC<ButtonProps> = ({ children, ...props }) => {
   return (

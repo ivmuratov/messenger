@@ -1,3 +1,3 @@
 import type { PropsWithChildren } from "react";
 
-export interface ButtonBaseProps extends PropsWithChildren {}
+export type ButtonBaseProps = PropsWithChildren;
