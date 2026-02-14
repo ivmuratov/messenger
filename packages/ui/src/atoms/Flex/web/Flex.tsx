@@ -1,4 +1,7 @@
+import clsx from "clsx";
 import type { FC } from "react";
+
+import { spacingSprinkles } from "@/tokens";
 
 import type { FlexPropsBase } from "../types";
 import { flexStyles } from "./Flex.css";
@@ -10,16 +13,20 @@ export const Flex: FC<FlexPropsBase> = ({
   alignItems = "start",
   alignContent = "start",
   alignSelf = "start",
+  ...spaceProps
 }) => {
   return (
     <div
-      className={flexStyles({
-        direction,
-        justifyContent,
-        alignItems,
-        alignContent,
-        alignSelf,
-      })}
+      className={clsx(
+        flexStyles({
+          direction,
+          justifyContent,
+          alignItems,
+          alignContent,
+          alignSelf,
+        }),
+        spacingSprinkles(spaceProps)
+      )}
     >
       {children}
     </div>

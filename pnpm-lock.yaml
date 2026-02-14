@@ -185,6 +185,18 @@ importers:
 
   packages/ui:
     dependencies:
+      '@vanilla-extract/css':
+        specifier: 1.17.4
+        version: 1.17.4
+      '@vanilla-extract/recipes':
+        specifier: 0.5.7
+        version: 0.5.7(@vanilla-extract/css@1.17.4)
+      '@vanilla-extract/sprinkles':
+        specifier: ^1.6.5
+        version: 1.6.5(@vanilla-extract/css@1.17.4)
+      clsx:
+        specifier: 2.1.1
+        version: 2.1.1
       react:
         specifier: 19.1.0
         version: 19.1.0
@@ -195,12 +207,6 @@ importers:
       '@types/react':
         specifier: 19.1.17
         version: 19.1.17
-      '@vanilla-extract/css':
-        specifier: 1.17.4
-        version: 1.17.4
-      '@vanilla-extract/recipes':
-        specifier: 0.5.7
-        version: 0.5.7(@vanilla-extract/css@1.17.4)
       '@vanilla-extract/rollup-plugin':
         specifier: 1.5.1
         version: 1.5.1(rollup@4.57.1)
@@ -2018,6 +2024,11 @@ packages:
     resolution: {integrity: sha512-JKLp9bnYRSeea9MruMQwKLKP7F+ECm1f7h8SdwKP77MZKPiEeyqibNZtoUnGEF7YrGjQuHbXdYVZB4pV5D1cPQ==}
     peerDependencies:
       rollup: ^2.0.0 || ^3.0.0 || ^4.0.0
+
+  '@vanilla-extract/sprinkles@1.6.5':
+    resolution: {integrity: sha512-HOYidLONR/SeGk8NBAeI64I4gYdsMX9vJmniL13ZcLVwawyK0s2GUENEAcGA+GYLIoeyQB61UqmhqPodJry7zA==}
+    peerDependencies:
+      '@vanilla-extract/css': ^1.0.0
 
   '@vitejs/plugin-react@4.5.2':
     resolution: {integrity: sha512-QNVT3/Lxx99nMQWJWF7K4N6apUEuT0KlZA3mx/mVaoGj3smm/8rc8ezz15J1pcbcjDK0V15rpHetVfya08r76Q==}
@@ -7097,6 +7108,10 @@ snapshots:
     transitivePeerDependencies:
       - babel-plugin-macros
       - supports-color
+
+  '@vanilla-extract/sprinkles@1.6.5(@vanilla-extract/css@1.17.4)':
+    dependencies:
+      '@vanilla-extract/css': 1.17.4
 
   '@vitejs/plugin-react@4.5.2(vite@7.0.4(@types/node@25.0.3)(jiti@2.6.1)(lightningcss@1.31.1)(terser@5.46.0)(tsx@4.21.0)(yaml@2.8.2))':
     dependencies:

@@ -2,7 +2,7 @@ import type { FC } from "react";
 import { Pressable, type PressableProps, Text } from "react-native";
 
 import type { ButtonBaseProps } from "../types";
-import { styles } from "./Buttons.styles";
+import { styles } from "./Button.styles";
 
 type ButtonProps = ButtonBaseProps & Omit<PressableProps, "children">;
 
