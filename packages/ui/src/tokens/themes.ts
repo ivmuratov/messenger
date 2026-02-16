@@ -1,12 +1,12 @@
-import type { ThemeContract } from "./types";
+import type { ThemeContract } from "@/types";
 
-export const lightToken = {
-  bg: {
+export const lightThemeToken = {
+  background: {
     default: "#fafafa",
     subtle: "#ffffff",
     strong: "#111827",
   },
-  fg: {
+  foreground: {
     default: "#111827",
     subtle: "#6b7280",
     strong: "#000000",
@@ -18,13 +18,13 @@ export const lightToken = {
   },
 } as const satisfies ThemeContract;
 
-export const darkToken = {
-  bg: {
+export const darkThemeToken = {
+  background: {
     default: "#0f0f0f",
     subtle: "#1a1a1a",
     strong: "#f5f5f5",
   },
-  fg: {
+  foreground: {
     default: "#f5f5f5",
     subtle: "#8b8b8b",
     strong: "#ffffff",

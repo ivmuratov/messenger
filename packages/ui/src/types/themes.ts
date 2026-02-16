@@ -1,5 +1,7 @@
+export type Theme = "light" | "dark";
+
 export interface ThemeContract {
-  bg: {
+  background: {
     // основной фон приложения
     default: string;
     // фон поверхностей/карточек
@@ -7,7 +9,7 @@ export interface ThemeContract {
     // «инвертированный»/контрастный фон (например, popover/tooltip)
     strong: string;
   };
-  fg: {
+  foreground: {
     // основной текст
     default: string;
     // вторичный/приглушённый текст

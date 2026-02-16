@@ -1,19 +1,13 @@
-import "@/styles";
+import "./styles";
 
 import { type FC, useLayoutEffect, useState } from "react";
 
-import { dark, light } from "@/themes";
-
 import { SetThemeContext, ThemeContext } from "../context";
-import type { Theme, ThemeProviderProps } from "../types";
-
-const themes = {
-  dark,
-  light,
-} as const;
+import type { ThemeProviderProps } from "../types";
+import { themes } from "./themes.css";
 
 export const ThemeProvider: FC<ThemeProviderProps> = ({ children, defaultTheme }) => {
-  const [theme, setTheme] = useState<Theme>(defaultTheme);
+  const [theme, setTheme] = useState(defaultTheme);
 
   useLayoutEffect(() => {
     document.body.className = themes[theme];

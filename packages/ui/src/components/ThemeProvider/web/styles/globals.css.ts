@@ -1,14 +1,13 @@
 import { globalStyle } from "@vanilla-extract/css";
 
-import { theme } from "@/themes";
-
+import { theme } from "../themes.css";
 import { themeLayer } from "./layers.css";
 
 globalStyle("body", {
   "@layer": {
     [themeLayer]: {
-      backgroundColor: theme.bg.default,
-      color: theme.fg.default,
+      backgroundColor: theme.background.default,
+      color: theme.foreground.default,
       lineHeight: 1.5,
       WebkitFontSmoothing: "antialiased",
       MozOsxFontSmoothing: "grayscale",
