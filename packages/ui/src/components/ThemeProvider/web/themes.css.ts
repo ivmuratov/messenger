@@ -1,30 +1,28 @@
-import { createTheme, createThemeContract } from "@vanilla-extract/css";
+import { createGlobalTheme, createGlobalThemeContract } from "@vanilla-extract/css";
 
 import { darkThemeToken, lightThemeToken } from "@/tokens";
-import type { Theme, ThemeContract } from "@/types";
+import type { ThemeContract } from "@/types";
 
-export const theme = createThemeContract({
-  background: {
-    default: null,
-    subtle: null,
-    strong: null,
-  },
-  foreground: {
-    default: null,
-    subtle: null,
-    strong: null,
-  },
-  border: {
-    default: null,
-    subtle: null,
-    strong: null,
-  },
-} satisfies NullableTokens<ThemeContract>);
+export const theme = createGlobalThemeContract(
+  {
+    background: {
+      default: null,
+      subtle: null,
+      strong: null,
+    },
+    foreground: {
+      default: null,
+      subtle: null,
+      strong: null,
+    },
+    border: {
+      default: null,
+      subtle: null,
+      strong: null,
+    },
+  } satisfies NullableTokens<ThemeContract>,
+  (_, path) => `theme-${path.join("-")}`
+);
 
-const light = createTheme(theme, lightThemeToken);
-const dark = createTheme(theme, darkThemeToken);
-
-export const themes = {
-  dark,
-  light,
-} as const satisfies Record<Theme, string>;
+createGlobalTheme('[data-theme="light"]', theme, lightThemeToken);
+createGlobalTheme('[data-theme="dark"]', theme, darkThemeToken);
