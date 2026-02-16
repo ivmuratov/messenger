@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import type { FC } from "react";
 
-import { spacingSprinkles } from "@/tokens";
+import { spacingSprinkles } from "@/sprinkles";
 
 import type { FlexPropsBase } from "../types";
 import { flexStyles } from "./Flex.css";

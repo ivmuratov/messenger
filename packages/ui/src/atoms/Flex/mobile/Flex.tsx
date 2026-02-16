@@ -1,6 +1,8 @@
 import type { FC } from "react";
 import { View } from "react-native";
 
+import { spacingNativeSprinkles } from "@/sprinkles";
+
 import type { FlexPropsBase } from "../types";
 import {
   alignContentVariants,
@@ -17,6 +19,7 @@ export const Flex: FC<FlexPropsBase> = ({
   alignContent = "start",
   alignSelf = "start",
   children,
+  ...spaceProps
 }) => {
   return (
     <View
@@ -26,6 +29,7 @@ export const Flex: FC<FlexPropsBase> = ({
         alignItemsVariants[alignItems],
         alignContentVariants[alignContent],
         alignSelfVariants[alignSelf],
+        ...spacingNativeSprinkles(spaceProps),
       ]}
     >
       {children}

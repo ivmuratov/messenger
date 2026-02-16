@@ -1,6 +1,6 @@
 import { createSprinkles, defineProperties } from "@vanilla-extract/sprinkles";
 
-import { spacingToken } from "./spacing";
+import { spacingToken } from "@/tokens";
 
 type SpacingToken = typeof spacingToken;
 type SpacingTokenWithPx = {
