@@ -2,7 +2,7 @@ import { recipe } from "@vanilla-extract/recipes";
 
 import { flexVariantsToken } from "../tokens";
 
-export const flexStyles = recipe({
+export const flexVariants = recipe({
   base: {
     display: "flex",
   },

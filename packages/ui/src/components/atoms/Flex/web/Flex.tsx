@@ -4,7 +4,7 @@ import type { FC } from "react";
 import { spacingSprinkles } from "@/sprinkles";
 
 import type { FlexPropsBase } from "../types";
-import { flexStyles } from "./Flex.css";
+import { flexVariants } from "./Flex.css";
 
 export const Flex: FC<FlexPropsBase> = ({
   children,
@@ -18,7 +18,7 @@ export const Flex: FC<FlexPropsBase> = ({
   return (
     <div
       className={clsx(
-        flexStyles({
+        flexVariants({
           direction,
           justifyContent,
           alignItems,
