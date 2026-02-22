@@ -149,55 +149,72 @@ packages/ui/src/
 ├── index.ts                    # Public API для web
 ├── index.native.ts             # Public API для mobile
 │
-├── atoms/                      # Базовые элементы (Button, Input, Text...)
-│   └── {Atom}/
-│       ├── index.ts            # Экспорт web-версии
-│       ├── index.native.ts     # Экспорт mobile-версии
-│       ├── tokens.ts           # Общие токены (используются web и mobile)
-│       ├── types.ts            # Общие типы (базовые пропсы)
-│       ├── web/                # Web-реализация
-│       │   ├── {Atom}.tsx      # React компонент
-│       │   ├── {Atom}.css.ts   # Стили (vanilla-extract)
+├── components/                 # Компоненты UI
+│   ├── index.ts                # Экспорт web-компонентов
+│   ├── index.native.ts         # Экспорт mobile-компонентов
+│   │
+│   ├── atoms/                  # Базовые элементы (Button, Typography, Flex...)
+│   │   ├── index.ts            # Экспорт web-атомов
+│   │   ├── index.native.ts     # Экспорт mobile-атомов
+│   │   └── {Atom}/
+│   │       ├── index.ts        # Экспорт web-версии
+│   │       ├── index.native.ts # Экспорт mobile-версии
+│   │       ├── tokens.ts       # Общие токены (используются web и mobile)
+│   │       ├── types.ts        # Общие типы (базовые пропсы)
+│   │       ├── web/            # Web-реализация
+│   │       │   ├── {Atom}.tsx  # React компонент
+│   │       │   ├── {Atom}.css.ts # Стили (vanilla-extract)
+│   │       │   └── index.ts
+│   │       └── mobile/         # Mobile-реализация
+│   │           ├── {Atom}.tsx  # React Native компонент
+│   │           ├── {Atom}.styles.ts # Стили (StyleSheet)
+│   │           └── index.ts
+│   │
+│   ├── molecules/              # Комбинации атомов
+│   ├── organisms/              # Сложные блоки UI
+│   │
+│   └── ThemeProvider/          # Провайдер тем
+│       ├── context.ts          # React Context для темы
+│       ├── types.ts            # Типы провайдера
+│       ├── web/
+│       │   ├── ThemeProvider.tsx
+│       │   ├── themes.css.ts   # vanilla-extract темы
+│       │   ├── styles/         # Глобальные стили
+│       │   │   ├── globals.css.ts
+│       │   │   └── reset.css.ts
 │       │   └── index.ts
-│       └── mobile/             # Mobile-реализация
-│           ├── {Atom}.tsx      # React Native компонент
+│       └── mobile/
+│           ├── ThemeProvider.tsx
 │           └── index.ts
 │
-├── molecules/                  # Комбинации атомов
-├── organisms/                  # Сложные блоки UI
+├── tokens/                     # Дизайн-токены
+│   ├── index.ts
+│   ├── themes.ts               # Токены тем (цвета...)
+│   ├── typography.ts           # Токены типографики
+│   └── spacing.ts              # Токены отступов
 │
-├── themes/                     # Система тем
-│   ├── index.ts                # Экспорт web-тем
-│   ├── index.native.ts         # Экспорт mobile-тем
-│   ├── tokens.ts               # Общие токены тем (цвета, отступы...)
-│   ├── types.ts                # Типы тем (ThemeContract)
-│   ├── web/                    # Web-темы (vanilla-extract)
-│   │   ├── theme.css.ts        # Базовый контракт темы
-│   │   ├── light.css.ts        # Светлая тема
-│   │   ├── dark.css.ts         # Темная тема
+├── types/                      # Общие типы
+│   ├── index.ts
+│   ├── themes.ts               # Типы тем
+│   ├── typography.ts           # Типы типографики
+│   ├── spacing.ts              # Типы отступов
+│   └── scale.ts                # Типы масштабирования
+│
+├── sprinkles/                  # Sprinkles (atomic CSS utilities)
+│   ├── index.ts
+│   ├── web/
+│   │   ├── spacing.css.ts
 │   │   └── index.ts
-│   └── mobile/                 # Mobile-темы (StyleSheet)
-│       ├── light.ts            # Светлая тема
-│       ├── dark.ts             # Темная тема
+│   └── mobile/
+│       ├── spacing.ts
 │       └── index.ts
 │
-├── ThemeProvider/              # Провайдер тем
-└── styles/                     # Глобальные стили
+└── libs/                       # Вспомогательные утилиты
+    ├── index.ts
+    └── mobile/
+        ├── nativeSprinkles.ts  # Sprinkles для React Native
+        └── index.ts
 ```
-
-#### Правила организации компонентов
-
-1. **Платформо-специфичные реализации**: каждый компонент имеет две реализации:
-   - `web/` — React + vanilla-extract (`.css.ts` файлы)
-   - `mobile/` — React Native + StyleSheet
-
-2. **Общие файлы компонента**:
-   - `tokens.ts` — единый источник истинности для стилей (используется и web, и mobile)
-   - `types.ts` — общие типы (базовые пропсы)
-
-3. **Экспорты**:
-   - `index.ts` → экспортирует из `web/`
-   - `index.native.ts` → экспортирует из `mobile/`
 
 ### web
 
