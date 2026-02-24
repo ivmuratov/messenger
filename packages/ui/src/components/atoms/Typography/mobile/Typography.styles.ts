@@ -1,13 +1,8 @@
-import { StyleSheet } from "react-native";
-
+import { nativeVariants } from "@/libs";
 import { fontWeightToken, textSizeToken } from "@/tokens";
 
-export const textSizeVariants = StyleSheet.create(
-  Object.fromEntries(Object.entries(textSizeToken).map(([key, value]) => [key, value]))
-);
+export const textSizeVariants = nativeVariants(textSizeToken);
 
-export const fontWeightVariants = StyleSheet.create(
-  Object.fromEntries(
-    Object.entries(fontWeightToken).map(([key, value]) => [key, { fontWeight: value }])
-  )
-);
+export const fontWeightVariants = nativeVariants(fontWeightToken, (value) => ({
+  fontWeight: value,
+}));
