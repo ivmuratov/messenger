@@ -1,7 +1,6 @@
-import { StyleSheet, type TextStyle, type ViewStyle } from "react-native";
+import { StyleSheet } from "react-native";
 
-/** Стиль для View или Text */
-export type StyleLike = ViewStyle | TextStyle;
+import type { NativeStyle } from "./types";
 
 /**
  * Создаёт предвычисленные стили из токенов.
@@ -9,25 +8,26 @@ export type StyleLike = ViewStyle | TextStyle;
  *
  * const fontWeightVariants = nativeVariants(fontWeightToken, (value) => ({ fontWeight: value }));
  */
-export function nativeVariants<Key extends string>(
-  tokens: Record<Key, StyleLike>
-): Record<Key, StyleLike>;
+export function nativeVariants<Token extends Record<string | number, NativeStyle>>(
+  token: Token
+): Record<keyof Token, NativeStyle>;
+export function nativeVariants<
+  Token extends Record<string | number, unknown>,
+  Key extends keyof Token,
+>(
+  token: Token,
+  mapData: (value: Token[Key], key: Key) => NativeStyle
+): Record<keyof Token, NativeStyle>;
 
-export function nativeVariants<Key extends string, Value>(
-  tokens: Record<Key, Value>,
-  mapFn: (value: Value, key: Key) => StyleLike
-): Record<Key, StyleLike>;
+export function nativeVariants(
+  token: Record<string | number, unknown>,
+  mapData?: (value: unknown, key: string) => NativeStyle
+) {
+  const variants: Record<string, NativeStyle> = {};
 
-export function nativeVariants<Key extends string, Value>(
-  tokens: Record<Key, Value>,
-  mapFn?: (value: Value, key: Key) => StyleLike
-): Record<Key, StyleLike> {
-  const result = {} as Record<string, StyleLike>;
-
-  for (const key of Object.keys(tokens) as Key[]) {
-    const value = tokens[key];
-    result[key] = mapFn ? mapFn(value, key) : (value as StyleLike);
+  for (const key of Object.keys(token)) {
+    variants[key] = mapData ? mapData(token[key], key) : (token[key] as NativeStyle);
   }
 
-  return StyleSheet.create(result) as Record<Key, StyleLike>;
+  return StyleSheet.create(variants);
 }

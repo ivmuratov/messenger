@@ -1,19 +1,22 @@
-import { StyleSheet, type TextStyle, type ViewStyle } from "react-native";
+import { StyleSheet } from "react-native";
 
-type NativeStyle = ViewStyle | TextStyle;
+import type { NativeStyle } from "./types";
 
-/** Конфиг вариантов: имя варианта → Record<значение, стиль> */
-export type VariantsConfig = Record<string, Record<string, NativeStyle>>;
-
-/** Опции выбора вариантов: для каждого имени — опциональное значение */
-export type VariantOptions<Variants extends VariantsConfig> = {
-  [K in keyof Variants]?: keyof Variants[K];
+type VariantGroups = Record<string, Record<string, NativeStyle>>;
+type Resolve<T> = { [Key in keyof T]: T[Key] } & {};
+type VariantSelection<Variants extends VariantGroups> = {
+  [VariantGroup in keyof Variants]?: keyof Variants[VariantGroup];
 };
-
-export interface RecipeConfig<Variants extends VariantsConfig> {
+interface RecipeConfig<Variants extends VariantGroups> {
   base?: NativeStyle;
   variants: Variants;
 }
+export type RuntimeFn<Variants extends VariantGroups> = (
+  options: Resolve<VariantSelection<Variants>>
+) => NativeStyle[];
+export type RecipeVariants<Fn extends RuntimeFn<VariantGroups>> = Resolve<
+  NonNullable<Parameters<Fn>[0]>
+>;
 
 /**
  * Создаёт функцию для получения массива стилей по выбранным вариантам.
@@ -28,42 +31,31 @@ export interface RecipeConfig<Variants extends VariantsConfig> {
  * // В компоненте:
  * <View style={flexVariants({ direction: "row", justifyContent: "center" })} />
  */
-export function nativeRecipe<Variants extends VariantsConfig>({
+export function nativeRecipe<Variants extends VariantGroups>({
   base,
   variants,
-}: RecipeConfig<Variants>): (options: VariantOptions<Variants>) => NativeStyle[] {
-  const variantNames = Object.keys(variants) as (keyof Variants)[];
+}: RecipeConfig<Variants>) {
+  const compiled: Record<string, Record<string, NativeStyle>> = {};
 
-  const compiledVariants = {} as Record<keyof Variants, Record<string, NativeStyle>>;
-
-  for (const variantName of variantNames) {
-    compiledVariants[variantName] = StyleSheet.create(
-      variants[variantName] as Record<string, NativeStyle>
-    );
+  for (const [name, group] of Object.entries(variants)) {
+    compiled[name] = StyleSheet.create(group);
   }
 
   const baseStyle = base ? StyleSheet.create({ base }).base : null;
 
-  return function getStyles(options: VariantOptions<Variants>): NativeStyle[] {
-    const result: NativeStyle[] = [];
+  return (options: Resolve<VariantSelection<Variants>>) => {
+    const styles: NativeStyle[] = [];
 
-    if (baseStyle) {
-      result.push(baseStyle);
-    }
+    if (baseStyle) styles.push(baseStyle);
 
-    for (const variantName of variantNames) {
-      const value = options[variantName];
-
+    for (const [name, value] of Object.entries(options)) {
       if (!value) continue;
 
-      const variantStyles = compiledVariants[variantName];
-      const style = variantStyles?.[value as string];
+      const style = compiled[name]?.[value];
 
-      if (!style) continue;
-
-      result.push(style);
+      if (style) styles.push(style);
     }
 
-    return result;
+    return styles;
   };
 }

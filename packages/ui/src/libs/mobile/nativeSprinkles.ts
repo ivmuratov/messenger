@@ -1,55 +1,26 @@
 import { StyleSheet, type ViewStyle } from "react-native";
-// TODO: Доработать типизацию
+
 type StyleValue = string | number;
 
-/** Токены: { sm: 8, md: 16, ... } */
-type TokenValues<Scale extends string = string> = Record<Scale, StyleValue>;
+type Resolve<T> = { [K in keyof T]: T[K] } & {};
 
-/** Конфиг properties: CSS-свойство → токены */
 type PropertiesConfig = {
-  [Property in keyof ViewStyle]?: TokenValues;
+  [P in keyof ViewStyle]?: Record<string, StyleValue>;
 };
 
-/** Конфиг shorthands: шорткат → массив CSS-свойств */
-type ShorthandsConfig<Properties extends PropertiesConfig> = Record<
-  string,
-  ReadonlyArray<keyof Properties>
->;
+type ShorthandsConfig<P extends PropertiesConfig> = Record<string, ReadonlyArray<keyof P & string>>;
 
-/** Полный конфиг для defineProperties */
-interface DefinePropertiesConfig<
-  Properties extends PropertiesConfig,
-  Shorthands extends ShorthandsConfig<Properties>,
-> {
-  properties: Properties;
-  shorthands?: Shorthands;
+type ScalesOf<P extends PropertiesConfig> =
+  P[keyof P] extends Record<infer S, StyleValue> ? S & string : string;
+
+type SprinklesProps<P extends PropertiesConfig, S extends ShorthandsConfig<P>> = Resolve<{
+  [K in keyof P | keyof S]?: ScalesOf<P>;
+}>;
+
+interface DefinedProperties<P extends PropertiesConfig, S extends ShorthandsConfig<P>> {
+  styles: { [Prop in keyof P]: Record<string, ViewStyle> };
+  shorthands: S;
 }
-
-/** Извлекаем scale-ключи из токенов */
-type ExtractScales<Properties extends PropertiesConfig> =
-  Properties[keyof Properties] extends TokenValues<infer S> ? S : string;
-
-/** Стили для одного свойства */
-type PropertyStyles<Scale extends string> = Record<Scale, ViewStyle>;
-
-/** Результат defineProperties */
-interface DefinedProperties<
-  Properties extends PropertiesConfig,
-  Shorthands extends ShorthandsConfig<Properties>,
-> {
-  styles: { [P in keyof Properties]: PropertyStyles<ExtractScales<Properties>> };
-  shorthands: Shorthands;
-}
-
-/** Пропсы sprinkles: прямые свойства + шорткаты */
-type SprinklesProps<
-  Properties extends PropertiesConfig,
-  Shorthands extends ShorthandsConfig<Properties>,
-> = {
-  [P in keyof Properties]?: ExtractScales<Properties>;
-} & {
-  [S in keyof Shorthands]?: ExtractScales<Properties>;
-};
 
 /**
  * Создаёт предвычисленные стили из конфига токенов.
@@ -69,33 +40,24 @@ type SprinklesProps<
  * });
  */
 export function defineNativeProperties<
-  Properties extends PropertiesConfig,
-  Shorthands extends ShorthandsConfig<Properties> = Record<string, never>,
->(
-  config: DefinePropertiesConfig<Properties, Shorthands>
-): DefinedProperties<Properties, Shorthands> {
-  const { properties, shorthands = {} as Shorthands } = config;
+  P extends PropertiesConfig,
+  S extends ShorthandsConfig<P> = Record<string, never>,
+>({ properties, shorthands }: { properties: P; shorthands?: S }): DefinedProperties<P, S> {
+  const styles: Record<string, Record<string, ViewStyle>> = {};
 
-  type Scales = ExtractScales<Properties>;
-  type Styles = DefinedProperties<Properties, Shorthands>["styles"];
+  for (const [propName, tokenValues] of Object.entries(properties)) {
+    if (!tokenValues) continue;
 
-  const styles = {} as Styles;
-
-  for (const propName in properties) {
-    const tokenValues = properties[propName];
     const scaleStyles: Record<string, ViewStyle> = {};
 
-    for (const scale in tokenValues) {
-      const value = tokenValues[scale];
-      if (!value) continue;
-
+    for (const [scale, value] of Object.entries(tokenValues)) {
       scaleStyles[scale] = { [propName]: value };
     }
 
-    styles[propName] = StyleSheet.create(scaleStyles) as PropertyStyles<Scales>;
+    styles[propName] = StyleSheet.create(scaleStyles);
   }
 
-  return { styles, shorthands };
+  return { styles, shorthands } as DefinedProperties<P, S>;
 }
 
 /**
@@ -108,41 +70,28 @@ export function defineNativeProperties<
  * // В компоненте:
  * <View style={spacingSprinkles({ m: "sm", gap: "md" })} />
  */
-export function createNativeSprinkles<
-  Properties extends PropertiesConfig,
-  Shorthands extends ShorthandsConfig<Properties>,
->(properties: DefinedProperties<Properties, Shorthands>) {
-  const { styles, shorthands } = properties;
-  const propertyNames = Object.keys(styles);
-  const shorthandEntries = Object.entries(shorthands) as Array<[string, ReadonlyArray<string>]>;
+export function createNativeSprinkles<P extends PropertiesConfig, S extends ShorthandsConfig<P>>(
+  defined: DefinedProperties<P, S>
+) {
+  const styles: Record<string, Record<string, ViewStyle>> = defined.styles;
+  const shorthandMap: Record<string, readonly string[]> = defined.shorthands;
 
-  type Props = SprinklesProps<Properties, Shorthands>;
-  type Scale = ExtractScales<Properties>;
-
-  return function sprinkles(props: Props): ViewStyle[] {
+  return (props: SprinklesProps<P, S>): ViewStyle[] => {
     const result: ViewStyle[] = [];
 
-    // Прямые свойства (marginTop, gap, ...)
-    for (const propName of propertyNames) {
-      const scale = props[propName as keyof Props] as Scale | undefined;
-      if (!scale) continue;
+    for (const [name, value] of Object.entries(props)) {
+      if (typeof value !== "string") continue;
 
-      const style = styles[propName as keyof Properties]?.[scale];
-      if (!style) continue;
+      const mapped = shorthandMap[name];
 
-      result.push(style);
-    }
-
-    // Шорткаты (m, mx, ...)
-    for (const [shorthandName, mappedProps] of shorthandEntries) {
-      const scale = props[shorthandName as keyof Props] as Scale | undefined;
-      if (!scale) continue;
-
-      for (const propName of mappedProps) {
-        const style = styles[propName as keyof Properties]?.[scale];
-        if (!style) continue;
-
-        result.push(style);
+      if (mapped) {
+        for (const propName of mapped) {
+          const style = styles[propName]?.[value];
+          if (style) result.push(style);
+        }
+      } else {
+        const style = styles[name]?.[value];
+        if (style) result.push(style);
       }
     }
 
