@@ -64,6 +64,21 @@ const config: Linter.Config[] = [
       ],
       "@typescript-eslint/no-floating-promises": "error",
       "@typescript-eslint/no-misused-promises": "error",
+      "@typescript-eslint/no-restricted-types": [
+        "error",
+        {
+          types: {
+            FC: {
+              message:
+                "Avoid FC. Use explicit prop types and return values (ReactNode) instead.",
+            },
+            "React.FC": {
+              message:
+                "Avoid React.FC. Use explicit prop types and return values (ReactNode) instead.",
+            },
+          },
+        },
+      ],
 
       // React
       "react/react-in-jsx-scope": "off",

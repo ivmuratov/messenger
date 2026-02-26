@@ -1,4 +1,4 @@
-import type { FC } from "react";
+import type { ReactNode } from "react";
 import { View } from "react-native";
 
 import { spacingNativeSprinkles } from "@/sprinkles";
@@ -6,7 +6,7 @@ import { spacingNativeSprinkles } from "@/sprinkles";
 import type { FlexPropsBase } from "../types";
 import { flexVariants } from "./Flex.styles";
 
-export const Flex: FC<FlexPropsBase> = ({
+export const Flex = ({
   direction = "column",
   justifyContent = "start",
   alignItems = "start",
@@ -14,7 +14,7 @@ export const Flex: FC<FlexPropsBase> = ({
   alignSelf = "start",
   children,
   ...spaceProps
-}) => {
+}: FlexPropsBase): ReactNode => {
   return (
     <View
       style={[
