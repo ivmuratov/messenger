@@ -1,0 +1,80 @@
+---
+description: Architecture, package boundaries, styling boundaries, component hierarchy, imports, module structure
+alwaysApply: true
+---
+
+# Architecture
+
+## Overview
+
+- `packages/ui` — Reusable UI components (Atomic Design), cross-platform
+- `packages/core` — Shared business logic, state, API
+- `apps/web` — Web app (Vite + TanStack Router)
+- `apps/mobile` — Mobile app (Expo + React Native)
+
+## Package Dependencies
+
+```
+ui, core → web, mobile
+```
+
+- Apps consume packages; packages never import from apps
+- No imports between `apps/web` and `apps/mobile`
+- No imports between `packages/core` and `packages/ui`
+- Consume packages via public API: `import { Button } from "ui"`
+
+## packages/ui
+
+### Structure
+
+```
+{Component}/
+├── types.ts          # Shared props interface
+├── tokens.ts         # Design tokens
+├── index.ts          # Web export
+├── index.native.ts   # Mobile export
+├── web/              # Web implementation
+└── mobile/           # Mobile implementation
+```
+
+### Styling
+
+- Vanilla Extract (`.css.ts`) and StyleSheet (`.styles.ts`) only here; `core`, `web`, `mobile` do not style components
+- Other layers consume pre-styled UI from `packages/ui`
+
+### Component Hierarchy (`src/components/`)
+
+- **Unidirectional dependency graph**: atoms → molecules → organisms (no reverse or same-level imports)
+- **Same-level imports forbidden**: `atoms/` ↔ `atoms/`, `molecules/` ↔ `molecules/`, `organisms/` ↔ `organisms/`
+- **Allowed**: `molecules/` imports from `atoms/`; `organisms/` imports from `molecules/` and `atoms/`
+- **Composition-first**: higher layers compose lower-layer components and reuse their styles; introduce new styles only when lower-layer tokens/styles are insufficient
+
+### Imports
+
+- Use `@/` alias for internal imports within the package
+
+## packages/core
+
+### Structure
+
+```
+modules/{module}/
+├── model/            # Zustand store + types
+├── api/              # TanStack Query + HTTP client
+├── hooks/            # UI-agnostic hooks
+├── lib/              # Pure business logic
+└── index.ts          # Public API
+```
+
+### Imports
+
+- Use `@/` alias for internal imports within the package
+- Never import from `packages/ui`
+
+## apps/web, apps/mobile
+
+### Imports
+
+- Use `@/` alias for internal imports within the app
+- Consume `packages/ui` and `packages/core` via public API
+- Never import between `apps/web` and `apps/mobile`

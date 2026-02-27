@@ -1,0 +1,20 @@
+---
+description: Naming conventions and code style
+alwaysApply: true
+---
+
+# Code Style
+
+## Naming
+
+- Component files: `PascalCase.tsx`
+- Other files: `camelCase.ts`
+- Styles for components: `{Component}.css.ts` (web), `{Component}.styles.ts` (mobile)
+- Common styles: `{styles}.css.ts` (web), `{styles}.styles.ts` (mobile)
+- Functions and variables: `camelCase`
+- Hardcoded constants: `UPPERCASE_SNAKE_CASE`
+
+## Style
+
+- Prefer `const foo = () =>` over `function foo()`
+- Prefer named exports over default exports: `export const variable ...`, `export function ...`

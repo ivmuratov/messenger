@@ -1,0 +1,65 @@
+---
+description: Styling conventions for components in packages/ui
+globs: "**/*.styles.ts", "**/*.css.ts"
+alwaysApply: false
+---
+
+# Styling conventions
+
+## React Native Styling
+
+### File Pattern
+
+Mobile styles live in `{Component}/mobile/{Component}.styles.ts`.
+
+### Import Tokens
+
+Always import shared tokens from `../tokens` — never hardcode values.
+
+```typescript
+import { StyleSheet } from "react-native";
+import { componentToken } from "../tokens";
+
+export const styles = StyleSheet.create({
+  root: componentToken,
+});
+```
+
+### Rules
+
+- One `.styles.ts` per component — named `{Component}.styles.ts`
+- Use `StyleSheet.create()` — never inline styles
+- Share design values via `tokens.ts` (same tokens as web)
+- Use spacingNativeSprinkles from @/sprinkles for spacing utilities
+- Never import from `react-native-web` or any web-specific package
+- Prefer `flexbox` layout — avoid absolute positioning when possible
+
+## Web styling
+
+### File Pattern
+
+Web styles live in `{Component}/web/{Component}.css.ts`.
+
+### Import Tokens
+
+Always import shared tokens from `../tokens` — never hardcode values.
+
+```typescript
+import { style } from "@vanilla-extract/css";
+import { componentToken } from "../tokens";
+
+export const root = style(componentToken);
+```
+
+### Sprinkles
+
+Use sprinkles for spacing/layout utilities in `packages/ui/src/sprinkles/web/`.
+
+### Rules
+
+- One `.css.ts` per component — named `{Component}.css.ts`
+- Use `style()` for component-specific styles
+- Use `recipe()` for variant-based styles (size, variant props)
+- Import theme contract vars via `@vanilla-extract/css` — never raw CSS variables
+- Keep tokens platform-agnostic in `tokens.ts`, consume in `.css.ts`
+- Export style references, never raw CSS strings
