@@ -18,8 +18,8 @@ export const Flex = ({
   return (
     <View
       style={[
-        ...flexVariants({ direction, justifyContent, alignItems, alignContent, alignSelf }),
-        ...spacingNativeSprinkles(spaceProps),
+        flexVariants({ direction, justifyContent, alignItems, alignContent, alignSelf }),
+        spacingNativeSprinkles(spaceProps),
       ]}
     >
       {children}

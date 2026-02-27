@@ -22,6 +22,15 @@ interface DefinedProperties<P extends PropertiesConfig, S extends ShorthandsConf
   shorthands: S;
 }
 
+type AnyDefinedProperties = DefinedProperties<any, any>;
+
+type ChildNativeSprinklesProps<D> =
+  D extends DefinedProperties<infer P, infer S> ? SprinklesProps<P, S> : never;
+
+type NativeSprinklesProps<Args extends ReadonlyArray<any>> = Args extends [infer L, ...infer R]
+  ? ChildNativeSprinklesProps<L> & NativeSprinklesProps<R>
+  : {};
+
 /**
  * Создаёт предвычисленные стили из конфига токенов.
  * Аналог defineProperties из @vanilla-extract/sprinkles.
@@ -63,38 +72,44 @@ export function defineNativeProperties<
 /**
  * Создаёт функцию для получения массива стилей по пропсам.
  * Аналог createSprinkles из vanilla-extract/sprinkles.
+ * Принимает один или несколько результатов defineNativeProperties.
  *
  * @example
- * const spacingSprinkles = createNativeSprinkles(spacingProperties);
+ * const spacingSprinkles = createNativeSprinkles(marginProperties, paddingProperties, gapProperties);
  *
  * // В компоненте:
  * <View style={spacingSprinkles({ m: "sm", gap: "md" })} />
  */
-export function createNativeSprinkles<P extends PropertiesConfig, S extends ShorthandsConfig<P>>(
-  defined: DefinedProperties<P, S>
-) {
-  const styles: Record<string, Record<string, ViewStyle>> = defined.styles;
-  const shorthandMap: Record<string, readonly string[]> = defined.shorthands;
+export const createNativeSprinkles = <Args extends ReadonlyArray<AnyDefinedProperties>>(
+  ...args: Args
+): ((props: Resolve<NativeSprinklesProps<Args>>) => ViewStyle[]) => {
+  const allStyles: Record<string, Record<string, ViewStyle>> = {};
+  const allShorthands: Record<string, readonly string[]> = {};
 
-  return (props: SprinklesProps<P, S>): ViewStyle[] => {
+  for (const def of args) {
+    Object.assign(allStyles, def.styles);
+    if (def.shorthands) Object.assign(allShorthands, def.shorthands);
+  }
+
+  return (props) => {
     const result: ViewStyle[] = [];
 
     for (const [name, value] of Object.entries(props)) {
       if (typeof value !== "string") continue;
 
-      const mapped = shorthandMap[name];
+      const mapped = allShorthands[name];
 
       if (mapped) {
         for (const propName of mapped) {
-          const style = styles[propName]?.[value];
+          const style = allStyles[propName]?.[value];
           if (style) result.push(style);
         }
       } else {
-        const style = styles[name]?.[value];
+        const style = allStyles[name]?.[value];
         if (style) result.push(style);
       }
     }
 
     return result;
   };
-}
+};

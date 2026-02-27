@@ -1,6 +1,6 @@
 import type { Scale } from "./scale";
 
-export interface SpacingProps {
+export interface MarginProps {
   ml?: Scale;
   mr?: Scale;
   mt?: Scale;
@@ -8,6 +8,9 @@ export interface SpacingProps {
   mx?: Scale;
   my?: Scale;
   m?: Scale;
+}
+
+export interface PaddingProps {
   pl?: Scale;
   pr?: Scale;
   pt?: Scale;
@@ -20,3 +23,5 @@ export interface SpacingProps {
 export interface GapProps {
   gap?: Scale;
 }
+
+export type SpacingProps = MarginProps & PaddingProps & GapProps;

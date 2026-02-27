@@ -1,6 +1,6 @@
 import type { PropsWithChildren } from "react";
 
-import type { GapProps, SpacingProps } from "@/types";
+import type { SpacingProps } from "@/types";
 
 export interface FlexVariants {
   direction?: "row" | "column" | "rowReverse" | "columnReverse";
@@ -10,4 +10,4 @@ export interface FlexVariants {
   alignSelf?: "center" | "start";
 }
 
-export type FlexPropsBase = FlexVariants & SpacingProps & GapProps & PropsWithChildren;
+export type FlexPropsBase = FlexVariants & SpacingProps & PropsWithChildren;

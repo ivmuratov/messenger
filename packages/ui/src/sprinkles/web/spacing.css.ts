@@ -12,17 +12,12 @@ const spacingTokenWithPx = Object.entries(spacingToken).reduce(
   {} as SpacingTokenWithPx
 );
 
-const spacingProperties = defineProperties({
+const marginProperties = defineProperties({
   properties: {
     marginTop: spacingTokenWithPx,
     marginRight: spacingTokenWithPx,
     marginBottom: spacingTokenWithPx,
     marginLeft: spacingTokenWithPx,
-    paddingTop: spacingTokenWithPx,
-    paddingRight: spacingTokenWithPx,
-    paddingBottom: spacingTokenWithPx,
-    paddingLeft: spacingTokenWithPx,
-    gap: spacingTokenWithPx,
   },
   shorthands: {
     m: ["marginTop", "marginRight", "marginBottom", "marginLeft"],
@@ -32,6 +27,17 @@ const spacingProperties = defineProperties({
     mr: ["marginRight"],
     mb: ["marginBottom"],
     ml: ["marginLeft"],
+  },
+});
+
+const paddingProperties = defineProperties({
+  properties: {
+    paddingTop: spacingTokenWithPx,
+    paddingRight: spacingTokenWithPx,
+    paddingBottom: spacingTokenWithPx,
+    paddingLeft: spacingTokenWithPx,
+  },
+  shorthands: {
     p: ["paddingTop", "paddingRight", "paddingBottom", "paddingLeft"],
     px: ["paddingRight", "paddingLeft"],
     py: ["paddingTop", "paddingBottom"],
@@ -42,4 +48,13 @@ const spacingProperties = defineProperties({
   },
 });
 
-export const spacingSprinkles = createSprinkles(spacingProperties);
+const gapProperties = defineProperties({
+  properties: {
+    gap: spacingTokenWithPx,
+  },
+});
+
+export const marginSprinkles = createSprinkles(marginProperties);
+export const paddingSprinkles = createSprinkles(paddingProperties);
+export const gapSprinkles = createSprinkles(gapProperties);
+export const spacingSprinkles = createSprinkles(marginProperties, paddingProperties, gapProperties);
