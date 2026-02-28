@@ -9,10 +9,10 @@
   "scripts": {
     "dev:web": "tsdown --watch --config-loader unrun",
     "dev:native": "tsdown --config tsdown.native.config.ts --watch --no-clean --config-loader unrun",
-    "dev": "concurrently \"pnpm run dev:web\" \"pnpm run dev:native\"",
+    "dev": "concurrently \"pnpm dev:web\" \"pnpm dev:native\"",
     "build:web": "tsdown --config-loader unrun",
     "build:native": "tsdown --config tsdown.native.config.ts --config-loader unrun",
-    "build": "concurrently \"pnpm run build:web\" \"pnpm run build:native\"",
+    "build": "concurrently \"pnpm build:web\" \"pnpm build:native\"",
     "lint": "eslint src",
     "typecheck": "tsc --noEmit",
     "format": "prettier src --write --ignore-path ../../.prettierignore",
