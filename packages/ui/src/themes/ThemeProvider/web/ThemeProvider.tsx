@@ -1,10 +1,16 @@
-import { type ReactNode, useState } from "react";
+import "./styles";
 
-import { SetThemeContext, ThemeContext } from "../context";
+import { type ReactNode, useLayoutEffect, useState } from "react";
+
+import { SetThemeContext, ThemeContext } from "../../context";
 import type { ThemeProviderProps } from "../types";
 
 export const ThemeProvider = ({ children, defaultTheme }: ThemeProviderProps): ReactNode => {
   const [theme, setTheme] = useState(defaultTheme);
+
+  useLayoutEffect(() => {
+    document.documentElement.dataset.theme = theme;
+  }, [theme]);
 
   return (
     <ThemeContext.Provider value={theme}>

@@ -1,6 +1,6 @@
 import { useContext, useMemo } from "react";
 
-import { ThemeContext } from "../context";
+import { ThemeContext } from "../../context";
 import { dark, light } from "./themes.styles";
 
 const themes = {
@@ -8,7 +8,7 @@ const themes = {
   dark,
 } as const;
 
-export const useTheme = () => {
+export const useThemedStyles = () => {
   const theme = useContext(ThemeContext);
 
   return useMemo(

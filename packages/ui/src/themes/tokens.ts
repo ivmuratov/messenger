@@ -1,4 +1,4 @@
-import type { ThemeContract } from "@/types";
+import type { ThemeContract } from "./types";
 
 export const lightThemeToken = {
   background: {
