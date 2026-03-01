@@ -6,8 +6,8 @@ import { themeLayer } from "./layers.css";
 globalStyle("body", {
   "@layer": {
     [themeLayer]: {
-      backgroundColor: theme.background.default,
-      color: theme.foreground.default,
+      backgroundColor: theme.background.primary,
+      color: theme.foreground.primary,
       lineHeight: 1.5,
       WebkitFontSmoothing: "antialiased",
       MozOsxFontSmoothing: "grayscale",

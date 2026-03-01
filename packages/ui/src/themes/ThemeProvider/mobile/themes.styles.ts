@@ -3,15 +3,15 @@ import { StyleSheet } from "react-native";
 import { darkThemeToken, lightThemeToken } from "../../tokens";
 
 export const light = StyleSheet.create({
-  default: {
-    backgroundColor: lightThemeToken.background.default,
-    color: lightThemeToken.foreground.default,
+  primary: {
+    backgroundColor: lightThemeToken.background.primary,
+    color: lightThemeToken.foreground.primary,
   },
 });
 
 export const dark = StyleSheet.create({
-  default: {
-    backgroundColor: darkThemeToken.background.default,
-    color: darkThemeToken.foreground.default,
+  primary: {
+    backgroundColor: darkThemeToken.background.primary,
+    color: darkThemeToken.foreground.primary,
   },
 });

@@ -13,8 +13,8 @@ export const useThemedStyles = () => {
 
   return useMemo(
     () => ({
-      defaultBackgroundColor: themes[theme].default.backgroundColor,
-      defaultColor: themes[theme].default.color,
+      primaryBackgroundColor: themes[theme].primary.backgroundColor,
+      primaryColor: themes[theme].primary.color,
     }),
     [theme]
   );

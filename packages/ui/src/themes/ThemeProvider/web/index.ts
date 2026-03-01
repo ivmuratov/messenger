@@ -1,2 +1,2 @@
 export * from "./ThemeProvider";
-export { theme } from "./themes.css";
+export * from "./themes.css";

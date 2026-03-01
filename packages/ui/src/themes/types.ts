@@ -3,23 +3,18 @@ export type Theme = "light" | "dark";
 export interface ThemeContract {
   background: {
     // основной фон приложения
-    default: string;
+    primary: string;
     // фон поверхностей/карточек
-    subtle: string;
-    // «инвертированный»/контрастный фон (например, popover/tooltip)
-    strong: string;
+    secondary: string;
   };
   foreground: {
     // основной текст
-    default: string;
+    primary: string;
     // вторичный/приглушённый текст
-    subtle: string;
-    // максимально контрастный текст (часто для bg.strong)
-    strong: string;
+    secondary: string;
   };
   border: {
-    default: string;
-    subtle: string;
-    strong: string;
+    primary: string;
+    secondary: string;
   };
 }

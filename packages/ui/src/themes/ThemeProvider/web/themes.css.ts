@@ -6,19 +6,16 @@ import type { ThemeContract } from "../../types";
 export const theme = createGlobalThemeContract(
   {
     background: {
-      default: null,
-      subtle: null,
-      strong: null,
+      primary: null,
+      secondary: null,
     },
     foreground: {
-      default: null,
-      subtle: null,
-      strong: null,
+      primary: null,
+      secondary: null,
     },
     border: {
-      default: null,
-      subtle: null,
-      strong: null,
+      primary: null,
+      secondary: null,
     },
   } satisfies NullableTokens<ThemeContract>,
   (_, path) => `theme-${path.join("-")}`

@@ -14,11 +14,11 @@ export const Typography = ({
   fontWeight = "regular",
   ...props
 }: TypographyProps): ReactNode => {
-  const { defaultColor } = useThemedStyles();
+  const { primaryColor } = useThemedStyles();
 
   return (
     <Text
-      style={[{ color: defaultColor }, textSizeVariants[t], fontWeightVariants[fontWeight]]}
+      style={[{ color: primaryColor }, textSizeVariants[t], fontWeightVariants[fontWeight]]}
       {...props}
     >
       {children}
