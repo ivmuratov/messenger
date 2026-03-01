@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { Text, type TextProps } from "react-native";
 
-import { useThemedStyles } from "@/themes/ThemeProvider/index.native";
+import { useThemedNativeStyles } from "@/themes/ThemeProvider/index.native";
 
 import type { TypographyBaseProps } from "../types";
 import { fontWeightVariants, textSizeVariants } from "./Typography.styles";
@@ -14,11 +14,11 @@ export const Typography = ({
   fontWeight = "regular",
   ...props
 }: TypographyProps): ReactNode => {
-  const { primaryColor } = useThemedStyles();
+  const { primary } = useThemedNativeStyles();
 
   return (
     <Text
-      style={[{ color: primaryColor }, textSizeVariants[t], fontWeightVariants[fontWeight]]}
+      style={[{ color: primary.color }, textSizeVariants[t], fontWeightVariants[fontWeight]]}
       {...props}
     >
       {children}

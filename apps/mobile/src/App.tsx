@@ -1,12 +1,11 @@
-import { Text } from "react-native";
-import { Button, Flex, ThemeProvider } from "ui";
+import { Flex, ThemeProvider, ThemeSwitcher, Typography } from "ui";
 
 export default function App() {
   return (
     <ThemeProvider defaultTheme="light">
       <Flex direction="column">
-        <Text>Hello World Mobile App!</Text>
-        <Button>Click me</Button>
+        <Typography>Hello World Mobile App!</Typography>
+        <ThemeSwitcher />
       </Flex>
     </ThemeProvider>
   );
