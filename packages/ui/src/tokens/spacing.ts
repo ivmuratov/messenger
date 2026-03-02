@@ -1,4 +1,4 @@
-import type { Scale } from "@/types";
+import type { SpacingScale } from "@/types";
 
 export const spacingToken = {
   "2xs": 2,
@@ -9,4 +9,4 @@ export const spacingToken = {
   xl: 32,
   "2xl": 48,
   "3xl": 64,
-} as const satisfies Record<Scale, number>;
+} as const satisfies Record<SpacingScale, number>;

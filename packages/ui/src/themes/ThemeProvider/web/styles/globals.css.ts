@@ -1,5 +1,7 @@
 import { globalStyle } from "@vanilla-extract/css";
 
+import { borderRadiusToken, borderWidthToken, spacingToken } from "@/tokens";
+
 import { theme } from "../themes.css";
 import { themeLayer } from "./layers.css";
 
@@ -18,8 +20,8 @@ globalStyle("body", {
 globalStyle("::-webkit-scrollbar", {
   "@layer": {
     [themeLayer]: {
-      width: "8px",
-      height: "8px",
+      width: `${spacingToken.sm}px`,
+      height: `${spacingToken.sm}px`,
     },
   },
 });
@@ -36,8 +38,8 @@ globalStyle("::-webkit-scrollbar-thumb", {
   "@layer": {
     [themeLayer]: {
       backgroundColor: theme.border.primary,
-      borderRadius: "4px",
-      border: `2px solid ${theme.background.primary}`,
+      borderRadius: `${borderRadiusToken.md}px`,
+      border: `${borderWidthToken.sm}px solid ${theme.background.primary}`,
     },
   },
 });

@@ -1,27 +1,27 @@
-import type { Scale } from "./scale";
+export type SpacingScale = "2xs" | "xs" | "sm" | "md" | "lg" | "xl" | "2xl" | "3xl";
 
 export interface MarginProps {
-  ml?: Scale;
-  mr?: Scale;
-  mt?: Scale;
-  mb?: Scale;
-  mx?: Scale;
-  my?: Scale;
-  m?: Scale;
+  ml?: SpacingScale;
+  mr?: SpacingScale;
+  mt?: SpacingScale;
+  mb?: SpacingScale;
+  mx?: SpacingScale;
+  my?: SpacingScale;
+  m?: SpacingScale;
 }
 
 export interface PaddingProps {
-  pl?: Scale;
-  pr?: Scale;
-  pt?: Scale;
-  pb?: Scale;
-  px?: Scale;
-  py?: Scale;
-  p?: Scale;
+  pl?: SpacingScale;
+  pr?: SpacingScale;
+  pt?: SpacingScale;
+  pb?: SpacingScale;
+  px?: SpacingScale;
+  py?: SpacingScale;
+  p?: SpacingScale;
 }
 
 export interface GapProps {
-  gap?: Scale;
+  gap?: SpacingScale;
 }
 
 export type SpacingProps = MarginProps & PaddingProps & GapProps;
