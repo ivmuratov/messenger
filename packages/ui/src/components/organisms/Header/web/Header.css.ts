@@ -6,8 +6,6 @@ import { headerStyleToken } from "../tokens";
 
 export const headerStyles = style({
   ...headerStyleToken,
-  position: "sticky",
-  top: 0,
-  zIndex: 10,
+  flexShrink: 0,
   backgroundColor: theme.background.secondary,
 });

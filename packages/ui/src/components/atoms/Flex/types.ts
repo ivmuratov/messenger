@@ -7,7 +7,7 @@ export interface FlexVariants {
   justifyContent?: "center" | "end" | "start" | "spaceBetween" | "spaceAround" | "spaceEvenly";
   alignItems?: "center" | "end" | "start";
   alignContent?: "center" | "start";
-  alignSelf?: "center" | "start";
+  alignSelf?: "center" | "start" | "stretch";
 }
 
 export type FlexPropsBase = FlexVariants & SpacingProps & PropsWithChildren;

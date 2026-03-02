@@ -16,7 +16,7 @@ export const ThemeSwitcher = (props: ThemeSwitcherBaseProps): ReactNode => {
       className={marginSprinkles(props)}
       onClick={handleToggleTheme}
     >
-      {theme === "light" ? <Sun /> : <Moon />}
+      {theme === "light" ? <Moon /> : <Sun />}
     </button>
   );
 };

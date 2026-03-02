@@ -1,22 +1,29 @@
 import clsx from "clsx";
-import type { ReactNode } from "react";
+import type { ElementType, ReactNode } from "react";
 
 import { spacingSprinkles } from "@/sprinkles";
 
 import type { FlexPropsBase } from "../types";
 import { flexVariants } from "./Flex.css";
 
+interface FlexProps extends FlexPropsBase {
+  as?: ElementType;
+  className?: string;
+}
+
 export const Flex = ({
   children,
+  as: Component = "div",
+  className,
   direction = "column",
   justifyContent = "start",
   alignItems = "start",
   alignContent = "start",
-  alignSelf = "start",
+  alignSelf = "stretch",
   ...spaceProps
-}: FlexPropsBase): ReactNode => {
+}: FlexProps): ReactNode => {
   return (
-    <div
+    <Component
       className={clsx(
         flexVariants({
           direction,
@@ -25,10 +32,11 @@ export const Flex = ({
           alignContent,
           alignSelf,
         }),
-        spacingSprinkles(spaceProps)
+        spacingSprinkles(spaceProps),
+        className
       )}
     >
       {children}
-    </div>
+    </Component>
   );
 };

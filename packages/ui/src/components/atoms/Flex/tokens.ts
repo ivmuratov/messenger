@@ -61,5 +61,8 @@ export const flexVariantsToken = {
     start: {
       alignSelf: "flex-start",
     },
+    stretch: {
+      alignSelf: "stretch",
+    },
   },
 } as const satisfies VariantsTokenMap<FlexVariants>;
