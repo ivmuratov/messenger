@@ -8,6 +8,7 @@
 | Component with variants (size, color, etc.) | `recipe()`           | `nativeRecipe()`           | `{Component}.css.ts` / `.styles.ts` |
 | Map token values to styles                  | `styleVariants()`    | `nativeVariants()`         | Inline or separate file             |
 | Spacing utilities (m, p, gap)               | `spacingSprinkles()` | `spacingNativeSprinkles()` | `@/sprinkles`                       |
+| Theme-aware colors (light/dark)             | CSS vars (contract)  | `useThemedNativeStyles()`  | `@/themes`                          |
 | Shared design values                        | tokens               | tokens                     | `tokens.ts`                         |
 
 ---
@@ -221,6 +222,45 @@ export interface ButtonVariants {
 
 export type ButtonPropsBase = ButtonVariants & SpacingProps & GapProps & PropsWithChildren;
 ```
+
+---
+
+## Themed Styles — Mobile
+
+When mobile component needs theme-aware styles (colors that change with light/dark mode), use `useThemedNativeStyles` hook.
+
+**Location:** `@/themes/ThemeProvider/mobile/useThemedNativeStyles`
+
+```typescript
+// mobile/{Component}.tsx
+import { View, Text } from "react-native";
+import { useThemedNativeStyles } from "@/themes";
+
+export const Card = ({ children }) => {
+  const { primary } = useThemedNativeStyles();
+
+  return (
+    <View style={[cardStyles.card, { backgroundColor: primary.backgroundColor }]}>
+      <Text style={{ color: primary.color }}>{children}</Text>
+    </View>
+  );
+};
+```
+
+**Available themed styles:**
+
+- `primary` — primary background + foreground colors
+- `secondary` — secondary background + foreground colors
+
+**When to use:**
+
+- Component needs background/text colors that adapt to theme
+- Combine with static styles: `style={[staticStyles, { color: primary.color }]}`
+
+**When NOT to use:**
+
+- Static colors that don't change with theme — use tokens directly
+- Layout-only styles (padding, flex) — use regular StyleSheet
 
 ---
 

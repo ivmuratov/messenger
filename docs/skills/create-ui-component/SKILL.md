@@ -82,7 +82,7 @@ import type { ReactNode } from "react";
 import type { {ComponentName}BaseProps } from "../types";
 import { {componentName}Styles } from "./{ComponentName}.css";
 
-export const {ComponentName} = ({ children, ...props }: {ComponentName}BaseProps): ReactNode => {
+export const {ComponentName} = ({ children }: {ComponentName}BaseProps): ReactNode => {
   return <div className={{componentName}Styles}>{children}</div>;
 };
 ```
@@ -118,8 +118,8 @@ import { View } from "react-native";
 import type { {ComponentName}BaseProps } from "../types";
 import { {componentName}Styles } from "./{ComponentName}.styles";
 
-export const {ComponentName} = ({ children, ...props }: {ComponentName}BaseProps): ReactNode => {
-  return <View style={{componentName}Styles.root}>{children}</View>;
+export const {ComponentName} = ({ children, }: {ComponentName}BaseProps): ReactNode => {
+  return <View style={{componentName}Styles.componentName}>{children}</View>;
 };
 ```
 
@@ -130,7 +130,7 @@ import { StyleSheet } from "react-native";
 import { {componentName}StyleToken } from "../tokens";
 
 export const {componentName}Styles = StyleSheet.create({
-  root: {componentName}StyleToken,
+  componentName: {componentName}StyleToken,
 });
 ```
 

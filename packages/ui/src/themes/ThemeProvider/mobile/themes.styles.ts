@@ -7,12 +7,20 @@ const light = StyleSheet.create({
     backgroundColor: lightThemeToken.background.primary,
     color: lightThemeToken.foreground.primary,
   },
+  secondary: {
+    backgroundColor: lightThemeToken.background.secondary,
+    color: lightThemeToken.foreground.secondary,
+  },
 });
 
 const dark = StyleSheet.create({
   primary: {
     backgroundColor: darkThemeToken.background.primary,
     color: darkThemeToken.foreground.primary,
+  },
+  secondary: {
+    backgroundColor: darkThemeToken.background.secondary,
+    color: darkThemeToken.foreground.secondary,
   },
 });
 
