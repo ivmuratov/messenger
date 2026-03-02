@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "type": "module",
   "sideEffects": [
-    "**/*.css",
-    "**/*.css.ts"
+    "**/*.css.ts",
+    "**/styles/index.ts"
   ],
   "scripts": {
     "dev:web": "tsdown --watch --config-loader unrun",
