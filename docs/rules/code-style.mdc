@@ -17,4 +17,5 @@ alwaysApply: true
 ## Style
 
 - Prefer `const foo = () =>` over `function foo()`
+  - **Exception:** use `function` when hoisting is required (e.g., TanStack Router file-based routes where component is referenced before declaration)
 - Prefer named exports over default exports: `export const variable ...`, `export function ...`

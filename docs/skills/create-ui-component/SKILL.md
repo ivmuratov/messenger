@@ -23,7 +23,9 @@ Ask the user:
 - Component name (e.g., `Input`, `SearchBar`, `MessageBubble`)
 - Atomic level: `atoms`, `molecules`, or `organisms`
 - What props does it accept?
-- **Any variants (size, color, state)?** → If yes, use recipe pattern (see [references/reference.md](references/reference.md))
+- **Any variants (size, color, state)?** → If yes, use recipe pattern
+
+See [references/reference.md](references/reference.md) for styling patterns (when to use recipe vs style, tokens, sprinkles).
 
 ### 2. Create Directory Structure
 
@@ -57,6 +59,8 @@ export type {ComponentName}BaseProps = PropsWithChildren;
 
 ### 4. Create Tokens (`tokens.ts`)
 
+Extract to tokens when: value is shared web/mobile, represents design scale, or used in multiple places.
+
 **Simple component**:
 
 ```typescript
@@ -65,7 +69,9 @@ export const {componentName}StyleToken = {
 } as const;
 ```
 
-**With variants** — use `{componentName}VariantsToken` with `VariantsTokenMap` (see [references/reference.md](references/reference.md)).
+**With variants** — use `{componentName}VariantsToken` with `VariantsTokenMap`.
+
+See [references/reference.md](references/reference.md) → "Tokens — When to Extract".
 
 ### 5. Create Web Implementation
 
@@ -90,7 +96,11 @@ import { {componentName}StyleToken } from "../tokens";
 export const {componentName}Styles = style({componentName}StyleToken);
 ```
 
-**With variants** — use `recipe()` from `@vanilla-extract/recipes` (see [references/reference.md](references/reference.md)).
+**With variants** — use `recipe()` from `@vanilla-extract/recipes`.
+
+**With spacing props** — combine with `spacingSprinkles()` from `@/sprinkles`.
+
+See [references/reference.md](references/reference.md) → "When to Use What" table.
 
 **`web/index.ts`**:
 
@@ -124,7 +134,11 @@ export const {componentName}Styles = StyleSheet.create({
 });
 ```
 
-**With variants** — use `nativeRecipe()` from `@/libs` (see [references/reference.md](references/reference.md)).
+**With variants** — use `nativeRecipe()` from `@/libs`.
+
+**With spacing props** — combine with `spacingNativeSprinkles()` from `@/sprinkles`.
+
+All mobile styling utilities: `@/libs` (`nativeRecipe`, `nativeVariants`, `defineNativeProperties`, `createNativeSprinkles`).
 
 **`mobile/index.ts`**:
 
