@@ -16,10 +16,11 @@ export const Flex = ({
   as: Component = "div",
   className,
   direction = "column",
-  justifyContent = "start",
-  alignItems = "start",
-  alignContent = "start",
-  alignSelf = "stretch",
+  justifyContent,
+  alignItems,
+  alignContent,
+  alignSelf,
+  flexWrap,
   ...spaceProps
 }: FlexProps): ReactNode => {
   return (
@@ -31,6 +32,7 @@ export const Flex = ({
           alignItems,
           alignContent,
           alignSelf,
+          flexWrap,
         }),
         spacingSprinkles(spaceProps),
         className

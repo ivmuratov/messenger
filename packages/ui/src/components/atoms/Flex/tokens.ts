@@ -45,6 +45,12 @@ export const flexVariantsToken = {
     start: {
       alignItems: "flex-start",
     },
+    stretch: {
+      alignItems: "stretch",
+    },
+    baseline: {
+      alignItems: "baseline",
+    },
   },
   alignContent: {
     center: {
@@ -52,6 +58,21 @@ export const flexVariantsToken = {
     },
     start: {
       alignContent: "flex-start",
+    },
+    end: {
+      alignContent: "flex-end",
+    },
+    spaceBetween: {
+      alignContent: "space-between",
+    },
+    spaceAround: {
+      alignContent: "space-around",
+    },
+    spaceEvenly: {
+      alignContent: "space-evenly",
+    },
+    stretch: {
+      alignContent: "stretch",
     },
   },
   alignSelf: {
@@ -63,6 +84,23 @@ export const flexVariantsToken = {
     },
     stretch: {
       alignSelf: "stretch",
+    },
+    end: {
+      alignSelf: "flex-end",
+    },
+    baseline: {
+      alignSelf: "baseline",
+    },
+  },
+  flexWrap: {
+    nowrap: {
+      flexWrap: "nowrap",
+    },
+    wrap: {
+      flexWrap: "wrap",
+    },
+    wrapReverse: {
+      flexWrap: "wrap-reverse",
     },
   },
 } as const satisfies VariantsTokenMap<FlexVariants>;

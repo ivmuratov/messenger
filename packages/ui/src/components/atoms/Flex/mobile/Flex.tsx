@@ -12,14 +12,15 @@ interface FlexProps extends FlexPropsBase {
 }
 
 export const Flex = ({
-  direction = "column",
-  justifyContent = "start",
-  alignItems = "start",
-  alignContent = "start",
-  alignSelf = "stretch",
+  children,
   as: Component = View,
   style,
-  children,
+  direction = "column",
+  justifyContent,
+  alignItems,
+  alignContent,
+  alignSelf,
+  flexWrap,
   ...spaceProps
 }: FlexProps): ReactNode => {
   return (
@@ -31,6 +32,7 @@ export const Flex = ({
           alignItems,
           alignContent,
           alignSelf,
+          flexWrap,
         }),
         spacingNativeSprinkles(spaceProps),
         style,
