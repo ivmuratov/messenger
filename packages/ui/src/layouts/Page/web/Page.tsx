@@ -1,8 +1,10 @@
 import type { ReactNode } from "react";
 
 import type { PageBaseProps } from "../types";
-import { pageStyles } from "./Page.css";
+import { pageStyles, pageWrapperStyles } from "./Page.css";
 
 export const Page = ({ children }: PageBaseProps): ReactNode => (
-  <main className={pageStyles}>{children}</main>
+  <main className={pageWrapperStyles}>
+    <div className={pageStyles}>{children}</div>
+  </main>
 );
