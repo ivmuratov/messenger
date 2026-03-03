@@ -1,7 +1,15 @@
 import { StyleSheet } from "react-native";
 
-import { headerStylesToken } from "../tokens";
+import {
+  headerCenterStylesToken,
+  headerLeftStylesToken,
+  headerRightStylesToken,
+  headerRootStylesToken,
+} from "../tokens";
 
 export const headerStyles = StyleSheet.create({
-  header: headerStylesToken,
+  header: headerRootStylesToken,
+  left: headerLeftStylesToken,
+  center: headerCenterStylesToken,
+  right: headerRightStylesToken,
 });

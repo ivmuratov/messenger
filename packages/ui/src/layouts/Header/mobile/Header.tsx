@@ -3,10 +3,22 @@ import { View } from "react-native";
 
 import { useThemedNativeStyles } from "@/themes/index.native";
 
-import type { HeaderBaseProps } from "../types";
+import type { HeaderBaseProps, HeaderSectionProps } from "../types";
 import { headerStyles } from "./Header.styles";
 
-export const Header = ({ children }: HeaderBaseProps): ReactNode => {
+const HeaderLeftSide = ({ children }: HeaderSectionProps): ReactNode => {
+  return <View style={headerStyles.left}>{children}</View>;
+};
+
+const HeaderCenterSide = ({ children }: HeaderSectionProps): ReactNode => {
+  return <View style={headerStyles.center}>{children}</View>;
+};
+
+const HeaderRightSide = ({ children }: HeaderSectionProps): ReactNode => {
+  return <View style={headerStyles.right}>{children}</View>;
+};
+
+const HeaderRoot = ({ children }: HeaderBaseProps): ReactNode => {
   const { secondary, primary } = useThemedNativeStyles();
 
   return (
@@ -20,3 +32,9 @@ export const Header = ({ children }: HeaderBaseProps): ReactNode => {
     </View>
   );
 };
+
+export const Header = Object.assign(HeaderRoot, {
+  LeftSide: HeaderLeftSide,
+  CenterSide: HeaderCenterSide,
+  RightSide: HeaderRightSide,
+});

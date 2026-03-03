@@ -9,7 +9,9 @@ function HomePage() {
   return (
     <>
       <Header>
-        <ThemeSwitcher />
+        <Header.RightSide>
+          <ThemeSwitcher />
+        </Header.RightSide>
       </Header>
       <Page>
         {Array.from({ length: 100 }).map((_, index) => (
