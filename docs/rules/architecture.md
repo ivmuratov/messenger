@@ -42,12 +42,26 @@ ui, core → web, mobile
 - Vanilla Extract (`.css.ts`) и StyleSheet (`.styles.ts`) только здесь; `core`, `web`, `mobile` не стилизуют компоненты
 - Другие слои потребляют готовые UI из `packages/ui`
 
-### Иерархия компонентов (`src/components/`)
+### Иерархия UI (`src/`)
 
-- **Однонаправленный граф зависимостей**: atoms → molecules → organisms (нет обратных или одноуровневых импортов)
-- **Импорты одного уровня запрещены**: `atoms/` ↔ `atoms/`, `molecules/` ↔ `molecules/`, `organisms/` ↔ `organisms/`
-- **Разрешено**: `molecules/` импортирует из `atoms/`; `organisms/` импортирует из `molecules/` и `atoms/`
-- **Composition-first**: верхние слои композируют компоненты нижних слоёв и переиспользуют их стили; вводи новые стили только когда токенов/стилей нижнего слоя недостаточно
+**`src/components/`** — UI-блоки (строительные кирпичи):
+
+- `atoms/` — примитивы (Button, Text, Icon)
+- `molecules/` — композиция atoms (SearchBar, FormField)
+
+**Правила импортов components:**
+
+- Горизонтальные импорты запрещены: `atoms/` ↔ `atoms/`, `molecules/` ↔ `molecules/`
+- Разрешено: `molecules/` → `atoms/`
+- Запрещено: `atoms/` → `molecules/`
+
+**`src/layouts/`** — компоненты размещения (PageLayout, GridLayout)
+
+**Правила импортов layouts:**
+
+- Горизонтальные импорты запрещены: `layouts/` ↔ `layouts/`
+- Layouts НЕ импортируют из `components/`
+- Components НЕ импортируют из `layouts/` (полная изоляция)
 
 ### Импорты
 
