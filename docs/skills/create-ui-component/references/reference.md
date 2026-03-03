@@ -1,40 +1,40 @@
-# Styling Reference
+# Справочник по стилизации
 
-## When to Use What
+## Когда что использовать
 
-| Need                                        | Web                  | Mobile                     | Location                            |
+| Задача                                      | Web                  | Mobile                     | Расположение                        |
 | ------------------------------------------- | -------------------- | -------------------------- | ----------------------------------- |
-| Simple component, no variants               | `style()`            | `StyleSheet.create()`      | `{Component}.css.ts` / `.styles.ts` |
-| Component with variants (size, color, etc.) | `recipe()`           | `nativeRecipe()`           | `{Component}.css.ts` / `.styles.ts` |
-| Map token values to styles                  | `styleVariants()`    | `nativeVariants()`         | Inline or separate file             |
-| Spacing utilities (m, p, gap)               | `spacingSprinkles()` | `spacingNativeSprinkles()` | `@/sprinkles`                       |
-| Theme-aware colors (light/dark)             | CSS vars (contract)  | `useThemedNativeStyles()`  | `@/themes`                          |
-| Shared design values                        | tokens               | tokens                     | `tokens.ts`                         |
+| Простой компонент, без вариантов            | `style()`            | `StyleSheet.create()`      | `{Component}.css.ts` / `.styles.ts` |
+| Компонент с вариантами (size, color и т.д.) | `recipe()`           | `nativeRecipe()`           | `{Component}.css.ts` / `.styles.ts` |
+| Маппинг токен-значений в стили              | `styleVariants()`    | `nativeVariants()`         | Inline или отдельный файл           |
+| Spacing-утилиты (m, p, gap)                 | `spacingSprinkles()` | `spacingNativeSprinkles()` | `@/sprinkles`                       |
+| Тема-aware цвета (light/dark)               | CSS vars (contract)  | `useThemedNativeStyles()`  | `@/themes`                          |
+| Общие дизайн-значения                       | tokens               | tokens                     | `tokens.ts`                         |
 
 ---
 
-## Tokens — When to Extract
+## Токены — когда выносить
 
-**Extract to `tokens.ts` when:**
+**Выноси в `tokens.ts`, когда:**
 
-- Value is shared between web and mobile
-- Value represents design system scale (spacing, typography, colors)
-- Value is used in multiple places within component
-- Value might change across themes
+- Значение общее для web и mobile
+- Значение представляет шкалу дизайн-системы (spacing, typography, colors)
+- Значение используется в нескольких местах компонента
+- Значение может меняться в зависимости от темы
 
-**Keep inline when:**
+**Оставляй inline, когда:**
 
-- One-off structural value (e.g., `display: "flex"`)
-- Platform-specific value that differs web vs mobile
+- Одноразовое структурное значение (например, `display: "flex"`)
+- Платформо-специфичное значение, отличающееся для web и mobile
 
 ```typescript
-// tokens.ts — shared values
+// tokens.ts — общие значения
 export const buttonToken = {
   borderRadius: 8,
   minHeight: 44,
 } as const;
 
-// Good: design system values in tokens
+// Хорошо: значения дизайн-системы в токенах
 export const buttonSizeToken = {
   sm: { padding: 8, fontSize: 14 },
   md: { padding: 12, fontSize: 16 },
@@ -44,18 +44,18 @@ export const buttonSizeToken = {
 
 ---
 
-## Simple Styles — No Variants
+## Простые стили — без вариантов
 
-**Web** — `style()` from `@vanilla-extract/css`:
+**Web** — `style()` из `@vanilla-extract/css`:
 
 ```typescript
 // web/{Component}.css.ts
 import { style } from "@vanilla-extract/css";
 import { componentToken } from "../tokens";
 
-export const root = style({
+export const componentStyles = style({
   ...componentToken,
-  display: "flex", // structural, not in tokens
+  display: "flex", // структурное, не в токенах
 });
 ```
 
@@ -73,11 +73,11 @@ export const styles = StyleSheet.create({
 
 ---
 
-## Recipe — Component with Variants
+## Recipe — компонент с вариантами
 
-Use when component has props like `size`, `variant`, `color` that change styles.
+Используй, когда компонент имеет пропсы типа `size`, `variant`, `color`, меняющие стили.
 
-**Tokens structure** — variants map:
+**Структура токенов** — карта вариантов:
 
 ```typescript
 // tokens.ts
@@ -97,7 +97,7 @@ export const buttonVariantsToken = {
 } as const satisfies VariantsTokenMap<ButtonVariants>;
 ```
 
-**Web** — `recipe()` from `@vanilla-extract/recipes`:
+**Web** — `recipe()` из `@vanilla-extract/recipes`:
 
 ```typescript
 // web/{Component}.css.ts
@@ -119,7 +119,7 @@ export const Button = ({ size = "md", variant = "primary", children }) => (
 );
 ```
 
-**Mobile** — `nativeRecipe()` from `@/libs`:
+**Mobile** — `nativeRecipe()` из `@/libs`:
 
 ```typescript
 // mobile/{Component}.styles.ts
@@ -144,11 +144,11 @@ export const Button = ({ size = "md", variant = "primary", children }) => (
 
 ---
 
-## Variants — Map Token to Styles
+## Variants — маппинг токена в стили
 
-Use when you need to transform a flat token into style objects. Useful for typography, colors.
+Используй, когда нужно трансформировать плоский токен в объекты стилей. Полезно для типографики, цветов.
 
-**Web** — `styleVariants()` from `@vanilla-extract/css`:
+**Web** — `styleVariants()` из `@vanilla-extract/css`:
 
 ```typescript
 import { styleVariants } from "@vanilla-extract/css";
@@ -158,10 +158,10 @@ export const fontWeightVariants = styleVariants(fontWeightToken, (value) => ({
   fontWeight: value,
 }));
 
-// Usage: fontWeightVariants.bold → className with fontWeight: 700
+// Использование: fontWeightVariants.bold → className с fontWeight: 700
 ```
 
-**Mobile** — `nativeVariants()` from `@/libs`:
+**Mobile** — `nativeVariants()` из `@/libs`:
 
 ```typescript
 import { nativeVariants } from "@/libs";
@@ -171,16 +171,16 @@ export const fontWeightVariants = nativeVariants(fontWeightToken, (value) => ({
   fontWeight: value,
 }));
 
-// Usage: fontWeightVariants.bold → { fontWeight: 700 }
+// Использование: fontWeightVariants.bold → { fontWeight: 700 }
 ```
 
 ---
 
-## Sprinkles — Spacing Utilities
+## Sprinkles — Spacing-утилиты
 
-Use for reusable spacing props (`m`, `p`, `gap`, `mx`, `py`, etc.) that consumers pass to components.
+Используй для переиспользуемых spacing-пропсов (`m`, `p`, `gap`, `mx`, `py` и т.д.), которые потребители передают в компоненты.
 
-**Web** — `spacingSprinkles()` from `@/sprinkles`:
+**Web** — `spacingSprinkles()` из `@/sprinkles`:
 
 ```typescript
 // web/{Component}.tsx
@@ -193,7 +193,7 @@ export const Box = ({ m, p, gap, children, ...props }: BoxProps & SpacingProps) 
 );
 ```
 
-**Mobile** — `spacingNativeSprinkles()` from `@/sprinkles`:
+**Mobile** — `spacingNativeSprinkles()` из `@/sprinkles`:
 
 ```typescript
 // mobile/{Component}.tsx
@@ -208,7 +208,7 @@ export const Box = ({ m, p, gap, children, ...props }: BoxProps & SpacingProps) 
 
 ---
 
-## Types with Variants
+## Типы с вариантами
 
 ```typescript
 // types.ts
@@ -225,11 +225,11 @@ export type ButtonPropsBase = ButtonVariants & SpacingProps & GapProps & PropsWi
 
 ---
 
-## Themed Styles — Mobile
+## Темизированные стили — Mobile
 
-When mobile component needs theme-aware styles (colors that change with light/dark mode), use `useThemedNativeStyles` hook.
+Когда мобильному компоненту нужны тема-aware стили (цвета, меняющиеся с light/dark mode), используй хук `useThemedNativeStyles`.
 
-**Location:** `@/themes/ThemeProvider/mobile/useThemedNativeStyles`
+**Расположение:** `@/themes/ThemeProvider/mobile/useThemedNativeStyles`
 
 ```typescript
 // mobile/{Component}.tsx
@@ -247,26 +247,26 @@ export const Card = ({ children }) => {
 };
 ```
 
-**Available themed styles:**
+**Доступные темизированные стили:**
 
-- `primary` — primary background + foreground colors
-- `secondary` — secondary background + foreground colors
+- `primary` — primary background + foreground цвета
+- `secondary` — secondary background + foreground цвета
 
-**When to use:**
+**Когда использовать:**
 
-- Component needs background/text colors that adapt to theme
-- Combine with static styles: `style={[staticStyles, { color: primary.color }]}`
+- Компоненту нужны фоновые/текстовые цвета, адаптирующиеся к теме
+- Комбинируй со статическими стилями: `style={[staticStyles, { color: primary.color }]}`
 
-**When NOT to use:**
+**Когда НЕ использовать:**
 
-- Static colors that don't change with theme — use tokens directly
-- Layout-only styles (padding, flex) — use regular StyleSheet
+- Статические цвета, не меняющиеся с темой — используй токены напрямую
+- Layout-only стили (padding, flex) — используй обычный StyleSheet
 
 ---
 
-## Global Tokens
+## Глобальные токены
 
-For typography, colors, spacing — import from `@/tokens`:
+Для типографики, цветов, spacing — импортируй из `@/tokens`:
 
 ```typescript
 import { textSizeToken, fontWeightToken, spacingToken } from "@/tokens";
@@ -274,13 +274,13 @@ import { textSizeToken, fontWeightToken, spacingToken } from "@/tokens";
 
 ---
 
-## Libs Summary
+## Сводка библиотек
 
-| Web (`@vanilla-extract/*`)                 | Mobile (`@/libs`)                                      | Purpose              |
+| Web (`@vanilla-extract/*`)                 | Mobile (`@/libs`)                                      | Назначение           |
 | ------------------------------------------ | ------------------------------------------------------ | -------------------- |
-| `style()`                                  | `StyleSheet.create()`                                  | Simple styles        |
-| `recipe()`                                 | `nativeRecipe()`                                       | Variant-based styles |
-| `styleVariants()`                          | `nativeVariants()`                                     | Token → style map    |
-| `defineProperties()` + `createSprinkles()` | `defineNativeProperties()` + `createNativeSprinkles()` | Utility props        |
+| `style()`                                  | `StyleSheet.create()`                                  | Простые стили        |
+| `recipe()`                                 | `nativeRecipe()`                                       | Стили с вариантами   |
+| `styleVariants()`                          | `nativeVariants()`                                     | Токен → карта стилей |
+| `defineProperties()` + `createSprinkles()` | `defineNativeProperties()` + `createNativeSprinkles()` | Utility-пропсы       |
 
-All mobile libs are in `packages/ui/src/libs/mobile/`.
+Все mobile-библиотеки находятся в `packages/ui/src/libs/mobile/`.

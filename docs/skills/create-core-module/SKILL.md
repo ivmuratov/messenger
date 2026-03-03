@@ -1,31 +1,31 @@
 ---
 name: create-core-module
-description: Step-by-step guide for scaffolding a new business logic module in packages/core. Use when creating a new core module with store, API, hooks, and lib.
+description: Пошаговое руководство по созданию нового модуля бизнес-логики в packages/core. Используйте при создании нового core-модуля со store, API, hooks и lib.
 ---
 
-# Create Core Module
+# Создание Core-модуля
 
-Scaffold a complete business logic module in `packages/core/src/modules/`.
+Создание полноценного модуля бизнес-логики в `packages/core/src/modules/`.
 
-## Subagents
+## Субагенты
 
-Delegate when appropriate:
+Делегируй при необходимости:
 
-- **[researcher](../../agents/researcher.md)** — Explore existing modules before scaffolding. Use to find patterns, API structure, and shared utilities.
-- **[reviewer](../../agents/reviewer.md)** — Review code quality after implementation. Use for independent verification before marking complete.
+- **[researcher](../../agents/researcher.md)** — Исследуй существующие модули перед созданием. Используй для поиска паттернов, структуры API и общих утилит.
+- **[reviewer](../../agents/reviewer.md)** — Проверь качество кода после реализации. Используй для независимой проверки перед завершением.
 
-## Steps
+## Шаги
 
-### 1. Gather Requirements
+### 1. Собери требования
 
-Ask the user:
+Спроси у пользователя:
 
-- Module name (e.g., `auth`, `chat`, `user`)
-- What entities/types does the module manage?
-- Does it need API integration (TanStack Query)?
-- Does it need client state (Zustand store)?
+- Имя модуля (например, `auth`, `chat`, `user`)
+- Какие сущности/типы модуль управляет?
+- Нужна ли интеграция с API (TanStack Query)?
+- Нужно ли клиентское состояние (Zustand store)?
 
-### 2. Create Directory Structure
+### 2. Создай структуру директорий
 
 ```
 packages/core/src/modules/{moduleName}/
@@ -43,33 +43,33 @@ packages/core/src/modules/{moduleName}/
 └── index.ts
 ```
 
-### 3. Create Types (`model/types.ts`)
+### 3. Создай типы (`model/types.ts`)
 
-Define the core domain types for the module.
+Определи основные доменные типы модуля.
 
 ```typescript
 export interface {Entity} {
   id: string;
-  // ... entity fields
+  // ... поля сущности
 }
 
 export interface {ModuleName}State {
-  // ... store state shape
+  // ... форма состояния store
 }
 ```
 
-### 4. Create Store (`model/store.ts`)
+### 4. Создай Store (`model/store.ts`)
 
 ```typescript
 import { create } from "zustand";
 import type { {ModuleName}State } from "./types";
 
 export const use{ModuleName}Store = create<{ModuleName}State>()((set, get) => ({
-  // initial state + actions
+  // начальное состояние + actions
 }));
 ```
 
-### 5. Create API Client (`api/{moduleName}Api.ts`)
+### 5. Создай API-клиент (`api/{moduleName}Api.ts`)
 
 ```typescript
 import { httpClient } from "@/shared/api/httpClient";
@@ -82,7 +82,7 @@ export const {moduleName}Api = {
 };
 ```
 
-### 6. Create Query Hooks (`api/{moduleName}Queries.ts`)
+### 6. Создай Query-хуки (`api/{moduleName}Queries.ts`)
 
 ```typescript
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
@@ -102,7 +102,7 @@ export function use{Entity}(id: string) {
 }
 ```
 
-### 7. Create Public API (`index.ts`)
+### 7. Создай публичный API (`index.ts`)
 
 ```typescript
 export { use{ModuleName}Store } from "./model/store";
@@ -111,9 +111,9 @@ export { {moduleName}Api } from "./api/{moduleName}Api";
 export { use{Entity}s, use{Entity} } from "./api/{moduleName}Queries";
 ```
 
-### 8. Register in Root Export
+### 8. Зарегистрируй в корневом экспорте
 
-Add the module export to `packages/core/src/index.ts`:
+Добавь экспорт модуля в `packages/core/src/index.ts`:
 
 ```typescript
 export * from "./modules/{moduleName}";

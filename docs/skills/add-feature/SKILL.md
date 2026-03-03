@@ -1,35 +1,35 @@
 ---
 name: add-feature
-description: Plan and implement a new feature across the messenger monorepo layers.
+description: Планирование и реализация новой фичи через слои monorepo мессенджера.
 disable-model-invocation: true
 ---
 
-# Add Feature
+# Добавление фичи
 
-Orchestrate the creation of a complete feature that may span core, ui, web, and mobile packages.
+Оркестрация создания полноценной фичи, которая может затрагивать пакеты core, ui, web и mobile.
 
-## Instructions
+## Инструкции
 
-1. Ask me to describe the feature and its requirements
-2. Analyze which layers are affected:
-   - `packages/core/` — business logic, state, API calls
-   - `packages/ui/` — reusable UI components
-   - `apps/web/` — web-specific routes and pages
-   - `apps/mobile/` — mobile-specific screens
-3. Create a plan listing all files to create or modify per layer
-4. Implement in dependency order:
-   - **Step 1**: Core module (types, store, API, hooks)
-   - **Step 2**: UI components (if new shared components needed)
-   - **Step 3**: Web integration (routes, pages)
-   - **Step 4**: Mobile integration (screens)
-5. Verify cross-layer integration:
-   - Imports resolve correctly
-   - Types are compatible across layers
-   - Run `pnpm typecheck`
+1. Попроси описать фичу и её требования
+2. Проанализируй, какие слои затронуты:
+   - `packages/core/` — бизнес-логика, состояние, API-вызовы
+   - `packages/ui/` — переиспользуемые UI-компоненты
+   - `apps/web/` — веб-специфичные роуты и страницы
+   - `apps/mobile/` — мобильные экраны
+3. Создай план со списком всех файлов для создания или изменения по каждому слою
+4. Реализуй в порядке зависимостей:
+   - **Шаг 1**: Core-модуль (types, store, API, hooks)
+   - **Шаг 2**: UI-компоненты (если нужны новые общие компоненты)
+   - **Шаг 3**: Web-интеграция (routes, pages)
+   - **Шаг 4**: Mobile-интеграция (screens)
+5. Проверь кросс-слойную интеграцию:
+   - Импорты резолвятся корректно
+   - Типы совместимы между слоями
+   - Запусти `pnpm typecheck`
 
-## Subagents
+## Субагенты
 
-Delegate to these agents when appropriate:
+Делегируй этим агентам при необходимости:
 
-- **[researcher](../../agents/researcher.md)** — Explore the codebase before planning. Use when you need to understand existing patterns, module connections, or gather context across layers.
-- **[reviewer](../../agents/reviewer.md)** — Review code quality after implementation. Use when you want independent verification of changes before marking the feature complete.
+- **[researcher](../../agents/researcher.md)** — Исследуй кодовую базу перед планированием. Используй, когда нужно понять существующие паттерны, связи между модулями, или собрать контекст по слоям.
+- **[reviewer](../../agents/reviewer.md)** — Проверь качество кода после реализации. Используй для независимой проверки изменений перед завершением фичи.
