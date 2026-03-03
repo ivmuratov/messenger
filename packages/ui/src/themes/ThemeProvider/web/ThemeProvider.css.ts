@@ -1,8 +1,10 @@
 import { style } from "@vanilla-extract/css";
 
+import { theme } from "./themes.css";
+
 export const themeProviderStyles = style({
   height: "100dvh",
-  display: "flex",
-  flexDirection: "column",
-  overflow: "hidden",
+  overflowY: "auto",
+  scrollbarColor: `${theme.border.primary} transparent`,
+  scrollbarWidth: "thin",
 });
