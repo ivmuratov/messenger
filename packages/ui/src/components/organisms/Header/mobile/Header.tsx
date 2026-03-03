@@ -7,10 +7,15 @@ import type { HeaderBaseProps } from "../types";
 import { headerStyles } from "./Header.styles";
 
 export const Header = ({ children }: HeaderBaseProps): ReactNode => {
-  const { secondary } = useThemedNativeStyles();
+  const { secondary, primary } = useThemedNativeStyles();
 
   return (
-    <View style={[headerStyles.header, { backgroundColor: secondary.backgroundColor }]}>
+    <View
+      style={[
+        headerStyles.header,
+        { backgroundColor: secondary.backgroundColor, borderBottomColor: primary.borderColor },
+      ]}
+    >
       {children}
     </View>
   );
