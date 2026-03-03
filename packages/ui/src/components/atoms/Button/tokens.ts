@@ -1,3 +1,3 @@
-export const buttonStyleToken = {
+export const buttonStylesToken = {
   backgroundColor: "#00FF00",
 } as const;

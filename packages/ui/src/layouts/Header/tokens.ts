@@ -1,6 +1,6 @@
 import { borderWidthToken, spacingToken } from "@/tokens";
 
-export const headerStyleToken = {
+export const headerStylesToken = {
   paddingLeft: spacingToken.md,
   paddingRight: spacingToken.md,
   paddingTop: spacingToken.sm,

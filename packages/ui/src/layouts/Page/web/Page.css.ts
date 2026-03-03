@@ -2,9 +2,12 @@ import { style } from "@vanilla-extract/css";
 
 import { theme } from "@/themes/ThemeProvider";
 
+import { pageStylesToken } from "../tokens";
+
 export const pageStyles = style({
-  flex: 1,
-  minHeight: 0,
+  ...pageStylesToken,
+  display: "flex",
+  flexDirection: "column",
   position: "relative",
   overflowY: "auto",
   scrollbarGutter: "stable",

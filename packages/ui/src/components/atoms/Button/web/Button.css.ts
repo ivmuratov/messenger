@@ -1,5 +1,5 @@
 import { style } from "@vanilla-extract/css";
 
-import { buttonStyleToken } from "../tokens";
+import { buttonStylesToken } from "../tokens";
 
-export const buttonStyles = style(buttonStyleToken);
+export const buttonStyles = style(buttonStylesToken);

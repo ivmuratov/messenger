@@ -1,7 +1,7 @@
 import { StyleSheet } from "react-native";
 
-import { buttonStyleToken } from "../tokens";
+import { buttonStylesToken } from "../tokens";
 
 export const buttonStyles = StyleSheet.create({
-  button: buttonStyleToken,
+  button: buttonStylesToken,
 });

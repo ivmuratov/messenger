@@ -2,10 +2,10 @@ import { style } from "@vanilla-extract/css";
 
 import { theme } from "@/themes/ThemeProvider";
 
-import { headerStyleToken } from "../tokens";
+import { headerStylesToken } from "../tokens";
 
 export const headerStyles = style({
-  ...headerStyleToken,
+  ...headerStylesToken,
   flexShrink: 0,
   borderBottomColor: theme.border.primary,
   backgroundColor: theme.background.secondary,

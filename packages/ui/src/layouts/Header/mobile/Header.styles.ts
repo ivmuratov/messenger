@@ -1,7 +1,7 @@
 import { StyleSheet } from "react-native";
 
-import { headerStyleToken } from "../tokens";
+import { headerStylesToken } from "../tokens";
 
 export const headerStyles = StyleSheet.create({
-  header: headerStyleToken,
+  header: headerStylesToken,
 });
