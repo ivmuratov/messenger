@@ -4,8 +4,6 @@ import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
 import { SetThemeContext, ThemeContext } from "../../context";
 import type { ThemeProviderProps } from "../types";
-import { styles } from "./ThemeProvider.styles";
-import { themes } from "./themes.styles";
 
 export const ThemeProvider = ({ children, defaultTheme }: ThemeProviderProps): ReactNode => {
   const [theme, setTheme] = useState(defaultTheme);
@@ -15,11 +13,7 @@ export const ThemeProvider = ({ children, defaultTheme }: ThemeProviderProps): R
       <SetThemeContext.Provider value={setTheme}>
         <SafeAreaProvider>
           <StatusBar barStyle={theme === "dark" ? "light-content" : "dark-content"} />
-          <SafeAreaView
-            style={[styles.container, { backgroundColor: themes[theme].primary.backgroundColor }]}
-          >
-            {children}
-          </SafeAreaView>
+          <SafeAreaView>{children}</SafeAreaView>
         </SafeAreaProvider>
       </SetThemeContext.Provider>
     </ThemeContext.Provider>
