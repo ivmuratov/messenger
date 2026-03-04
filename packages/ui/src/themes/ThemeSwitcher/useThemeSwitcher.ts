@@ -8,12 +8,12 @@ export const useThemeSwitcher = () => {
 
   if (!setTheme) throw new Error("useThemeSwitcher must be used within ThemeProvider");
 
-  const handleToggleTheme = () => {
-    setTheme(theme === "light" ? "dark" : "light");
+  const handleSwitchTheme = () => {
+    setTheme((prev) => (prev === "light" ? "dark" : "light"));
   };
 
   return {
     theme,
-    handleToggleTheme,
+    handleSwitchTheme,
   };
 };

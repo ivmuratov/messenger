@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
-import { Text, type TextProps } from "react-native";
+import { Animated, type TextProps } from "react-native";
 
-import { useThemedNativeStyles } from "@/themes/ThemeProvider/index.native";
+import { useThemedNativeStyles } from "@/themes/index.native";
 
 import type { TypographyBaseProps } from "../types";
 import { fontWeightVariants, textSizeVariants } from "./Typography.styles";
@@ -17,11 +17,11 @@ export const Typography = ({
   const { primary } = useThemedNativeStyles();
 
   return (
-    <Text
+    <Animated.Text
       style={[{ color: primary.color }, textSizeVariants[t], fontWeightVariants[fontWeight]]}
       {...props}
     >
       {children}
-    </Text>
+    </Animated.Text>
   );
 };

@@ -1,10 +1,13 @@
-import { useContext, useMemo } from "react";
+import { useContext } from "react";
 
-import { ThemeContext } from "../../context";
-import { themes } from "./themes.styles";
+import { AnimatedThemeContext, type AnimatedThemeStyles } from "./animatedContext";
 
-export const useThemedNativeStyles = () => {
-  const theme = useContext(ThemeContext);
+export const useThemedNativeStyles = (): AnimatedThemeStyles => {
+  const animatedStyles = useContext(AnimatedThemeContext);
 
-  return useMemo(() => themes[theme], [theme]);
+  if (!animatedStyles) {
+    throw new Error("useThemedNativeStyles must be used within ThemeProvider");
+  }
+
+  return animatedStyles;
 };

@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { ScrollView } from "react-native";
+import { Animated } from "react-native";
 
 import { useThemedNativeStyles } from "@/themes/index.native";
 
@@ -10,13 +10,16 @@ export const Sidebar = ({ children }: SidebarBaseProps): ReactNode => {
   const { secondary, primary } = useThemedNativeStyles();
 
   return (
-    <ScrollView
+    <Animated.ScrollView
       style={[
         sidebarStyles.sidebar,
-        { backgroundColor: secondary.backgroundColor, borderRightColor: primary.borderColor },
+        {
+          backgroundColor: secondary.backgroundColor,
+          borderRightColor: primary.borderColor,
+        },
       ]}
     >
       {children}
-    </ScrollView>
+    </Animated.ScrollView>
   );
 };

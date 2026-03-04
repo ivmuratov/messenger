@@ -9,17 +9,21 @@ import type { ThemeSwitcherBaseProps } from "../types";
 import { useThemeSwitcher } from "../useThemeSwitcher";
 
 export const ThemeSwitcher = (props: ThemeSwitcherBaseProps): ReactNode => {
-  const { theme, handleToggleTheme } = useThemeSwitcher();
+  const { theme, handleSwitchTheme } = useThemeSwitcher();
   const { primary } = useThemedNativeStyles();
 
   return (
     <Pressable
       role="button"
       accessibilityLabel="Toggle theme"
-      onPress={handleToggleTheme}
+      onPress={handleSwitchTheme}
       style={marginNativeSprinkles(props)}
     >
-      {theme === "light" ? <Moon color={primary.color} /> : <Sun color={primary.color} />}
+      {theme === "light" ? (
+        <Moon color={primary.color as any} />
+      ) : (
+        <Sun color={primary.color as any} />
+      )}
     </Pressable>
   );
 };
