@@ -1,8 +1,21 @@
 import type { ReactNode } from "react";
 
-import type { PageBaseProps } from "../types";
-import { pageStyles } from "./Page.css";
+import type { PageBodyBaseProps, PageHeaderBaseProps, PageRootBaseProps } from "../types";
+import { pageBodyStyles, pageHeaderStyles, pageRootStyles } from "./Page.css";
 
-export const Page = ({ children }: PageBaseProps): ReactNode => (
-  <main className={pageStyles}>{children}</main>
+const PageHeader = ({ children }: PageHeaderBaseProps): ReactNode => {
+  return <header className={pageHeaderStyles}>{children}</header>;
+};
+
+const PageBody = ({ children }: PageBodyBaseProps): ReactNode => (
+  <main className={pageBodyStyles}>{children}</main>
 );
+
+const PageRoot = ({ children }: PageRootBaseProps): ReactNode => (
+  <div className={pageRootStyles}>{children}</div>
+);
+
+export const Page = Object.assign(PageRoot, {
+  Header: PageHeader,
+  Body: PageBody,
+});

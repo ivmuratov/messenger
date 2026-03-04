@@ -4,7 +4,6 @@ import { type ReactNode, useLayoutEffect, useState } from "react";
 
 import { SetThemeContext, ThemeContext } from "../../context";
 import type { ThemeProviderProps } from "../types";
-import { themeProviderStyles } from "./ThemeProvider.css";
 
 export const ThemeProvider = ({ children, defaultTheme }: ThemeProviderProps): ReactNode => {
   const [theme, setTheme] = useState(defaultTheme);
@@ -15,9 +14,7 @@ export const ThemeProvider = ({ children, defaultTheme }: ThemeProviderProps): R
 
   return (
     <ThemeContext.Provider value={theme}>
-      <SetThemeContext.Provider value={setTheme}>
-        <div className={themeProviderStyles}>{children}</div>
-      </SetThemeContext.Provider>
+      <SetThemeContext.Provider value={setTheme}>{children}</SetThemeContext.Provider>
     </ThemeContext.Provider>
   );
 };

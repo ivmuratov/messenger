@@ -1,4 +1,4 @@
-import { nativeVariants } from "@/libs";
+import { nativeVariants } from "@/libs/index.native";
 import { fontWeightToken, textSizeToken } from "@/tokens";
 
 export const textSizeVariants = nativeVariants(textSizeToken);

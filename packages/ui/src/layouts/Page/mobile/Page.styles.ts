@@ -1,7 +1,11 @@
 import { StyleSheet } from "react-native";
 
-import { pageStylesToken } from "../tokens";
+import { pageBodyStylesToken, pageHeaderStylesToken } from "../tokens";
 
 export const pageStyles = StyleSheet.create({
-  page: pageStylesToken,
+  header: pageHeaderStylesToken,
+  body: pageBodyStylesToken,
+  root: {
+    flex: 1,
+  },
 });

@@ -2,7 +2,7 @@ import { Moon, Sun } from "lucide-react-native";
 import type { ReactNode } from "react";
 import { Pressable } from "react-native";
 
-import { marginNativeSprinkles } from "@/sprinkles";
+import { marginNativeSprinkles } from "@/sprinkles/index.native";
 import { useThemedNativeStyles } from "@/themes/ThemeProvider/index.native";
 
 import type { ThemeSwitcherBaseProps } from "../types";

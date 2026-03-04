@@ -1,1 +1,1 @@
-export * from "./web";
+export { Page } from "./web";

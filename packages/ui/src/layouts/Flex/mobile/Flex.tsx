@@ -1,7 +1,7 @@
 import type { ComponentType, ReactNode } from "react";
 import { type StyleProp, View, type ViewProps, type ViewStyle } from "react-native";
 
-import { spacingNativeSprinkles } from "@/sprinkles";
+import { spacingNativeSprinkles } from "@/sprinkles/index.native";
 
 import type { FlexPropsBase } from "../types";
 import { flexVariants } from "./Flex.styles";

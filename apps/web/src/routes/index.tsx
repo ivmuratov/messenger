@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Flex, Header, Page, ThemeSwitcher } from "ui";
+import { Flex, Page, ThemeSwitcher } from "ui";
 
 export const Route = createFileRoute("/")({
   component: HomePage,
@@ -7,20 +7,18 @@ export const Route = createFileRoute("/")({
 
 function HomePage() {
   return (
-    <>
-      <Header>
-        <Header.RightSide>
-          <ThemeSwitcher />
-        </Header.RightSide>
-      </Header>
-      <Page>
+    <Page>
+      <Page.Header>
+        <ThemeSwitcher />
+      </Page.Header>
+      <Page.Body>
         {Array.from({ length: 100 }).map((_, index) => (
           <Flex key={index}>
             <h1>Hello</h1>
             <h1>Web App!</h1>
           </Flex>
         ))}
-      </Page>
-    </>
+      </Page.Body>
+    </Page>
   );
 }
