@@ -9,7 +9,6 @@ export const sidebarStyles = style({
   backgroundColor: theme.background.secondary,
   borderRightColor: theme.border.primary,
   width: "300px",
-  flexShrink: 0,
   height: "100dvh",
   overflowY: "auto",
   scrollbarColor: `${theme.border.primary} transparent`,

@@ -23,8 +23,6 @@ export const pageBodyStyles = style({
 });
 
 export const pageRootStyles = style({
-  flex: 1,
-  minWidth: 0,
   height: "100dvh",
   overflowY: "auto",
   scrollbarColor: `${theme.border.primary} transparent`,
