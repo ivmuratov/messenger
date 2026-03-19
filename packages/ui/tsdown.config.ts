@@ -26,7 +26,7 @@ function stripVanillaCssImports() {
 export default mergeConfig(baseConfig, {
   entry: ["src/index.ts"],
   outDir: "dist",
-  external: ["react", "react-dom", "react-native", "@vanilla-extract/css"],
+  external: ["react", "react-dom"],
   plugins: [
     vanillaExtractPlugin({
       extract: {

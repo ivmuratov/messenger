@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { Animated, View } from "react-native";
+import { ScrollView, View } from "react-native";
 
 import { useThemedNativeStyles } from "@/themes/index.native";
 
@@ -10,7 +10,7 @@ const PageHeader = ({ children }: PageHeaderBaseProps): ReactNode => {
   const { secondary, primary } = useThemedNativeStyles();
 
   return (
-    <Animated.View
+    <View
       style={[
         pageStyles.header,
         {
@@ -20,7 +20,7 @@ const PageHeader = ({ children }: PageHeaderBaseProps): ReactNode => {
       ]}
     >
       {children}
-    </Animated.View>
+    </View>
   );
 };
 
@@ -28,9 +28,9 @@ const PageBody = ({ children }: PageBodyBaseProps): ReactNode => {
   const { primary } = useThemedNativeStyles();
 
   return (
-    <Animated.ScrollView style={[pageStyles.body, { backgroundColor: primary.backgroundColor }]}>
+    <ScrollView style={[pageStyles.body, { backgroundColor: primary.backgroundColor }]}>
       {children}
-    </Animated.ScrollView>
+    </ScrollView>
   );
 };
 

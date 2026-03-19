@@ -18,6 +18,7 @@ config.resolver.nodeModulesPaths = [
 config.resolver.extraNodeModules = {
   react: path.resolve(projectRoot, "node_modules/react"),
   "react-native": path.resolve(projectRoot, "node_modules/react-native"),
+  "react-native-safe-area-context": path.resolve(projectRoot, "node_modules/react-native-safe-area-context"),
 };
 
 module.exports = config;

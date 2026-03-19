@@ -19,11 +19,7 @@ export const ThemeSwitcher = (props: ThemeSwitcherBaseProps): ReactNode => {
       onPress={handleSwitchTheme}
       style={marginNativeSprinkles(props)}
     >
-      {theme === "light" ? (
-        <Moon color={primary.color as any} />
-      ) : (
-        <Sun color={primary.color as any} />
-      )}
+      {theme === "light" ? <Moon color={primary.color} /> : <Sun color={primary.color} />}
     </Pressable>
   );
 };
