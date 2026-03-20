@@ -17,7 +17,7 @@
     "typecheck": "tsc --noEmit",
     "format": "prettier src --write --ignore-path ../../.prettierignore",
     "format:check": "prettier src --check --ignore-path ../../.prettierignore",
-    "clean": "rm -rf dist dist-native"
+    "clean": "rm -rf dist dist-native node_modules"
   },
   "peerDependencies": {
     "react": "19.1.0",

@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "expo start",
+    "dev": "expo start --dev-client",
     "android": "expo run:android",
     "ios": "expo run:ios",
     "prebuild": "expo prebuild --clean",
@@ -11,7 +11,7 @@
     "typecheck": "tsc --noEmit",
     "format": "prettier src --write --ignore-path ../../.prettierignore",
     "format:check": "prettier src --check --ignore-path ../../.prettierignore",
-    "clean": "rm -rf .expo android ios"    
+    "clean": "rm -rf .expo android ios node_modules"    
   },
   "dependencies": {
     "@react-navigation/native": "7.1.33",

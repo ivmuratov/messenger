@@ -8,7 +8,7 @@
     "typecheck": "tsc --noEmit",
     "format": "prettier src --write --ignore-path ../../.prettierignore",
     "format:check": "prettier src --check --ignore-path ../../.prettierignore",
-    "clean": "rm -rf dist"
+    "clean": "rm -rf dist node_modules"
   },
   "peerDependencies": {
     "@tanstack/react-query": "5.90.18",
