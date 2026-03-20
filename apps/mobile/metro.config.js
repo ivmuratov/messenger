@@ -19,6 +19,7 @@ config.resolver.extraNodeModules = {
   react: path.resolve(projectRoot, "node_modules/react"),
   "react-native": path.resolve(projectRoot, "node_modules/react-native"),
   "react-native-safe-area-context": path.resolve(projectRoot, "node_modules/react-native-safe-area-context"),
+  "react-native-theme-switch-animation": path.resolve(projectRoot, "node_modules/react-native-theme-switch-animation"),
 };
 
 module.exports = config;
