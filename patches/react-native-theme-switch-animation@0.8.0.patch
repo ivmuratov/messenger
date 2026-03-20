@@ -1,0 +1,13 @@
+diff --git a/src/index.tsx b/src/index.tsx
+index d2175df870de729df21da4cbdcce62579d97dacd..b6d37cfb47ef3e2fd6bcd1bece84f29e750ed094 100644
+--- a/src/index.tsx
++++ b/src/index.tsx
+@@ -54,7 +54,7 @@ const switchTheme = ({
+ 
+ const unfreezeWrapper = () => {
+   const defaultRatio = 0.5;
+-  setImmediate(() => {
++  setTimeout(() => {
+     if (
+       localAnimationConfig.type === 'circular' ||
+       localAnimationConfig.type === 'inverted-circular'
