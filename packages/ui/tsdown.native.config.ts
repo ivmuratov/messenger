@@ -10,5 +10,6 @@ export default mergeConfig(baseConfig, {
     "react-native",
     "react-native-safe-area-context",
     "react-native-theme-switch-animation",
+    "react-native-edge-to-edge"
   ],
 });

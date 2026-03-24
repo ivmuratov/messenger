@@ -1,5 +1,5 @@
 import { type ReactNode, useState } from "react";
-import { StatusBar } from "react-native";
+import { SystemBars } from "react-native-edge-to-edge";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
 import { SetThemeContext, ThemeContext } from "../../context";
@@ -13,7 +13,7 @@ export const ThemeProvider = ({ children, defaultTheme }: ThemeProviderProps): R
     <ThemeContext.Provider value={theme}>
       <SetThemeContext.Provider value={setTheme}>
         <SafeAreaProvider>
-          <StatusBar barStyle={theme === "dark" ? "light-content" : "dark-content"} />
+          <SystemBars style={theme === "dark" ? "light" : "dark"} />
           <SafeAreaView
             style={{ flex: 1, backgroundColor: themes[theme].secondary.backgroundColor }}
           >

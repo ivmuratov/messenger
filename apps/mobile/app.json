@@ -13,6 +13,17 @@
     "android": {
       "package": "com.messenger.app"
     },
-    "scheme": "messenger"
+    "scheme": "messenger",
+    "plugins": [
+      [
+        "react-native-edge-to-edge",
+        {
+          "android": {
+            "parentTheme": "Default",
+            "enforceNavigationBarContrast": false
+          }
+        }
+      ]
+    ]
   }
 }
