@@ -1,17 +1,12 @@
 import { useState } from "react";
-import { Pressable } from "react-native";
 import { AppLayout, Flex, Page, Sidebar, ThemeProvider, ThemeSwitcher, Typography } from "ui";
 
 export default function App() {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-
-  const handleToggleSidebar = () => {
-    setSidebarOpen((prevOpen) => !prevOpen);
-  };
+  const [openSidebar, setOpenSidebar] = useState(false);
 
   return (
     <ThemeProvider defaultTheme="light">
-      <AppLayout isOpened={sidebarOpen}>
+      <AppLayout isOpened={openSidebar} onOpen={setOpenSidebar}>
         <AppLayout.Aside>
           <Sidebar>
             {Array.from({ length: 100 }).map((_, index) => (
@@ -25,9 +20,6 @@ export default function App() {
         <AppLayout.Main>
           <Page>
             <Page.Header>
-              <Pressable onPress={handleToggleSidebar}>
-                <Typography>Toggle Sidebar</Typography>
-              </Pressable>
               <ThemeSwitcher />
             </Page.Header>
             <Page.Body>

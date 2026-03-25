@@ -238,6 +238,9 @@ importers:
       react-native-theme-switch-animation:
         specifier: 0.8.0
         version: 0.8.0(patch_hash=ea4792b89303e6af94e0e8570d269fc7b6aae1db0ec4ef5aa9ee743dc797d7ad)(react-native@0.81.5(@babel/core@7.28.6)(@react-native/metro-config@0.84.1(@babel/core@7.28.6))(@types/react@19.1.17)(react@19.1.0))(react@19.1.0)
+      react-native-worklets:
+        specifier: 0.8.1
+        version: 0.8.1(@babel/core@7.28.6)(@react-native/metro-config@0.84.1(@babel/core@7.28.6))(react-native@0.81.5(@babel/core@7.28.6)(@react-native/metro-config@0.84.1(@babel/core@7.28.6))(@types/react@19.1.17)(react@19.1.0))(react@19.1.0)
     devDependencies:
       '@types/react':
         specifier: 19.1.17

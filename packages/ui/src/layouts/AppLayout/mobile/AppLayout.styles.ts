@@ -4,15 +4,12 @@ import { appLayoutAsideStylesToken, appLayoutMainStylesToken } from "../tokens";
 
 export const appLayoutStyles = StyleSheet.create({
   root: {
-    flex: 1,
-    flexDirection: "column",
-    overflow: "hidden",
-    position: "relative",
-  },
-  row: {
     alignSelf: "flex-start",
+    flex: 1,
     flexDirection: "row",
     minHeight: "100%",
+    overflow: "hidden",
+    position: "relative",
   },
   aside: appLayoutAsideStylesToken,
   main: appLayoutMainStylesToken,

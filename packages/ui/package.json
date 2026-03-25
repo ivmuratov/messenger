@@ -26,7 +26,8 @@
     "react-native-reanimated": "4.1.7",
     "react-native-safe-area-context": "5.6.2",
     "react-native-theme-switch-animation": "0.8.0",
-    "react-native-edge-to-edge": "1.8.1"
+    "react-native-edge-to-edge": "1.8.1",
+    "react-native-worklets": "0.8.1"
   },
   "dependencies": {
     "@vanilla-extract/css": "1.17.4",

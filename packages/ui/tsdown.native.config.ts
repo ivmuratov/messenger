@@ -13,5 +13,6 @@ export default mergeConfig(baseConfig, {
     "react-native-edge-to-edge",
     "react-native-gesture-handler",
     "react-native-reanimated",
+    "react-native-worklets",
   ],
 });

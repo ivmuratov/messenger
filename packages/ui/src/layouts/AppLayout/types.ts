@@ -5,5 +5,5 @@ export type AppLayoutMainBaseProps = PropsWithChildren;
 
 export interface AppLayoutRootBaseProps extends PropsWithChildren {
   isOpened?: boolean;
-  sidebarWidthRatio?: number;
+  onOpen?: (isOpened: boolean) => void;
 }
