@@ -5,7 +5,8 @@ import { sidebarStylesToken } from "../tokens";
 export const sidebarStyles = StyleSheet.create({
   sidebar: {
     ...sidebarStylesToken,
-    width: 150,
+    flexGrow: 1,
     height: "100%",
+    width: "100%",
   },
 });
