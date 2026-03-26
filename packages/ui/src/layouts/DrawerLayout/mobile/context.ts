@@ -1,7 +1,7 @@
 import { createContext, useContext } from "react";
 import type { GestureType } from "react-native-gesture-handler";
 
-export const AppLayoutContext = createContext<{
+export const DrawerLayoutContext = createContext<{
   asideColumnWidth: number;
   mainColumnWidth: number;
   isOpened: boolean;
@@ -10,11 +10,11 @@ export const AppLayoutContext = createContext<{
   asidePanGesture: GestureType;
 } | null>(null);
 
-export const useAppLayoutContext = () => {
-  const ctx = useContext(AppLayoutContext);
+export const useDrawerLayoutContext = () => {
+  const ctx = useContext(DrawerLayoutContext);
 
   if (!ctx) {
-    throw new Error("AppLayout.Aside and AppLayout.Main must be used within AppLayout");
+    throw new Error("DrawerLayout.Aside and DrawerLayout.Main must be used within DrawerLayout");
   }
 
   return ctx;

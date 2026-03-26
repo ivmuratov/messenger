@@ -1,23 +1,21 @@
 import { useState } from "react";
-import { AppLayout, Flex, Page, Sidebar, ThemeProvider, ThemeSwitcher, Typography } from "ui";
+import { DrawerLayout, Flex, Page, ThemeProvider, ThemeSwitcher, Typography } from "ui";
 
 export default function App() {
-  const [openSidebar, setOpenSidebar] = useState(false);
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   return (
     <ThemeProvider defaultTheme="light">
-      <AppLayout isOpened={openSidebar} onOpen={setOpenSidebar}>
-        <AppLayout.Aside>
-          <Sidebar>
-            {Array.from({ length: 100 }).map((_, index) => (
-              <Flex key={index}>
-                <Typography>Hello</Typography>
-                <Typography>Sidebar</Typography>
-              </Flex>
-            ))}
-          </Sidebar>
-        </AppLayout.Aside>
-        <AppLayout.Main>
+      <DrawerLayout isOpened={isDrawerOpen} onOpen={setIsDrawerOpen}>
+        <DrawerLayout.Aside>
+          {Array.from({ length: 100 }).map((_, index) => (
+            <Flex key={index}>
+              <Typography>Hello</Typography>
+              <Typography>Sidebar</Typography>
+            </Flex>
+          ))}
+        </DrawerLayout.Aside>
+        <DrawerLayout.Main>
           <Page>
             <Page.Header>
               <ThemeSwitcher />
@@ -31,8 +29,8 @@ export default function App() {
               ))}
             </Page.Body>
           </Page>
-        </AppLayout.Main>
-      </AppLayout>
+        </DrawerLayout.Main>
+      </DrawerLayout>
     </ThemeProvider>
   );
 }

@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { AppLayout, Flex, Page, Sidebar, ThemeSwitcher } from "ui";
+import { DrawerLayout, Flex, Page, ThemeSwitcher } from "ui";
 
 export const Route = createFileRoute("/")({
   component: HomePage,
@@ -7,18 +7,16 @@ export const Route = createFileRoute("/")({
 
 function HomePage() {
   return (
-    <AppLayout>
-      <AppLayout.Aside>
-        <Sidebar>
-          {Array.from({ length: 100 }).map((_, index) => (
-            <Flex key={index}>
-              <h1>Hello</h1>
-              <h1>Sidebar</h1>
-            </Flex>
-          ))}
-        </Sidebar>
-      </AppLayout.Aside>
-      <AppLayout.Main>
+    <DrawerLayout>
+      <DrawerLayout.Aside>
+        {Array.from({ length: 100 }).map((_, index) => (
+          <Flex key={index}>
+            <h1>Hello</h1>
+            <h1>Sidebar</h1>
+          </Flex>
+        ))}
+      </DrawerLayout.Aside>
+      <DrawerLayout.Main>
         <Page>
           <Page.Header>
             <ThemeSwitcher />
@@ -32,7 +30,7 @@ function HomePage() {
             ))}
           </Page.Body>
         </Page>
-      </AppLayout.Main>
-    </AppLayout>
+      </DrawerLayout.Main>
+    </DrawerLayout>
   );
 }

@@ -10,23 +10,26 @@ import {
 import { runOnJS } from "react-native-worklets";
 
 /** Минимальный горизонтальный сдвиг пальца (px), после которого жест считается pan по оси X. */
-const SIDEBAR_PAN_HORIZONTAL_ACTIVATION_OFFSET = 12;
+const ASIDE_PAN_HORIZONTAL_ACTIVATION_OFFSET = 12;
 
 /** Порог вертикального сдвига (px): если превышен, горизонтальный pan отменяется (скролл и т.д.). */
-const SIDEBAR_PAN_VERTICAL_CANCEL_OFFSET = 15;
+const ASIDE_PAN_VERTICAL_CANCEL_OFFSET = 15;
 
 /** Скорость жеста (px/s): выше — считаем «рёв» в сторону открытия, ниже — закрытия. */
-const SIDEBAR_SNAP_FLING_VELOCITY_THRESHOLD = 400;
+const ASIDE_SNAP_FLING_VELOCITY_THRESHOLD = 400;
 
 /** Длительность доводки положения шторки после отпускания или смены `isOpened`. */
-const SIDEBAR_SNAP_ANIMATION_DURATION_MS = 100;
+const ASIDE_SNAP_ANIMATION_DURATION_MS = 100;
 
-export type UseAppLayoutRootMotionParams = {
+export type UseDrawerLayoutRootMotionParams = {
   isOpened: boolean;
   onOpen?: (isOpened: boolean) => void;
 };
 
-export const useAppLayoutRootMotion = ({ isOpened, onOpen }: UseAppLayoutRootMotionParams) => {
+export const useDrawerLayoutRootMotion = ({
+  isOpened,
+  onOpen,
+}: UseDrawerLayoutRootMotionParams) => {
   const isFirstRender = useRef(true);
   const isGestureActiveRef = useRef(false);
   const isSnapAnimatingRef = useRef(false);
@@ -66,7 +69,7 @@ export const useAppLayoutRootMotion = ({ isOpened, onOpen }: UseAppLayoutRootMot
     [onOpen]
   );
 
-  const configureSidebarPan = useCallback(
+  const configureAsidePan = useCallback(
     (pan: ReturnType<typeof Gesture.Pan>) => {
       return pan
         .onBegin(() => {
@@ -91,11 +94,11 @@ export const useAppLayoutRootMotion = ({ isOpened, onOpen }: UseAppLayoutRootMot
 
           let shouldOpen = x > minX / 2;
 
-          if (vx > SIDEBAR_SNAP_FLING_VELOCITY_THRESHOLD) {
+          if (vx > ASIDE_SNAP_FLING_VELOCITY_THRESHOLD) {
             shouldOpen = true;
           }
 
-          if (vx < -SIDEBAR_SNAP_FLING_VELOCITY_THRESHOLD) {
+          if (vx < -ASIDE_SNAP_FLING_VELOCITY_THRESHOLD) {
             shouldOpen = false;
           }
 
@@ -103,7 +106,7 @@ export const useAppLayoutRootMotion = ({ isOpened, onOpen }: UseAppLayoutRootMot
           runOnJS(startSnap)();
           translateX.value = withTiming(
             target,
-            { duration: SIDEBAR_SNAP_ANIMATION_DURATION_MS },
+            { duration: ASIDE_SNAP_ANIMATION_DURATION_MS },
             (finished) => {
               "worklet";
               runOnJS(snapComplete)(Boolean(finished), shouldOpen);
@@ -122,23 +125,23 @@ export const useAppLayoutRootMotion = ({ isOpened, onOpen }: UseAppLayoutRootMot
   const mainPanGesture = useMemo(() => {
     const pan = Gesture.Pan()
       .activeOffsetX([
-        -SIDEBAR_PAN_HORIZONTAL_ACTIVATION_OFFSET,
-        SIDEBAR_PAN_HORIZONTAL_ACTIVATION_OFFSET,
+        -ASIDE_PAN_HORIZONTAL_ACTIVATION_OFFSET,
+        ASIDE_PAN_HORIZONTAL_ACTIVATION_OFFSET,
       ])
-      .failOffsetY([-SIDEBAR_PAN_VERTICAL_CANCEL_OFFSET, SIDEBAR_PAN_VERTICAL_CANCEL_OFFSET]);
-    return configureSidebarPan(pan);
-  }, [configureSidebarPan]);
+      .failOffsetY([-ASIDE_PAN_VERTICAL_CANCEL_OFFSET, ASIDE_PAN_VERTICAL_CANCEL_OFFSET]);
+    return configureAsidePan(pan);
+  }, [configureAsidePan]);
 
   const asidePanGesture = useMemo(() => {
     const pan = Gesture.Pan()
       .enabled(isOpened)
       .activeOffsetX([
-        -SIDEBAR_PAN_HORIZONTAL_ACTIVATION_OFFSET,
-        SIDEBAR_PAN_HORIZONTAL_ACTIVATION_OFFSET,
+        -ASIDE_PAN_HORIZONTAL_ACTIVATION_OFFSET,
+        ASIDE_PAN_HORIZONTAL_ACTIVATION_OFFSET,
       ])
-      .failOffsetY([-SIDEBAR_PAN_VERTICAL_CANCEL_OFFSET, SIDEBAR_PAN_VERTICAL_CANCEL_OFFSET]);
-    return configureSidebarPan(pan);
-  }, [configureSidebarPan, isOpened]);
+      .failOffsetY([-ASIDE_PAN_VERTICAL_CANCEL_OFFSET, ASIDE_PAN_VERTICAL_CANCEL_OFFSET]);
+    return configureAsidePan(pan);
+  }, [configureAsidePan, isOpened]);
 
   useEffect(() => {
     asideColumnWidthShared.value = asideColumnWidth;
@@ -164,7 +167,7 @@ export const useAppLayoutRootMotion = ({ isOpened, onOpen }: UseAppLayoutRootMot
       return;
     }
 
-    translateX.value = withTiming(target, { duration: SIDEBAR_SNAP_ANIMATION_DURATION_MS });
+    translateX.value = withTiming(target, { duration: ASIDE_SNAP_ANIMATION_DURATION_MS });
   }, [isOpened, asideColumnWidth, translateX]);
 
   return {
