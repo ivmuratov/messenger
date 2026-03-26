@@ -52,15 +52,19 @@ const DrawerLayoutMain = ({ children }: DrawerLayoutMainBaseProps): ReactNode =>
   );
 };
 
+interface DrawerLayoutRootProps extends DrawerLayoutRootBaseProps {
+  onOpen: (isOpened: boolean) => void;
+}
+
 const DrawerLayoutRoot = ({
   children,
   isOpened = false,
   onOpen,
-}: DrawerLayoutRootBaseProps): ReactNode => {
+}: DrawerLayoutRootProps): ReactNode => {
   const { asideColumnWidth, animatedRowStyle, asidePanGesture, mainPanGesture, screenWidth } =
     useDrawerLayoutRootMotion({ isOpened, onOpen });
 
-  const layoutContext = useMemo(
+  const context = useMemo(
     () => ({
       asideColumnWidth,
       mainColumnWidth: screenWidth,
@@ -73,7 +77,7 @@ const DrawerLayoutRoot = ({
   );
 
   return (
-    <DrawerLayoutContext.Provider value={layoutContext}>
+    <DrawerLayoutContext.Provider value={context}>
       <Animated.View
         style={[
           drawerLayoutStyles.root,

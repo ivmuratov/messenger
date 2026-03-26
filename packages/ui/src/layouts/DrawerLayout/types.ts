@@ -5,5 +5,4 @@ export type DrawerLayoutMainBaseProps = PropsWithChildren;
 
 export interface DrawerLayoutRootBaseProps extends PropsWithChildren {
   isOpened?: boolean;
-  onOpen?: (isOpened: boolean) => void;
 }
