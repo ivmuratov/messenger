@@ -1,4 +1,4 @@
-import type { PropsWithChildren } from "react";
+import type { ReactNode } from "react";
 
 import type { SpacingProps } from "@/types";
 
@@ -18,4 +18,6 @@ export interface FlexVariants {
   flexWrap?: "nowrap" | "wrap" | "wrapReverse";
 }
 
-export type FlexPropsBase = FlexVariants & SpacingProps & PropsWithChildren;
+export interface FlexPropsBase extends SpacingProps, FlexVariants {
+  children: ReactNode;
+}

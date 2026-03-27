@@ -1,23 +1,19 @@
 {
-  "name": "ui",
+  "name": "@ui",
   "version": "1.0.0",
   "type": "module",
   "sideEffects": [
     "**/*.css.ts",
     "**/styles/index.ts"
   ],
+  "main": "./src/index.ts",
+  "types": "./dist-types/index.d.ts",
   "scripts": {
-    "dev:web": "tsdown --watch --config-loader unrun",
-    "dev:native": "tsdown --config tsdown.native.config.ts --watch --no-clean --config-loader unrun",
-    "dev": "concurrently \"pnpm dev:web\" \"pnpm dev:native\"",
-    "build:web": "tsdown --config-loader unrun",
-    "build:native": "tsdown --config tsdown.native.config.ts --config-loader unrun",
-    "build": "concurrently \"pnpm build:web\" \"pnpm build:native\"",
     "lint": "eslint src",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "tsc -b",
     "format": "prettier src --write --ignore-path ../../.prettierignore",
     "format:check": "prettier src --check --ignore-path ../../.prettierignore",
-    "clean": "rm -rf dist dist-native node_modules"
+    "clean": "rm -rf dist-types node_modules"
   },
   "peerDependencies": {
     "react": "19.1.0",
@@ -27,9 +23,7 @@
     "react-native-safe-area-context": "5.6.2",
     "react-native-theme-switch-animation": "0.8.0",
     "react-native-edge-to-edge": "1.8.1",
-    "react-native-worklets": "0.8.1"
-  },
-  "dependencies": {
+    "react-native-worklets": "0.8.1",
     "@vanilla-extract/css": "1.17.4",
     "@vanilla-extract/recipes": "0.5.7",
     "@vanilla-extract/sprinkles": "1.6.5",
@@ -39,20 +33,16 @@
   },
   "devDependencies": {
     "@types/react": "19.1.17",
-    "@vanilla-extract/rollup-plugin": "1.5.1",
-    "tsdown": "0.20.1",
     "typescript": "5.9.3"
   },
   "exports": {
     ".": {
       "react-native": {
-        "import": "./dist-native/index.native.mjs",
-        "types": "./dist-native/index.native.d.mts",
-        "default": "./dist-native/index.native.mjs"
+        "types": "./dist-types/index.native.d.ts",
+        "default": "./src/index.native.ts"
       },
-      "types": "./dist/index.d.mts",
-      "default": "./dist/index.mjs"
-    },
-    "./styles.css": "./dist/index.css"
+      "types": "./dist-types/index.d.ts",
+      "default": "./src/index.ts"
+    }
   }
 }

@@ -1,5 +1,5 @@
+import { DrawerLayout, Flex, Page, ThemeProvider, ThemeSwitcher, Typography } from "@ui";
 import { useState } from "react";
-import { DrawerLayout, Flex, Page, ThemeProvider, ThemeSwitcher, Typography } from "ui";
 
 export default function App() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);

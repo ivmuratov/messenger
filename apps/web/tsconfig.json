@@ -4,10 +4,8 @@
     "lib": ["ESNext", "DOM", "DOM.Iterable"],
     "noEmit": true,
     "jsx": "react-jsx",
-    "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"],
-      "@core": ["../../packages/core/src"]
+      "@/*": ["./src/*"]
     }
   },
   "include": ["src"],

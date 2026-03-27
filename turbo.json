@@ -3,16 +3,16 @@
   "globalDependencies": ["eslint.config.ts", "tsconfig.base.json"],
   "globalPassThroughEnv": ["WEB_PORT", "RCT_METRO_PORT"],
   "tasks": {
-    "build": {
-      "dependsOn": ["^build"],
-      "outputs": ["dist/**", "dist-native/**", ".expo/**"]
-    },
     "dev": {
       "cache": false,
       "persistent": true
     },
+    "build": {},
     "lint": {},
-    "typecheck": {},
+    "typecheck": {
+      "dependsOn": ["^typecheck"],
+      "outputs": ["dist-types/**"]
+    },
     "format": {
       "cache": false
     },

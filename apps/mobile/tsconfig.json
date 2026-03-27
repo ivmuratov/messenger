@@ -3,12 +3,10 @@
   "compilerOptions": {
     "noEmit": true,
     "jsx": "react-jsx",
-    "baseUrl": ".",
     "moduleResolution": "bundler",
     "customConditions": ["react-native"],
     "paths": {
-      "@/*": ["./src/*"],
-      "@core": ["../../packages/core/src"]
+      "@/*": ["./src/*"]
     }
   },
   "include": ["src", "index.ts"],

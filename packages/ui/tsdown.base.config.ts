@@ -1,9 +1,0 @@
-import { defineConfig } from "tsdown";
-
-export default defineConfig({
-  format: ["esm"],
-  dts: true,
-  clean: true,
-  sourcemap: true,
-  treeshake: true,
-});

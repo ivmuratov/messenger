@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { DrawerLayout, Flex, Page, ThemeSwitcher } from "@ui";
 import { useState } from "react";
-import { DrawerLayout, Flex, Page, ThemeSwitcher } from "ui";
 
 export const Route = createFileRoute("/")({
   component: HomePage,
