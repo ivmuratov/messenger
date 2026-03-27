@@ -10,8 +10,7 @@
     "build": {},
     "lint": {},
     "typecheck": {
-      "dependsOn": ["^typecheck"],
-      "outputs": ["dist-types/**"]
+      "dependsOn": ["^typecheck"]
     },
     "format": {
       "cache": false

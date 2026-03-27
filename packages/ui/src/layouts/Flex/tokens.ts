@@ -1,3 +1,5 @@
+import type { VariantsTokenMap } from "@/types";
+
 import type { FlexVariants } from "./types";
 
 export const flexVariantsToken = {

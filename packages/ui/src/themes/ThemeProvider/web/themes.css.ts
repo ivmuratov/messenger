@@ -1,5 +1,7 @@
 import { createGlobalTheme, createGlobalThemeContract } from "@vanilla-extract/css";
 
+import type { NullableTokens } from "@/types";
+
 import { darkThemeToken, lightThemeToken } from "../../tokens";
 import type { ThemeContract } from "../../types";
 

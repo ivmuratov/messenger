@@ -1,7 +1,7 @@
 import { style } from "@vanilla-extract/css";
 
-import { HEADER_Z_INDEX } from "@/constants";
 import { theme } from "@/themes";
+import { zIndexToken } from "@/tokens";
 
 import { pageBodyStylesToken, pageHeaderStylesToken } from "../tokens";
 
@@ -10,7 +10,7 @@ export const pageHeaderStyles = style({
   display: "flex",
   position: "sticky",
   top: 0,
-  zIndex: HEADER_Z_INDEX,
+  zIndex: zIndexToken.header,
   borderBottomColor: theme.border.primary,
   backgroundColor: theme.background.secondary,
 });
