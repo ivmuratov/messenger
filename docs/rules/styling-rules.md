@@ -48,12 +48,12 @@ export const styles = StyleSheet.create({
 import { style } from "@vanilla-extract/css";
 import { componentToken } from "../tokens";
 
-export const root = style(componentToken);
+export const component = style(componentToken);
 ```
 
 ### Sprinkles
 
-Используй sprinkles для spacing/layout утилит в `packages/ui/src/sprinkles/web/`.
+Используй sprinkles для spacing/layout утилит в `packages/ui/src/shared/sprinkles/(web|mobile)/`.
 
 ### Правила
 

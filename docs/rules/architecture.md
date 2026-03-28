@@ -21,7 +21,7 @@ ui, core → web, mobile
 - Приложения потребляют пакеты; пакеты никогда не импортируют из приложений
 - Нет импортов между `apps/web` и `apps/mobile`
 - Нет импортов между `packages/core` и `packages/ui`
-- Потребляй пакеты через публичный API: `import { Button } from "ui"`
+- Потребляй пакеты через публичный API: `import { Button } from "@ui"`
 
 ## packages/ui
 
@@ -31,8 +31,6 @@ ui, core → web, mobile
 {Component}/
 ├── types.ts          # Общий интерфейс пропсов
 ├── tokens.ts         # Дизайн-токены
-├── index.ts          # Web-экспорт
-├── index.native.ts   # Mobile-экспорт
 ├── web/              # Web-реализация
 └── mobile/           # Mobile-реализация
 ```
@@ -44,12 +42,12 @@ ui, core → web, mobile
 
 ### Иерархия UI (`src/`)
 
-**`src/components/`** — UI-блоки (строительные кирпичи):
+**`src/(atoms|molecules)/`** — UI-блоки (строительные кирпичи):
 
 - `atoms/` — примитивы (Button, Text, Icon)
 - `molecules/` — композиция atoms (SearchBar, FormField)
 
-**Правила импортов components:**
+**Правила импортов:**
 
 - Горизонтальные импорты запрещены: `atoms/` ↔ `atoms/`, `molecules/` ↔ `molecules/`
 - Разрешено: `molecules/` → `atoms/`
@@ -60,8 +58,8 @@ ui, core → web, mobile
 **Правила импортов layouts:**
 
 - Горизонтальные импорты запрещены: `layouts/` ↔ `layouts/`
-- Layouts НЕ импортируют из `components/`
-- Components НЕ импортируют из `layouts/` (полная изоляция)
+- Layouts НЕ импортируют из `(atoms|molecules)/`
+- Atoms, molecules НЕ импортируют из `layouts/` (полная изоляция)
 
 ### Импорты
 
