@@ -1,4 +1,4 @@
-import type { SpacingScale } from "@/types";
+import type { SpacingScale } from "@/shared/types";
 
 export const spacingToken = {
   "2xs": 2,

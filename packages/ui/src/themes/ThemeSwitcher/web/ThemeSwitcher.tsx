@@ -1,7 +1,7 @@
 import { Moon, Sun } from "lucide-react";
 import type { MouseEvent, ReactNode } from "react";
 
-import { marginSprinkles } from "@/sprinkles";
+import { marginSprinkles } from "@/shared/sprinkles/web";
 
 import type { ThemeSwitcherBaseProps } from "../types";
 import { useThemeSwitcher } from "../useThemeSwitcher";

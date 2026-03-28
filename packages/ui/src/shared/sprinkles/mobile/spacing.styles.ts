@@ -1,5 +1,5 @@
-import { createNativeSprinkles, defineNativeProperties } from "@/libs/index.native";
-import { spacingToken } from "@/tokens";
+import { spacingToken } from "@/shared/tokens";
+import { createNativeSprinkles, defineNativeProperties } from "@/shared/utils";
 
 const marginNativeProperties = defineNativeProperties({
   properties: {

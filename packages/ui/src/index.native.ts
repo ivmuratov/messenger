@@ -1,3 +1,5 @@
-export * from "./components/index.native";
-export * from "./layouts/index.native";
+export * from "./atoms/Typography/mobile";
+export * from "./layouts/DrawerLayout/mobile";
+export * from "./layouts/Flex/mobile";
+export * from "./layouts/Page/mobile";
 export * from "./themes/index.native";

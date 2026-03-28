@@ -1,4 +1,4 @@
-import type { FontWeightScale, TextSizeScale } from "@/types";
+import type { FontWeightScale, TextSizeScale } from "@/shared/types";
 
 export const textSizeToken = {
   "10_14": { fontSize: 10, lineHeight: 14 },

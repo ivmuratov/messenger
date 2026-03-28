@@ -3,9 +3,9 @@ import { type ReactNode, useCallback } from "react";
 import { type GestureResponderEvent, Pressable } from "react-native";
 import switchTheme from "react-native-theme-switch-animation";
 
-import { marginNativeSprinkles } from "@/sprinkles/index.native";
+import { marginNativeSprinkles } from "@/shared/sprinkles/mobile";
+import { transitionsToken } from "@/shared/tokens";
 import { useThemedNativeStyles } from "@/themes/ThemeProvider/index.native";
-import { transitionsToken } from "@/tokens";
 
 import type { ThemeSwitcherBaseProps } from "../types";
 import { useThemeSwitcher } from "../useThemeSwitcher";

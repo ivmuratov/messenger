@@ -1,7 +1,7 @@
 import { style } from "@vanilla-extract/css";
 
+import { transitionsToken } from "@/shared/tokens";
 import { theme } from "@/themes";
-import { transitionsToken } from "@/tokens";
 
 import {
   drawerLayoutAsideStylesToken,

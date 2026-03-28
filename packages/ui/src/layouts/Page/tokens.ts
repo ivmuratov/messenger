@@ -1,4 +1,4 @@
-import { borderWidthToken, spacingToken } from "@/tokens";
+import { borderWidthToken, spacingToken } from "@/shared/tokens";
 
 export const pageHeaderStylesToken = {
   paddingLeft: spacingToken.md,

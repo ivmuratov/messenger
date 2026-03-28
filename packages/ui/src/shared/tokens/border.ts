@@ -1,4 +1,4 @@
-import type { BorderRadiusScale, BorderWidthScale } from "@/types";
+import type { BorderRadiusScale, BorderWidthScale } from "@/shared/types";
 
 export const borderWidthToken = {
   none: 0,

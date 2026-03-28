@@ -1,4 +1,4 @@
-import type { VariantsTokenMap } from "@/types";
+import type { VariantsTokenMap } from "@/shared/types";
 
 import type { FlexVariants } from "./types";
 

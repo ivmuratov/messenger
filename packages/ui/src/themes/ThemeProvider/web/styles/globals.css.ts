@@ -1,6 +1,11 @@
 import { globalStyle, keyframes } from "@vanilla-extract/css";
 
-import { borderRadiusToken, borderWidthToken, spacingToken, transitionsToken } from "@/tokens";
+import {
+  borderRadiusToken,
+  borderWidthToken,
+  spacingToken,
+  transitionsToken,
+} from "@/shared/tokens";
 
 import { theme } from "../themes.css";
 import { themeLayer } from "./layers.css";

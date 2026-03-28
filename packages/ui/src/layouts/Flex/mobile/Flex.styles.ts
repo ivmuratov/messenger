@@ -1,4 +1,4 @@
-import { nativeRecipe } from "@/libs/index.native";
+import { nativeRecipe } from "@/shared/utils";
 
 import { flexVariantsToken } from "../tokens";
 
