@@ -1,7 +1,7 @@
 import { style } from "@vanilla-extract/css";
 
+import { theme } from "@/shared/styles/themes.css";
 import { zIndexToken } from "@/shared/tokens";
-import { theme } from "@/themes";
 
 import { pageBodyStylesToken, pageHeaderStylesToken } from "../tokens";
 

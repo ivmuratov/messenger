@@ -4,7 +4,7 @@ import { ScrollView, View } from "react-native";
 import { GestureDetector } from "react-native-gesture-handler";
 import Animated from "react-native-reanimated";
 
-import { useThemedNativeStyles } from "@/themes/index.native";
+import { useThemedNativeStyles } from "@/shared/hooks";
 
 import type {
   DrawerLayoutAsideBaseProps,
@@ -17,7 +17,7 @@ import { useDrawerLayoutRootMotion } from "./useDrawerLayoutRootMotion";
 
 const DrawerLayoutAside = ({ children }: DrawerLayoutAsideBaseProps): ReactNode => {
   const { asideColumnWidth, asidePanGesture, isOpened } = useDrawerLayoutContext();
-  const { secondary, primary } = useThemedNativeStyles();
+  const { border, background } = useThemedNativeStyles();
 
   return (
     <GestureDetector gesture={asidePanGesture}>
@@ -30,8 +30,8 @@ const DrawerLayoutAside = ({ children }: DrawerLayoutAsideBaseProps): ReactNode 
           style={[
             drawerLayoutStyles.aside,
             {
-              backgroundColor: secondary.backgroundColor,
-              borderRightColor: primary.borderColor,
+              backgroundColor: background.secondary,
+              borderRightColor: border.primary,
             },
           ]}
         >

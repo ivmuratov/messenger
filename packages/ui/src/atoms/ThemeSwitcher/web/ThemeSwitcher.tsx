@@ -3,8 +3,8 @@ import type { MouseEvent, ReactNode } from "react";
 
 import { marginSprinkles } from "@/shared/sprinkles/web";
 
+import { useThemeSwitcher } from "../hooks";
 import type { ThemeSwitcherBaseProps } from "../types";
-import { useThemeSwitcher } from "../useThemeSwitcher";
 
 const supportsViewTransitions = () =>
   typeof document !== "undefined" && "startViewTransition" in document;

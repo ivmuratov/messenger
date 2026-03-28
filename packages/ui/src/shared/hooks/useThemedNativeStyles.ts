@@ -1,8 +1,7 @@
 import { useContext } from "react";
 
-import { ThemeContext } from "@/themes/context";
-
-import { themes } from "./themes.styles";
+import { ThemeContext } from "@/shared/contexts";
+import { themes } from "@/shared/tokens";
 
 export const useThemedNativeStyles = () => {
   const theme = useContext(ThemeContext);

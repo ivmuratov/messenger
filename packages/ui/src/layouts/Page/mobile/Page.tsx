@@ -1,21 +1,21 @@
 import type { ReactNode } from "react";
 import { ScrollView, View } from "react-native";
 
-import { useThemedNativeStyles } from "@/themes/index.native";
+import { useThemedNativeStyles } from "@/shared/hooks";
 
 import type { PageBodyBaseProps, PageHeaderBaseProps, PageRootBaseProps } from "../types";
 import { pageStyles } from "./Page.styles";
 
 const PageHeader = ({ children }: PageHeaderBaseProps): ReactNode => {
-  const { secondary, primary } = useThemedNativeStyles();
+  const { background, border } = useThemedNativeStyles();
 
   return (
     <View
       style={[
         pageStyles.header,
         {
-          backgroundColor: secondary.backgroundColor,
-          borderBottomColor: primary.borderColor,
+          backgroundColor: background.secondary,
+          borderBottomColor: border.primary,
         },
       ]}
     >
@@ -25,10 +25,10 @@ const PageHeader = ({ children }: PageHeaderBaseProps): ReactNode => {
 };
 
 const PageBody = ({ children }: PageBodyBaseProps): ReactNode => {
-  const { primary } = useThemedNativeStyles();
+  const { background } = useThemedNativeStyles();
 
   return (
-    <ScrollView style={[pageStyles.body, { backgroundColor: primary.backgroundColor }]}>
+    <ScrollView style={[pageStyles.body, { backgroundColor: background.primary }]}>
       {children}
     </ScrollView>
   );

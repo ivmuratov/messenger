@@ -2,7 +2,8 @@ import "./styles";
 
 import { type ReactNode, useLayoutEffect, useState } from "react";
 
-import { SetThemeContext, ThemeContext } from "../../context";
+import { SetThemeContext, ThemeContext } from "@/shared/contexts";
+
 import type { ThemeProviderProps } from "../types";
 
 export const ThemeProvider = ({ children, defaultTheme }: ThemeProviderProps): ReactNode => {

@@ -1,6 +1,6 @@
 import { useContext } from "react";
 
-import { SetThemeContext, ThemeContext } from "../context";
+import { SetThemeContext, ThemeContext } from "@/shared/contexts";
 
 export const useThemeSwitcher = () => {
   const theme = useContext(ThemeContext);

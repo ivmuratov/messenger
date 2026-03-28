@@ -1,4 +1,4 @@
-import type { ThemeContract } from "./types";
+import type { ThemeContract } from "@/shared/types";
 
 export const lightThemeToken = {
   background: {
@@ -29,3 +29,5 @@ export const darkThemeToken = {
     secondary: "#1f1f1f",
   },
 } as const satisfies ThemeContract;
+
+export const themes = { light: lightThemeToken, dark: darkThemeToken } as const;

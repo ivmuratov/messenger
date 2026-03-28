@@ -1,9 +1,7 @@
 import { createGlobalTheme, createGlobalThemeContract } from "@vanilla-extract/css";
 
-import type { NullableTokens } from "@/shared/types";
-
-import { darkThemeToken, lightThemeToken } from "../../tokens";
-import type { ThemeContract } from "../../types";
+import { darkThemeToken, lightThemeToken } from "@/shared/tokens";
+import type { NullableTokens, ThemeContract } from "@/shared/types";
 
 export const theme = createGlobalThemeContract(
   {

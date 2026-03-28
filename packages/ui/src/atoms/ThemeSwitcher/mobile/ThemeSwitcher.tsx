@@ -3,16 +3,16 @@ import { type ReactNode, useCallback } from "react";
 import { type GestureResponderEvent, Pressable } from "react-native";
 import switchTheme from "react-native-theme-switch-animation";
 
+import { useThemedNativeStyles } from "@/shared/hooks";
 import { marginNativeSprinkles } from "@/shared/sprinkles/mobile";
 import { transitionsToken } from "@/shared/tokens";
-import { useThemedNativeStyles } from "@/themes/ThemeProvider/index.native";
 
+import { useThemeSwitcher } from "../hooks";
 import type { ThemeSwitcherBaseProps } from "../types";
-import { useThemeSwitcher } from "../useThemeSwitcher";
 
 export const ThemeSwitcher = (props: ThemeSwitcherBaseProps): ReactNode => {
   const { theme, handleSwitchTheme } = useThemeSwitcher();
-  const { primary } = useThemedNativeStyles();
+  const { foreground } = useThemedNativeStyles();
 
   const handleSwitch = useCallback(
     (event: GestureResponderEvent) => {
@@ -40,7 +40,7 @@ export const ThemeSwitcher = (props: ThemeSwitcherBaseProps): ReactNode => {
       onPress={handleSwitch}
       style={marginNativeSprinkles(props)}
     >
-      {theme === "light" ? <Moon color={primary.color} /> : <Sun color={primary.color} />}
+      {theme === "light" ? <Moon color={foreground.primary} /> : <Sun color={foreground.primary} />}
     </Pressable>
   );
 };

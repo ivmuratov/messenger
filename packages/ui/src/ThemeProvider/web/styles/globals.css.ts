@@ -1,5 +1,6 @@
 import { globalStyle, keyframes } from "@vanilla-extract/css";
 
+import { theme } from "@/shared/styles/themes.css";
 import {
   borderRadiusToken,
   borderWidthToken,
@@ -7,7 +8,6 @@ import {
   transitionsToken,
 } from "@/shared/tokens";
 
-import { theme } from "../themes.css";
 import { themeLayer } from "./layers.css";
 
 const circleExpand = keyframes({
