@@ -9,6 +9,8 @@
     "preview": "vite preview",
     "lint": "biome check src",
     "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:e2e": "playwright test --pass-with-no-tests",
     "format": "biome check --write src",
     "format:check": "biome check src",
     "clean": "rm -rf dist node_modules"
@@ -28,16 +30,20 @@
     "lucide-react": "0.575.0"
   },
   "devDependencies": {
+    "@playwright/test": "1.63.0",
     "@tanstack/react-query-devtools": "5.91.2",
     "@tanstack/router-devtools": "1.153.1",
     "@tanstack/router-plugin": "1.153.1",
+    "@testing-library/react": "16.3.3",
     "@types/node": "25.0.3",
     "@types/react": "19.1.17",
     "@types/react-dom": "19.1.6",
     "@vitejs/plugin-react": "4.5.2",
+    "@vanilla-extract/vite-plugin": "5.2.1",
+    "jsdom": "30.0.1",
     "typescript": "5.9.3",
     "vite": "7.0.4",
     "vite-tsconfig-paths": "6.1.1",
-    "@vanilla-extract/vite-plugin": "5.2.1"
+    "vitest": "5.0.0"
   }
 }

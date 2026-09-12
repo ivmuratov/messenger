@@ -7,6 +7,8 @@
     "build": "turbo run build",
     "lint": "turbo run lint",
     "typecheck": "turbo run typecheck",
+    "test": "turbo run test",
+    "test:e2e": "pnpm --filter web test:e2e",
     "format": "turbo run format",
     "format:check": "turbo run format:check",
     "clean": "turbo run clean",

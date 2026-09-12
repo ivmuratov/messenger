@@ -23,6 +23,18 @@ const config: RcFile = {
       packages: ["**"],
       policy: "sameRange",
     },
+    {
+      label: "Testing",
+      dependencies: [
+        "vitest",
+        "@testing-library/react",
+        "jsdom",
+        "msw",
+        "@playwright/test",
+      ],
+      packages: ["**"],
+      policy: "sameRange",
+    },
   ],
   semverGroups: [
     {

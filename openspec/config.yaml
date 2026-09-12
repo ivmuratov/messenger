@@ -41,10 +41,11 @@ context: |
   ## Verification commands (root)
   - pnpm lint — Biome check across packages (lint + format)
   - pnpm typecheck — TypeScript project references
+  - pnpm test — unit-тесты через Vitest (Turbo: @core, @ui, web)
+  - pnpm test:e2e — e2e-тесты Playwright для web
   - pnpm format — Biome auto-fix (format + lint + organize imports)
   - pnpm build — full build via Turbo
   - Pre-commit runs: build, lint, typecheck, syncpack:list
-  - Tests: vitest + testing-library planned (docs/agents/tester.md); no test script wired yet — use lint + typecheck as verify fallback
 
   ## Spec organization
   - Domains under openspec/specs/ by feature area (e.g. app-shell)
