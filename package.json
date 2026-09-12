@@ -10,7 +10,6 @@
     "test": "turbo run test",
     "test:e2e": "pnpm --filter web test:e2e",
     "format": "turbo run format",
-    "format:check": "turbo run format:check",
     "clean": "turbo run clean",
     "clean:all": "turbo run clean && rm -rf node_modules pnpm-lock.yaml",
     "syncpack:fix": "syncpack fix-mismatches",

@@ -9,7 +9,6 @@
     "typecheck": "tsc -b",
     "test": "vitest run",
     "format": "biome check --write src",
-    "format:check": "biome check src",
     "clean": "rm -rf dist-types node_modules"
   },
   "peerDependencies": {

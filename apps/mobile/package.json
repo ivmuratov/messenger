@@ -10,7 +10,6 @@
     "lint": "biome check src",
     "typecheck": "tsc --noEmit",
     "format": "biome check --write src",
-    "format:check": "biome check src",
     "clean": "rm -rf .expo android ios node_modules"
   },
   "dependencies": {

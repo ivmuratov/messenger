@@ -73,7 +73,6 @@ Desktop.ini
 .cache/
 .parcel-cache/
 .biome-cache
-.stylelintcache
 *.cache
 
 # Temporary files
