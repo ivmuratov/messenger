@@ -1,0 +1,87 @@
+schema: spec-driven
+
+context: |
+  Language: Russian
+  All OpenSpec artifacts (proposal, specs, design, tasks) must be written in Russian.
+
+  Domain: messenger monorepo, early stage. UI foundation is in place; packages/core has no modules yet.
+  Planning approach: delta-first — document only what a change touches, do not backfill the whole codebase.
+
+  ## Monorepo layout
+  - packages/ui — cross-platform UI (Atomic Design: atoms, molecules, layouts)
+  - packages/core — business logic, Zustand stores, TanStack Query (modules/{module}/)
+  - apps/web — Vite 7 + TanStack Router + React 19
+  - apps/mobile — Expo 54 + React Native 0.81 + React Navigation
+  - Tooling: pnpm workspaces + Turborepo, Node >= 22.21.1, pnpm >= 10
+
+  ## Package boundaries (strict)
+  - ui, core → web, mobile (apps consume packages; packages never import apps)
+  - No imports between apps/web and apps/mobile
+  - No imports between packages/core and packages/ui
+  - Public API only: import { Button } from "@ui", import { ... } from "@core"
+  - Internal imports within a package/app: @/ alias
+
+  ## packages/ui
+  - Component folder: types.ts, tokens.ts, web/, mobile/
+  - Styling only here: Vanilla Extract (.css.ts) for web, StyleSheet (.styles.ts) for mobile
+  - Hierarchy: atoms/, molecules/, layouts/ — same-level imports forbidden; molecules → atoms allowed; layouts isolated from atoms/molecules
+  - Shared tokens, sprinkles, themes in src/shared/
+  - Existing components: ThemeSwitcher, Typography (atoms); DrawerLayout, Flex, Page (layouts); ThemeProvider
+
+  ## packages/core
+  - Module structure: modules/{module}/model|api|hooks|lib + index.ts public API
+  - Currently empty — new modules follow this layout from the start
+
+  ## Code conventions
+  - Prefer const arrow functions; named exports; named event handlers (or useCallback)
+  - Exception: function declarations for TanStack Router file-based routes (hoisting)
+  - File naming: camelCase.ts modules, PascalCase.tsx components, {Component}.css.ts / {Component}.styles.ts
+  - One file per hook (hooks/) or util (utils/); colocated constants.ts / types.ts when shared in a folder
+
+  ## Verification commands (root)
+  - pnpm lint — ESLint across packages
+  - pnpm typecheck — TypeScript project references
+  - pnpm format:check — Prettier
+  - pnpm build — full build via Turbo
+  - Pre-commit runs: build, lint, typecheck, format:check, syncpack:list
+  - Tests: vitest + testing-library planned (docs/agents/tester.md); no test script wired yet — use lint + typecheck as verify fallback
+
+  ## Spec organization
+  - Domains under openspec/specs/ by feature area (e.g. app-shell)
+  - Cross-platform changes: explicitly state web, mobile, or both in specs and design
+  - Deep architecture/styling rules: docs/rules/ (Russian) and .cursor/rules/ (English mirrors)
+
+rules:
+  proposal:
+    - "Always include Why, What Changes, Capabilities, Impact, and Non-goals sections"
+    - "Capabilities: use kebab-case paths under specs/ (e.g. app-shell, auth/session)"
+    - "Impact must list affected packages/apps with concrete paths, not vague UI changes"
+    - "Keep proposals under 500 words unless the change is genuinely large"
+  specs:
+    - "Use delta format: ADDED / MODIFIED / REMOVED Requirements"
+    - "Each requirement needs at least one Scenario with WHEN / THEN / AND bullets"
+    - "UI requirements: reference existing patterns in packages/ui before inventing new ones"
+    - "Cross-platform: tag scenarios or requirements with platform scope when behavior differs"
+  design:
+    - "Include Context, Goals, Non-Goals, and Decisions sections"
+    - "Every decision must state which package owns the change (ui, core, web, mobile)"
+    - "For UI work: note web (.css.ts) and mobile (.styles.ts) impact separately"
+    - "Skip design.md only when the change is trivial and has no architectural tradeoffs"
+  tasks:
+    - "Group tasks by package (ui, core, web, mobile)"
+    - "Every task ends with verify: (command, test, or observable behavior)"
+    - "Prefer verify: pnpm lint && pnpm typecheck when no tests exist yet"
+    - "Cross-platform UI: include tasks for both web/ and mobile/ implementations"
+    - "Keep individual tasks small enough for one focused session (~2 hours max)"
+
+operations:
+  apply:
+    guidance:
+      - "Run pnpm lint and pnpm typecheck for touched packages before marking tasks done"
+      - "UI changes in packages/ui require both web and mobile implementations unless spec says otherwise"
+      - "Follow .cursor/rules/ and docs/rules/ — do not introduce styling outside packages/ui"
+      - "Minimize scope: match the approved artifacts, do not expand beyond tasks.md"
+  archive:
+    guidance:
+      - "Summarize what changed in Russian before archiving"
+      - "Note which main specs under openspec/specs/ were updated by the merge"
