@@ -69,6 +69,7 @@ export const useDrawerLayoutRootMotion = ({
     [onOpen]
   );
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: asideColumnWidthShared is stable
   const configureAsidePan = useCallback(
     (pan: ReturnType<typeof Gesture.Pan>) => {
       return pan
@@ -118,7 +119,6 @@ export const useDrawerLayoutRootMotion = ({
           runOnJS(endGesture)();
         });
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- asideColumnWidthShared is stable
     [startGesture, endGesture, snapComplete, startSnap, startTranslateX, translateX]
   );
 

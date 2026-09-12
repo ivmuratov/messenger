@@ -8,7 +8,7 @@ import { marginNativeSprinkles } from "@/shared/sprinkles/mobile";
 import { transitionsToken } from "@/shared/tokens";
 
 import { useThemeSwitcher } from "../hooks";
-import type { ThemeSwitcherBaseProps } from "../types";
+import { type ThemeSwitcherBaseProps } from "../types";
 
 export const ThemeSwitcher = (props: ThemeSwitcherBaseProps): ReactNode => {
   const { theme, handleSwitchTheme } = useThemeSwitcher();

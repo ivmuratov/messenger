@@ -1,6 +1,6 @@
-import type { ReactNode } from "react";
+import { type ReactNode } from "react";
 
-import type { PageBodyBaseProps, PageHeaderBaseProps, PageRootBaseProps } from "../types";
+import { type PageBodyBaseProps, type PageHeaderBaseProps, type PageRootBaseProps } from "../types";
 import { pageBodyStyles, pageHeaderStyles, pageRootStyles } from "./Page.css";
 
 const PageHeader = ({ children }: PageHeaderBaseProps): ReactNode => {

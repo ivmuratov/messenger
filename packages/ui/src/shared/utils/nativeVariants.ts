@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 
-import type { NativeStyle } from "./types";
+import { type NativeStyle } from "./types";
 
 /**
  * Создаёт предвычисленные стили из токенов.

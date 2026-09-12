@@ -6,7 +6,7 @@ import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { SetThemeContext, ThemeContext } from "@/shared/contexts";
 import { themes } from "@/shared/tokens";
 
-import type { ThemeProviderProps } from "../types";
+import { type ThemeProviderProps } from "../types";
 
 export const ThemeProvider = ({ children, defaultTheme }: ThemeProviderProps): ReactNode => {
   const [theme, setTheme] = useState(defaultTheme);

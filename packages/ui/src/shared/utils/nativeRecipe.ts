@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 
-import type { NativeStyle } from "./types";
+import { type NativeStyle } from "./types";
 
 type VariantGroups = Record<string, Record<string, NativeStyle>>;
 type Resolve<T> = { [Key in keyof T]: T[Key] } & {};

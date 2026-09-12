@@ -1,9 +1,9 @@
 import clsx from "clsx";
-import type { ElementType, ReactNode } from "react";
+import { type ElementType, type ReactNode } from "react";
 
 import { spacingSprinkles } from "@/shared/sprinkles/web";
 
-import type { FlexPropsBase } from "../types";
+import { type FlexPropsBase } from "../types";
 import { flexVariants } from "./Flex.css";
 
 interface FlexProps extends FlexPropsBase {

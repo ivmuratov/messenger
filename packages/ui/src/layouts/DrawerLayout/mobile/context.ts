@@ -1,5 +1,5 @@
 import { createContext, useContext } from "react";
-import type { GestureType } from "react-native-gesture-handler";
+import { type GestureType } from "react-native-gesture-handler";
 
 export const DrawerLayoutContext = createContext<{
   asideColumnWidth: number;

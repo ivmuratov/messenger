@@ -1,7 +1,7 @@
 import clsx from "clsx";
-import type { ElementType, ReactNode } from "react";
+import { type ElementType, type ReactNode } from "react";
 
-import type { TypographyBaseProps } from "../types";
+import { type TypographyBaseProps } from "../types";
 import { fontWeightVariants, textSizeVariants } from "./Typography.css";
 
 interface TypographyProps extends TypographyBaseProps {

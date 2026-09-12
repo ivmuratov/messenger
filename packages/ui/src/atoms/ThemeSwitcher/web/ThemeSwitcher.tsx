@@ -1,10 +1,10 @@
 import { Moon, Sun } from "lucide-react";
-import type { MouseEvent, ReactNode } from "react";
+import { type MouseEvent, type ReactNode } from "react";
 
 import { marginSprinkles } from "@/shared/sprinkles/web";
 
 import { useThemeSwitcher } from "../hooks";
-import type { ThemeSwitcherBaseProps } from "../types";
+import { type ThemeSwitcherBaseProps } from "../types";
 
 const supportsViewTransitions = () =>
   typeof document !== "undefined" && "startViewTransition" in document;

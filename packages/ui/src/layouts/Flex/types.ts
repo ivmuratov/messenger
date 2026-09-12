@@ -1,6 +1,6 @@
-import type { ReactNode } from "react";
+import { type ReactNode } from "react";
 
-import type { SpacingProps } from "@/shared/types";
+import { type SpacingProps } from "@/shared/types";
 
 export interface FlexVariants {
   direction?: "row" | "column" | "rowReverse" | "columnReverse";

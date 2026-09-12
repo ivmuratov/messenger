@@ -2,5 +2,4 @@ pnpm exec concurrently --kill-others-on-fail \
   "pnpm build" \
   "pnpm lint" \
   "pnpm typecheck" \
-  "pnpm format:check" \
   "pnpm syncpack:list"

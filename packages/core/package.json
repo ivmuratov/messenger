@@ -5,10 +5,10 @@
   "main": "./src/index.ts",
   "types": "./dist-types/index.d.ts",
   "scripts": {
-    "lint": "eslint src",
+    "lint": "biome check src",
     "typecheck": "tsc -b",
-    "format": "prettier src --write --ignore-path ../../.prettierignore",
-    "format:check": "prettier src --check --ignore-path ../../.prettierignore",
+    "format": "biome check --write src",
+    "format:check": "biome check src",
     "clean": "rm -rf dist-types node_modules"
   },
   "peerDependencies": {

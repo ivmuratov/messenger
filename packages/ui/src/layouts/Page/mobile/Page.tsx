@@ -1,9 +1,9 @@
-import type { ReactNode } from "react";
+import { type ReactNode } from "react";
 import { ScrollView, View } from "react-native";
 
 import { useThemedNativeStyles } from "@/shared/hooks";
 
-import type { PageBodyBaseProps, PageHeaderBaseProps, PageRootBaseProps } from "../types";
+import { type PageBodyBaseProps, type PageHeaderBaseProps, type PageRootBaseProps } from "../types";
 import { pageStyles } from "./Page.styles";
 
 const PageHeader = ({ children }: PageHeaderBaseProps): ReactNode => {

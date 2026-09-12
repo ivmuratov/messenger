@@ -39,11 +39,11 @@ context: |
   - One file per hook (hooks/) or util (utils/); colocated constants.ts / types.ts when shared in a folder
 
   ## Verification commands (root)
-  - pnpm lint — ESLint across packages
+  - pnpm lint — Biome check across packages (lint + format)
   - pnpm typecheck — TypeScript project references
-  - pnpm format:check — Prettier
+  - pnpm format — Biome auto-fix (format + lint + organize imports)
   - pnpm build — full build via Turbo
-  - Pre-commit runs: build, lint, typecheck, format:check, syncpack:list
+  - Pre-commit runs: build, lint, typecheck, syncpack:list
   - Tests: vitest + testing-library planned (docs/agents/tester.md); no test script wired yet — use lint + typecheck as verify fallback
 
   ## Spec organization

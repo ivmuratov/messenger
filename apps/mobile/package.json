@@ -7,10 +7,10 @@
     "android": "expo run:android",
     "ios": "expo run:ios",
     "prebuild": "expo prebuild --clean",
-    "lint": "eslint src",
+    "lint": "biome check src",
     "typecheck": "tsc --noEmit",
-    "format": "prettier src --write --ignore-path ../../.prettierignore",
-    "format:check": "prettier src --check --ignore-path ../../.prettierignore",
+    "format": "biome check --write src",
+    "format:check": "biome check src",
     "clean": "rm -rf .expo android ios node_modules"
   },
   "dependencies": {

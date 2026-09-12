@@ -72,7 +72,7 @@ Desktop.ini
 # Cache
 .cache/
 .parcel-cache/
-.eslintcache
+.biome-cache
 .stylelintcache
 *.cache
 

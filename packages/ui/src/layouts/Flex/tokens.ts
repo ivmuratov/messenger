@@ -1,6 +1,6 @@
-import type { VariantsTokenMap } from "@/shared/types";
+import { type VariantsTokenMap } from "@/shared/types";
 
-import type { FlexVariants } from "./types";
+import { type FlexVariants } from "./types";
 
 export const flexVariantsToken = {
   direction: {

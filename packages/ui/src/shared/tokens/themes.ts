@@ -1,4 +1,4 @@
-import type { ThemeContract } from "@/shared/types";
+import { type ThemeContract } from "@/shared/types";
 
 export const lightThemeToken = {
   background: {

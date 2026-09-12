@@ -1,10 +1,10 @@
 import clsx from "clsx";
 import { type ReactNode, useMemo } from "react";
 
-import type {
-  DrawerLayoutAsideBaseProps,
-  DrawerLayoutMainBaseProps,
-  DrawerLayoutRootBaseProps,
+import {
+  type DrawerLayoutAsideBaseProps,
+  type DrawerLayoutMainBaseProps,
+  type DrawerLayoutRootBaseProps,
 } from "../types";
 import { DrawerLayoutContext, useDrawerLayoutContext } from "./context";
 import {

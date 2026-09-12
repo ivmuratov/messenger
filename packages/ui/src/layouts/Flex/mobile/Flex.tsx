@@ -1,9 +1,9 @@
-import type { ComponentType, ReactNode } from "react";
+import { type ComponentType, type ReactNode } from "react";
 import { type StyleProp, View, type ViewProps, type ViewStyle } from "react-native";
 
 import { spacingNativeSprinkles } from "@/shared/sprinkles/mobile";
 
-import type { FlexPropsBase } from "../types";
+import { type FlexPropsBase } from "../types";
 import { flexVariants } from "./Flex.styles";
 
 interface FlexProps extends FlexPropsBase {

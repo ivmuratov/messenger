@@ -1,15 +1,14 @@
-import type { ReactNode } from "react";
-import { useMemo } from "react";
+import { type ReactNode, useMemo } from "react";
 import { ScrollView, View } from "react-native";
 import { GestureDetector } from "react-native-gesture-handler";
 import Animated from "react-native-reanimated";
 
 import { useThemedNativeStyles } from "@/shared/hooks";
 
-import type {
-  DrawerLayoutAsideBaseProps,
-  DrawerLayoutMainBaseProps,
-  DrawerLayoutRootBaseProps,
+import {
+  type DrawerLayoutAsideBaseProps,
+  type DrawerLayoutMainBaseProps,
+  type DrawerLayoutRootBaseProps,
 } from "../types";
 import { DrawerLayoutContext, useDrawerLayoutContext } from "./context";
 import { drawerLayoutStyles } from "./DrawerLayout.styles";
