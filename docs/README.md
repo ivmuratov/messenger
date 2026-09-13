@@ -12,6 +12,7 @@
 - **code-style.md** — стиль функций, экспорты, обработчики событий
 - **naming-conventions.md** — имена файлов, `constants.ts` / `types.ts`, каталоги `utils/` и `hooks/`
 - **styling-rules.md** — стилизация в `packages/ui` (Vanilla Extract для web, StyleSheet для mobile)
+- **testing.md** — стек, размещение, scope и именование тестов
 
 ### skills/
 
@@ -25,7 +26,6 @@
 
 - **researcher** — исследование кодовой базы, поиск паттернов и связей
 - **reviewer** — код-ревью, проверка архитектуры и качества
-- **tester** — написание и запуск тестов
 
 ## Синхронизация с Cursor
 

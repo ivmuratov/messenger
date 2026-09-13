@@ -37,6 +37,7 @@ context: |
   - Exception: function declarations for TanStack Router file-based routes (hoisting)
   - File naming: camelCase.ts modules, PascalCase.tsx components, {Component}.css.ts / {Component}.styles.ts
   - One file per hook (hooks/) or util (utils/); colocated constants.ts / types.ts when shared in a folder
+  - Testing: describe/test.describe in English; it/test descriptions in Russian — see .cursor/rules/testing.mdc
 
   ## Verification commands (root)
   - pnpm lint — Biome check across packages (lint + format)
@@ -50,7 +51,7 @@ context: |
   ## Spec organization
   - Domains under openspec/specs/ by feature area (e.g. app-shell)
   - Cross-platform changes: explicitly state web, mobile, or both in specs and design
-  - Deep architecture/styling rules: docs/rules/ (Russian) and .cursor/rules/ (English mirrors)
+  - Deep architecture/styling/testing rules: docs/rules/ (Russian) and .cursor/rules/ (English mirrors)
 
 rules:
   proposal:
