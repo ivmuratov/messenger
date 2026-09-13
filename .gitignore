@@ -49,7 +49,15 @@ ios/
 *.tsbuildinfo
 
 # IDE
-.cursor/
+.cursor/*
+!.cursor/README.md
+!.cursor/rules/
+!.cursor/agents/
+!.cursor/commands/
+!.cursor/skills/
+.cursor/mcp.json
+.cursor/history/
+.cursor/tmp/
 .vscode/
 .idea/
 *.swp

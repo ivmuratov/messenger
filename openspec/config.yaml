@@ -51,7 +51,7 @@ context: |
   ## Spec organization
   - Domains under openspec/specs/ by feature area (e.g. app-shell)
   - Cross-platform changes: explicitly state web, mobile, or both in specs and design
-  - Deep architecture/styling/testing rules: docs/rules/ (Russian) and .cursor/rules/ (English mirrors)
+  - Deep architecture/styling/testing rules: .cursor/rules/
 
 rules:
   proposal:
@@ -81,7 +81,7 @@ operations:
     guidance:
       - "Run pnpm lint and pnpm typecheck for touched packages before marking tasks done"
       - "UI changes in packages/ui require both web and mobile implementations unless spec says otherwise"
-      - "Follow .cursor/rules/ and docs/rules/ — do not introduce styling outside packages/ui"
+      - "Follow .cursor/rules/ — do not introduce styling outside packages/ui"
       - "Minimize scope: match the approved artifacts, do not expand beyond tasks.md"
   archive:
     guidance:

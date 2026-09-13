@@ -31,4 +31,4 @@ pnpm install
 
 ## Документация
 
-Архитектура, правила кода, скиллы и агенты — в `docs/`. См. [docs/README.md](docs/README.md).
+Архитектура, правила кода, агенты и workflow — в [`.cursor/`](.cursor/README.md).
