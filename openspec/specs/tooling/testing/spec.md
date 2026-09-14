@@ -144,3 +144,19 @@ Web-приложение MUST содержать e2e-тесты в `apps/web/e2e
 
 - **WHEN** пользователь на главной странице нажимает кнопку смены темы (`aria-label="Toggle theme"`)
 - **THEN** атрибут `data-theme` на `document.documentElement` MUST измениться на противоположное значение (`light` ↔ `dark`)
+
+### Requirement: Storybook как визуальный слой, Vitest — логика и hooks
+
+Визуальный каталог web-кomponentов MUST обеспечиваться Storybook (`apps/ui-storybook` + colocated `*.stories.tsx` в `@ui`). Unit-тесты Vitest MUST по-прежнему покрывать lib, stores, API hooks и React hooks; component tests через `render(<Component />)` в Vitest MUST NOT добавляться. Storybook stories MUST NOT заменять unit-тесты hooks и utils.
+
+#### Scenario: Hook остаётся в Vitest
+
+- **WHEN** тестируется `useThemeSwitcher`
+- **THEN** тест MUST выполняться через Vitest и `renderHook` в `__tests__/`
+- **AND** MUST NOT переноситься в Storybook как замена unit-теста
+
+#### Scenario: Визуальные состояния в Storybook
+
+- **WHEN** нужно просмотреть варианты web-кomponenta (размеры Typography, open/closed DrawerLayout)
+- **THEN** MUST использоваться Storybook stories
+- **AND** MUST NOT требоваться Vitest component test с `render(<Component />)`

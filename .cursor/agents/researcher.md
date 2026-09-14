@@ -13,6 +13,7 @@ readonly: true
 - **packages/ui/** — компоненты Atomic Design (atoms/molecules/organisms), web + mobile
 - **apps/web/** — Vite + TanStack Router
 - **apps/mobile/** — Expo + React Native
+- **apps/ui-storybook/** — Storybook-каталог web-компонентов `@ui` (stories colocated в `packages/ui`)
 
 ## При вызове
 

@@ -11,6 +11,13 @@ alwaysApply: true
 - **@testing-library/react** — React hooks через `renderHook`
 - **msw** — мокирование API (в `@core`)
 - **@playwright/test** — e2e-тесты web-приложения (`apps/web/e2e/`)
+- **Storybook** (`apps/ui-storybook`) — визуальный каталог web-компонентов `@ui`
+
+## Storybook vs Vitest
+
+- **Storybook** — просмотр состояний и вариантов web-компонентов; stories в `packages/ui/src/**/web/*.stories.tsx`, runner в `apps/ui-storybook`
+- **Vitest** — unit-тесты hooks, utils, stores, API; component tests (`render(<Component />)`) по-прежнему вне scope
+- Типы stories: `@storybook/react` devDep в `@ui`, отдельный `tsconfig.stories.json` (не попадает в `dist-types`)
 
 ## Что тестировать
 

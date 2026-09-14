@@ -11,15 +11,16 @@ alwaysApply: true
 - `packages/core` — Общая бизнес-логика, состояние, API
 - `apps/web` — Веб-приложение (Vite + TanStack Router)
 - `apps/mobile` — Мобильное приложение (Expo + React Native)
+- `apps/ui-storybook` — Storybook-каталог web-компонентов `@ui`
 
 ## Зависимости пакетов
 
 ```
-ui, core → web, mobile
+ui, core → web, mobile, ui-storybook
 ```
 
 - Приложения потребляют пакеты; пакеты никогда не импортируют из приложений
-- Нет импортов между `apps/web` и `apps/mobile`
+- Нет импортов между `apps/web`, `apps/mobile` и `apps/ui-storybook`
 - Нет импортов между `packages/core` и `packages/ui`
 - Потребляй пакеты через публичный API: `import { Button } from "@ui"`
 
@@ -83,10 +84,16 @@ modules/{module}/
 - Используй алиас `@/` для внутренних импортов внутри пакета
 - Никогда не импортируй из `packages/ui`
 
-## apps/web, apps/mobile
+## apps/web, apps/mobile, apps/ui-storybook
 
 ### Импорты
 
 - Используй алиас `@/` для внутренних импортов внутри приложения
-- Потребляй `packages/ui` и `packages/core` через публичный API
-- Никогда не импортируй между `apps/web` и `apps/mobile`
+- Потребляй `packages/ui` и `packages/core` через публичный API (`apps/ui-storybook` — только `@ui`)
+- Никогда не импортируй между приложениями в `apps/`
+
+### apps/ui-storybook
+
+- Конфиг Storybook — в `apps/ui-storybook/.storybook/`
+- Stories colocated в `packages/ui/src/**/web/*.stories.tsx`
+- Runner и addons Storybook только здесь; в `@ui` допустим `@storybook/react` devDep для типов CSF

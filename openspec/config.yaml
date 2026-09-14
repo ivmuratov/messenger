@@ -12,10 +12,11 @@ context: |
   - packages/core — business logic, Zustand stores, TanStack Query (modules/{module}/)
   - apps/web — Vite 7 + TanStack Router + React 19
   - apps/mobile — Expo 54 + React Native 0.81 + React Navigation
+  - apps/ui-storybook — Storybook 10.6.0, визуальный каталог web-компонентов @ui
   - Tooling: pnpm workspaces + Turborepo, Node >= 22.21.1, pnpm >= 10
 
   ## Package boundaries (strict)
-  - ui, core → web, mobile (apps consume packages; packages never import apps)
+  - ui, core → web, mobile, ui-storybook (apps consume packages; packages never import apps)
   - No imports between apps/web and apps/mobile
   - No imports between packages/core and packages/ui
   - Public API only: import { Button } from "@ui", import { ... } from "@core"
@@ -46,6 +47,8 @@ context: |
   - pnpm test:e2e — e2e-тесты Playwright для web
   - pnpm format — Biome auto-fix (format + lint + organize imports)
   - pnpm build — full build via Turbo
+  - pnpm storybook — dev Storybook (@ui web components)
+  - pnpm build-storybook — static Storybook build to apps/ui-storybook/dist
   - Pre-commit runs: build, lint, typecheck, syncpack:list
 
   ## Spec organization

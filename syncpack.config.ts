@@ -35,6 +35,18 @@ const config: RcFile = {
       packages: ["**"],
       policy: "sameRange",
     },
+    {
+      label: "Storybook",
+      dependencies: [
+        "storybook",
+        "@storybook/react-vite",
+        "@storybook/react",
+        "@storybook/addon-docs",
+        "@storybook/builder-vite",
+      ],
+      packages: ["**"],
+      policy: "sameRange",
+    },
   ],
   semverGroups: [
     {

@@ -10,7 +10,7 @@
   "types": "./dist-types/index.d.ts",
   "scripts": {
     "lint": "biome check src",
-    "typecheck": "tsc -b",
+    "typecheck": "tsc -b && tsc -p tsconfig.stories.json --noEmit",
     "test": "vitest run",
     "format": "biome check --write src",
     "clean": "rm -rf dist-types node_modules"
@@ -32,6 +32,7 @@
     "lucide-react-native": "0.575.0"
   },
   "devDependencies": {
+    "@storybook/react": "10.6.0",
     "@testing-library/react": "16.3.3",
     "@types/react": "19.1.17",
     "jsdom": "30.0.1",
