@@ -1,6 +1,6 @@
 ---
 name: reviewer
-model: composer-1.5
+model: composer-2.5-fast
 description: Проверяет качество кода, архитектуру и лучшие практики. Используйте для ревью PR, аудита кода или проверки качества в любом пакете.
 readonly: true
 ---
