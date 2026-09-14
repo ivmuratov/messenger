@@ -13,6 +13,7 @@
 - **naming-conventions.mdc** — имена файлов, `constants.ts` / `types.ts`, каталоги `utils/` и `hooks/`
 - **styling-rules.mdc** — стилизация в `packages/ui` (Vanilla Extract для web, StyleSheet для mobile)
 - **testing.mdc** — стек, размещение, scope и именование тестов
+- **commits.mdc** — формат Conventional Commits: обязательный scope, длина header, примеры
 
 ### `agents/`
 
