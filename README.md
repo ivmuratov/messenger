@@ -1,6 +1,6 @@
 # Messenger Monorepo
 
-Монорепозиторий мессенджера: pnpm + Turborepo, `web` (Vite + TanStack Router), `mobile` (Expo + React Native) и `ui-storybook` (визуальный каталог `@ui`). Общие пакеты: `core` (бизнес-логика, состояние, API) и `ui` (Atomic Design компоненты).
+Монорепозиторий мессенджера: pnpm + Turborepo, `web` (Vite + TanStack Router), `mobile` (Expo + React Native) и `ui-storybook` (визуальный каталог `@ui`). Общие пакеты: `core` (бизнес-логика, состояние, API) и `ui` (кросс-платформенные UI-компоненты).
 
 ## Быстрый старт
 

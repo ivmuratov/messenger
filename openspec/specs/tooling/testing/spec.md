@@ -38,8 +38,8 @@ Unit-тесты MUST располагаться в пакете-владельц
 
 #### Scenario: Test file в __tests__ рядом с hook
 
-- **WHEN** хук `packages/ui/src/atoms/ThemeSwitcher/hooks/useThemeSwitcher.ts` получает тест
-- **THEN** тестовый файл MUST находиться по пути `packages/ui/src/atoms/ThemeSwitcher/hooks/__tests__/useThemeSwitcher.test.ts`
+- **WHEN** хук `packages/ui/src/components/ThemeSwitcher/hooks/useThemeSwitcher.ts` получает тест
+- **THEN** тестовый файл MUST находиться по пути `packages/ui/src/components/ThemeSwitcher/hooks/__tests__/useThemeSwitcher.test.ts`
 
 ### Requirement: Scope unit-тестов — логика и хуки, не компоненты
 

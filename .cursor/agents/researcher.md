@@ -1,6 +1,6 @@
 ---
 name: researcher
-model: composer-1.5
+model: composer-2.5[]
 description: Исследует кодовую базу и возвращает структурированные артефакты. Используйте, когда нужно понять, где что находится, как модули связаны, или собрать контекст перед реализацией. Используйте для задач широкого исследования.
 readonly: true
 ---
@@ -10,7 +10,7 @@ readonly: true
 ## Контекст проекта
 
 - **packages/core/** — бизнес-логика, Zustand stores, TanStack Query, hooks
-- **packages/ui/** — компоненты Atomic Design (atoms/molecules/organisms), web + mobile
+- **packages/ui/** — UI-компоненты (ThemeProvider / components / shared), web + mobile
 - **apps/web/** — Vite + TanStack Router
 - **apps/mobile/** — Expo + React Native
 - **apps/ui-storybook/** — Storybook-каталог web-компонентов `@ui` (stories colocated в `packages/ui`)

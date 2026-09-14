@@ -3,7 +3,7 @@ import { type Meta, type StoryObj } from "@storybook/react";
 import { Flex } from "./Flex";
 
 const meta = {
-  title: "Layouts/Flex",
+  title: "Components/Flex",
   component: Flex,
 } satisfies Meta<typeof Flex>;
 

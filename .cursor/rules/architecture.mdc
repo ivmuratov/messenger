@@ -7,7 +7,7 @@ alwaysApply: true
 
 ## Обзор
 
-- `packages/ui` — Переиспользуемые UI-компоненты (Atomic Design), кросс-платформенные
+- `packages/ui` — Переиспользуемые UI-компоненты, кросс-платформенные
 - `packages/core` — Общая бизнес-логика, состояние, API
 - `apps/web` — Веб-приложение (Vite + TanStack Router)
 - `apps/mobile` — Мобильное приложение (Expo + React Native)
@@ -43,24 +43,22 @@ ui, core → web, mobile, ui-storybook
 
 ### Иерархия UI (`src/`)
 
-**`src/(atoms|molecules)/`** — UI-блоки (строительные кирпичи):
+```
+ThemeProvider/   # оболочка приложения внутри пакета
+components/      # плоский каталог визуальных компонентов
+shared/          # токены, sprinkles, хуки, контексты, утилиты
+```
 
-- `atoms/` — примитивы (Button, Text, Icon)
-- `molecules/` — композиция atoms (SearchBar, FormField)
+**Граф зависимостей:** `ThemeProvider` → `components` → `shared` (только вниз).
 
 **Правила импортов:**
 
-- Горизонтальные импорты запрещены: `atoms/` ↔ `atoms/`, `molecules/` ↔ `molecules/`
-- Разрешено: `molecules/` → `atoms/`
-- Запрещено: `atoms/` → `molecules/`
-
-**`src/layouts/`** — компоненты размещения (PageLayout, GridLayout)
-
-**Правила импортов layouts:**
-
-- Горизонтальные импорты запрещены: `layouts/` ↔ `layouts/`
-- Layouts НЕ импортируют из `(atoms|molecules)/`
-- Atoms, molecules НЕ импортируют из `layouts/` (полная изоляция)
+- `ThemeProvider` MAY импортировать `components` и `shared`
+- `components/` MUST NOT импортировать `ThemeProvider`
+- `shared/` MUST NOT импортировать `components` или `ThemeProvider`
+- Внутри `components/` и внутри `shared/` соседние модули MAY импортировать друг друга; циклы MUST NOT
+- Соседний импорт в `components/`: только платформенный баррель (`@/components/{Name}/web` или `@/components/{Name}/mobile`), не `.css.ts` / `.styles.ts` / приватный context
+- Внутри пакета MUST NOT: `from "@ui"`, импорт `src/index.ts` или `src/index.native.ts`
 
 ### Импорты
 

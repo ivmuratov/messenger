@@ -8,7 +8,7 @@ context: |
   Planning approach: delta-first — document only what a change touches, do not backfill the whole codebase.
 
   ## Monorepo layout
-  - packages/ui — cross-platform UI (Atomic Design: atoms, molecules, layouts)
+  - packages/ui — cross-platform UI (ThemeProvider / components / shared)
   - packages/core — business logic, Zustand stores, TanStack Query (modules/{module}/)
   - apps/web — Vite 7 + TanStack Router + React 19
   - apps/mobile — Expo 54 + React Native 0.81 + React Navigation
@@ -25,9 +25,9 @@ context: |
   ## packages/ui
   - Component folder: types.ts, tokens.ts, web/, mobile/
   - Styling only here: Vanilla Extract (.css.ts) for web, StyleSheet (.styles.ts) for mobile
-  - Hierarchy: atoms/, molecules/, layouts/ — same-level imports forbidden; molecules → atoms allowed; layouts isolated from atoms/molecules
+  - Hierarchy: ThemeProvider → components → shared (downward only); sibling imports within components/ and shared/ allowed, cycles forbidden
   - Shared tokens, sprinkles, themes in src/shared/
-  - Existing components: ThemeSwitcher, Typography (atoms); DrawerLayout, Flex, Page (layouts); ThemeProvider
+  - Existing components: DrawerLayout, Flex, Page, ThemeSwitcher, Typography (components/); ThemeProvider (app shell)
 
   ## packages/core
   - Module structure: modules/{module}/model|api|hooks|lib + index.ts public API

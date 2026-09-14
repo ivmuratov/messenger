@@ -3,7 +3,7 @@ import { type Meta, type StoryObj } from "@storybook/react";
 import { ThemeSwitcher } from "./ThemeSwitcher";
 
 const meta = {
-  title: "Atoms/ThemeSwitcher",
+  title: "Components/ThemeSwitcher",
   component: ThemeSwitcher,
 } satisfies Meta<typeof ThemeSwitcher>;
 

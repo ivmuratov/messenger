@@ -3,7 +3,7 @@ import { type Meta, type StoryObj } from "@storybook/react";
 import { DrawerLayout } from "./DrawerLayout";
 
 const meta = {
-  title: "Layouts/DrawerLayout",
+  title: "Components/DrawerLayout",
   component: DrawerLayout,
 } satisfies Meta<typeof DrawerLayout>;
 
