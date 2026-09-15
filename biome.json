@@ -84,5 +84,94 @@
         "organizeImports": "on"
       }
     }
-  }
+  },
+  "overrides": [
+    {
+      "includes": ["packages/core/src/shared/**"],
+      "linter": {
+        "rules": {
+          "style": {
+            "noRestrictedImports": {
+              "level": "error",
+              "options": {
+                "paths": {
+                  "@ui": "@core MUST NOT import from @ui",
+                  "@core": "Use @/ inside @core, not package-style @core imports"
+                },
+                "patterns": [
+                  {
+                    "group": ["@/modules/**"],
+                    "message": "shared MUST NOT import from modules"
+                  },
+                  {
+                    "group": ["@ui/**", "apps/**", "packages/ui/**"],
+                    "message": "@core MUST NOT import from @ui or apps"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "includes": ["packages/core/**"],
+      "linter": {
+        "rules": {
+          "style": {
+            "noRestrictedImports": {
+              "level": "error",
+              "options": {
+                "paths": {
+                  "@ui": "@core MUST NOT import from @ui",
+                  "@core": "Use @core/modules/* or @core/shared inside apps; use @/ inside @core"
+                },
+                "patterns": [
+                  {
+                    "group": ["@/modules/*/**"],
+                    "message": "Import other modules only via @/modules/{name}"
+                  },
+                  {
+                    "group": ["@ui/**", "apps/**", "packages/ui/**"],
+                    "message": "@core MUST NOT import from @ui or apps"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "includes": ["apps/web/src/**", "apps/mobile/src/**"],
+      "linter": {
+        "rules": {
+          "style": {
+            "noRestrictedImports": {
+              "level": "error",
+              "options": {
+                "paths": {
+                  "@core": "Use @core/modules/* or @core/shared"
+                },
+                "patterns": [
+                  {
+                    "group": ["@ui/*", "packages/ui/**"],
+                    "message": "Import UI only via @ui"
+                  },
+                  {
+                    "group": ["**/*.css.ts", "**/*.styles.ts"],
+                    "message": "Styles belong in @ui only"
+                  },
+                  {
+                    "group": ["apps/web/**", "apps/mobile/**"],
+                    "message": "Apps MUST NOT import each other"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
 }

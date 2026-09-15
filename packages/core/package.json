@@ -2,8 +2,6 @@
   "name": "@core",
   "version": "1.0.0",
   "type": "module",
-  "main": "./src/index.ts",
-  "types": "./dist-types/index.d.ts",
   "scripts": {
     "lint": "biome check src",
     "typecheck": "tsc -b",
@@ -25,9 +23,13 @@
     "vitest": "5.0.0"
   },
   "exports": {
-    ".": {
-      "types": "./dist-types/index.d.ts",
-      "default": "./src/index.ts"
+    "./modules/*": {
+      "types": "./dist-types/modules/*/index.d.ts",
+      "default": "./src/modules/*/index.ts"
+    },
+    "./shared": {
+      "types": "./dist-types/shared/index.d.ts",
+      "default": "./src/shared/index.ts"
     }
   }
 }

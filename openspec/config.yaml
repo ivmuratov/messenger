@@ -9,9 +9,9 @@ context: |
 
   ## Monorepo layout
   - packages/ui — cross-platform UI (ThemeProvider / components / shared)
-  - packages/core — business logic, Zustand stores, TanStack Query (modules/{module}/)
-  - apps/web — Vite 7 + TanStack Router + React 19
-  - apps/mobile — Expo 54 + React Native 0.81 + React Navigation
+  - packages/core — business logic, Zustand stores, TanStack Query (modules/{domain}/ + shared/)
+  - apps/web — Vite 7 + TanStack Router + React 19 (src/app, src/modules, src/shared)
+  - apps/mobile — Expo 54 + React Native 0.81 + React Navigation (src/app, src/modules, src/shared)
   - apps/ui-storybook — Storybook 10.6.0, визуальный каталог web-компонентов @ui
   - Tooling: pnpm workspaces + Turborepo, Node >= 22.21.1, pnpm >= 10
 
@@ -19,8 +19,8 @@ context: |
   - ui, core → web, mobile, ui-storybook (apps consume packages; packages never import apps)
   - No imports between apps/web and apps/mobile
   - No imports between packages/core and packages/ui
-  - Public API only: import { Button } from "@ui", import { ... } from "@core"
-  - Internal imports within a package/app: @/ alias
+  - Public API: import { Button } from "@ui"; import { ... } from "@core/modules/{domain}" or "@core/shared"
+  - Internal imports within a package/app: @/ alias (@/modules, @/shared, @/app)
 
   ## packages/ui
   - Component folder: types.ts, tokens.ts, web/, mobile/
@@ -30,8 +30,15 @@ context: |
   - Existing components: DrawerLayout, Flex, Page, ThemeSwitcher, Typography (components/); ThemeProvider (app shell)
 
   ## packages/core
-  - Module structure: modules/{module}/model|api|hooks|lib + index.ts public API
+  - Structure: modules/{domain}/ (api, types, hooks, utils + optional store, selectors, contexts) + shared/
+  - Subpath exports: @core/modules/*, @core/shared — no root @core barrel
   - Currently empty — new modules follow this layout from the start
+
+  ## apps/web, apps/mobile
+  - src/app — bootstrap, routes (web), navigation (mobile), layouts
+  - src/modules — feature modules (same folder principle as @core + components/)
+  - src/shared — types, hooks, utils
+  - Dependency graph: app → modules → shared
 
   ## Code conventions
   - Prefer const arrow functions; named exports; named event handlers (or useCallback)

@@ -17,7 +17,7 @@ alwaysApply: true
 
 - **Storybook** — просмотр состояний и вариантов web-компонентов; stories в `packages/ui/src/**/web/*.stories.tsx`, runner в `apps/ui-storybook`
 - **Vitest** — unit-тесты hooks, utils, stores, API; component tests (`render(<Component />)`) по-прежнему вне scope
-- Типы stories: `@storybook/react` devDep в `@ui`, отдельный `tsconfig.stories.json` (не попадает в `dist-types`)
+- **Типы stories:** `@storybook/react` devDep в `@ui`, отдельный `tsconfig.stories.json` (не попадает в `dist-types`)
 
 ## Что тестировать
 
@@ -25,7 +25,7 @@ alwaysApply: true
 
 - **Stores**: переходы состояний, actions, selectors
 - **API hooks**: поведение query/mutation с замоканным API (MSW)
-- **Lib-функции**: чистая логика, валидаторы, mappers (наивысший приоритет)
+- **Utils**: чистая логика, валидаторы, mappers (наивысший приоритет)
 
 ### UI-хуки (`packages/ui/`)
 
@@ -41,7 +41,7 @@ alwaysApply: true
 Unit-тесты — в директории `__tests__/` на одном уровне с тестируемым модулем:
 
 ```
-lib/
+utils/
   validateSession.ts
   __tests__/
     validateSession.test.ts

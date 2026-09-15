@@ -22,7 +22,8 @@ ui, core → web, mobile, ui-storybook
 - Приложения потребляют пакеты; пакеты никогда не импортируют из приложений
 - Нет импортов между `apps/web`, `apps/mobile` и `apps/ui-storybook`
 - Нет импортов между `packages/core` и `packages/ui`
-- Потребляй пакеты через публичный API: `import { Button } from "@ui"`
+- Потребляй `@ui` через `import { Button } from "@ui"`
+- Потребляй `@core` через subpath: `@core/modules/{domain}`, `@core/shared` — корневого `from "@core"` нет
 
 ## packages/ui
 
@@ -69,29 +70,65 @@ shared/          # токены, sprinkles, хуки, контексты, ути
 ### Структура
 
 ```
-modules/{module}/
-├── model/            # Zustand store + типы
+modules/{domain}/
 ├── api/              # TanStack Query + HTTP-клиент
+├── types/            # Типы домена
 ├── hooks/            # UI-агностичные хуки
-├── lib/              # Чистая бизнес-логика
-└── index.ts          # Публичный API
+├── utils/            # Чистая бизнес-логика
+├── store/            # Zustand store (опционально)
+├── selectors/        # Селекторы (опционально)
+├── contexts/         # React contexts (опционально)
+└── index.ts          # Public API
+
+shared/
+├── types/
+├── hooks/
+├── utils/
+└── index.ts
 ```
 
-### Импорты
-
-- Используй алиас `@/` для внутренних импортов внутри пакета
-- Никогда не импортируй из `packages/ui`
-
-## apps/web, apps/mobile, apps/ui-storybook
+Каталоги `modules/` и `shared/` появляются вместе с первым кодом, не как пустые заготовки.
 
 ### Импорты
 
-- Используй алиас `@/` для внутренних импортов внутри приложения
-- Потребляй `packages/ui` и `packages/core` через публичный API (`apps/ui-storybook` — только `@ui`)
+- Внутри пакета — алиас `@/` (`@/modules/...`, `@/shared`); MUST NOT `from "@core/..."`
+- Граф: `modules → shared`; `shared` MUST NOT импортировать `modules`
+- Между модулями — только через public API (`@/modules/{other}` / `index.ts`)
+- Внутри модуля — относительные `./`, `../`
+- Никогда не импортируй из `packages/ui` или `apps/`
+
+### Public API
+
+- Subpath exports: `@core/modules/{domain}`, `@core/shared`
+- Корневого export `"."` в `package.json` нет
+
+## apps/web, apps/mobile
+
+### Структура (`src/`)
+
+```
+app/        # bootstrap, routes/navigation, layouts
+modules/    # feature-модули (появляются с кодом)
+shared/     # переиспользуемое без доменной привязки (появляется с кодом)
+```
+
+Feature-модуль — тот же принцип, что в `@core`, плюс `components/` (screen/feature UI, только `.tsx`).
+
+**Web entry:** `apps/web/index.html` → `/src/app/main.tsx`; routes в `src/app/routes/`.
+**Mobile entry:** `apps/mobile/index.ts` (Expo root) → `./src/app/App`
+**Граф:** `app → modules → shared`.
+
+### Импорты
+
+- Внутри приложения — алиас `@/` (`@/app/...`, `@/modules/...`, `@/shared`)
+- `@ui` — только `from "@ui"`
+- `@core` — `@core/modules/{domain}`, `@core/shared`
 - Никогда не импортируй между приложениями в `apps/`
+- MUST NOT импортировать `.css.ts` / `.styles.ts` в feature-модулях
 
-### apps/ui-storybook
+## apps/ui-storybook
 
 - Конфиг Storybook — в `apps/ui-storybook/.storybook/`
 - Stories colocated в `packages/ui/src/**/web/*.stories.tsx`
 - Runner и addons Storybook только здесь; в `@ui` допустим `@storybook/react` devDep для типов CSF
+- Потребляет только `@ui`

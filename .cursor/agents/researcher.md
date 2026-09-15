@@ -9,10 +9,10 @@ readonly: true
 
 ## Контекст проекта
 
-- **packages/core/** — бизнес-логика, Zustand stores, TanStack Query, hooks
+- **packages/core/** — бизнес-логика: `modules/{domain}/` (api, types, hooks, utils + optional store/selectors/contexts) и `shared/`; subpath exports `@core/modules/*`, `@core/shared`
 - **packages/ui/** — UI-компоненты (ThemeProvider / components / shared), web + mobile
-- **apps/web/** — Vite + TanStack Router
-- **apps/mobile/** — Expo + React Native
+- **apps/web/** — Vite + TanStack Router; `src/app/` (bootstrap, routes), `src/modules/`, `src/shared/`
+- **apps/mobile/** — Expo + React Native; entry `index.ts` → `src/app/App.tsx`; `src/modules/`, `src/shared/`
 - **apps/ui-storybook/** — Storybook-каталог web-компонентов `@ui` (stories colocated в `packages/ui`)
 
 ## При вызове

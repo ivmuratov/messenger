@@ -8,7 +8,12 @@ export default defineConfig({
   plugins: [
     vanillaExtractPlugin(),
     tsconfigPaths(),
-    tanstackRouter({ target: "react", autoCodeSplitting: true }),
+    tanstackRouter({
+      target: "react",
+      autoCodeSplitting: true,
+      routesDirectory: "./src/app/routes",
+      generatedRouteTree: "./src/app/routeTree.gen.ts",
+    }),
     react(),
   ],
   server: {
