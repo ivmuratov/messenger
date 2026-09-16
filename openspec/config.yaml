@@ -98,6 +98,8 @@ operations:
       - "UI changes in packages/ui require both web and mobile implementations unless spec says otherwise"
       - "Follow .cursor/rules/ — do not introduce styling outside packages/ui"
       - "Minimize scope: match the approved artifacts, do not expand beyond tasks.md"
+      - "After UI or apply tasks, optionally run review-quality (.cursor/skills/review-quality) for perf/render/a11y findings"
+      - "For auth, crypto, or security-sensitive changes, also recommend review-security"
   archive:
     guidance:
       - "Summarize what changed in Russian before archiving"

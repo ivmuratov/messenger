@@ -17,6 +17,9 @@ description: Стек тестирования (vitest, playwright, MSW, Storybo
 ## Storybook vs Chromatic vs Vitest
 
 - **Storybook** — просмотр состояний и вариантов web-компонентов; stories в `packages/ui/src/**/web/*.stories.tsx`, runner в `apps/ui-storybook`
+- **Storybook addons** (`apps/ui-storybook/.storybook/`):
+  - `@storybook/addon-a11y` — панель **Accessibility** (axe-core) при просмотре story; `parameters.a11y.test: 'todo'` в preview (advisory, без CI fail)
+  - `@storybook/addon-themes` — toolbar **light/dark**, синхронизирован с `ThemeProvider`; default `initialGlobals.theme = 'light'` для Chromatic baseline
 - **Chromatic** — pixel comparison snapshots stories; baselines в облаке Chromatic; не заменяет unit-тесты hooks и utils
 - **Vitest** — unit-тесты hooks, utils, stores, API; component tests (`render(<Component />)`) по-прежнему вне scope
 - **Типы stories:** `@storybook/react` devDep в `@ui`, отдельный `tsconfig.stories.json` (не попадает в `dist-types`)
