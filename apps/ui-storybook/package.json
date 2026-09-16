@@ -9,7 +9,8 @@
     "lint": "biome check .storybook",
     "typecheck": "tsc --noEmit",
     "format": "biome check --write .storybook",
-    "clean": "rm -rf dist node_modules"
+    "clean": "rm -rf dist node_modules",
+    "chromatic": "chromatic --build-script-name=build --exit-zero-on-changes"
   },
   "dependencies": {
     "@ui": "workspace:*",
@@ -22,6 +23,7 @@
     "react-dom": "19.1.0"
   },
   "devDependencies": {
+    "chromatic": "18.9.0",
     "@storybook/addon-docs": "10.6.0",
     "@storybook/builder-vite": "10.6.0",
     "@storybook/react": "10.6.0",

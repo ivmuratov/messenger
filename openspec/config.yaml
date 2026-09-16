@@ -56,6 +56,8 @@ context: |
   - pnpm build — full build via Turbo
   - pnpm storybook — dev Storybook (@ui web components)
   - pnpm build-storybook — static Storybook build to apps/ui-storybook/dist
+  - pnpm chromatic — visual regression: build Storybook + upload to Chromatic (requires CHROMATIC_PROJECT_TOKEN)
+  - CI: .github/workflows/chromatic.yml — Chromatic on PR and push to main (paths filter on @ui stories and ui-storybook)
   - Pre-commit runs: build, lint, typecheck, syncpack:list
 
   ## Spec organization

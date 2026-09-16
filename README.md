@@ -23,6 +23,7 @@ pnpm install
 | `pnpm test:e2e`                            | E2e-тесты web (Playwright)                            |
 | `pnpm storybook`                           | Storybook-каталог web-компонентов `@ui`               |
 | `pnpm build-storybook`                     | Статическая сборка Storybook в `apps/ui-storybook/dist` |
+| `pnpm chromatic`                           | Visual regression по Storybook stories (`apps/ui-storybook`) |
 | `pnpm syncpack:list` / `pnpm syncpack:fix` | Синхронизация версий пакетов                          |
 | `pnpm clean`                               | Очистка dist                                          |
 
@@ -34,3 +35,5 @@ pnpm install
 ## Документация
 
 Архитектура, правила кода, агенты и workflow — в [`.cursor/`](.cursor/README.md).
+
+Storybook и Chromatic — в [`apps/ui-storybook/README.md`](apps/ui-storybook/README.md).
