@@ -17,6 +17,7 @@
     "chromatic": "pnpm --filter ui-storybook chromatic",
     "syncpack:fix": "syncpack fix-mismatches",
     "syncpack:list": "syncpack list-mismatches",
+    "verify": "pnpm exec concurrently --kill-others-on-fail \"pnpm lint\" \"pnpm typecheck\" \"pnpm syncpack:list\" \"pnpm build\" \"pnpm test\" && pnpm test:e2e",
     "commitlint": "commitlint",
     "prepare": "husky"
   },

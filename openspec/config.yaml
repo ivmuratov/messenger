@@ -45,7 +45,7 @@ context: |
   - Exception: function declarations for TanStack Router file-based routes (hoisting)
   - File naming: camelCase.ts modules, PascalCase.tsx components, {Component}.css.ts / {Component}.styles.ts
   - One file per hook (hooks/) or util (utils/); colocated constants.ts / types.ts when shared in a folder
-  - Testing: describe/test.describe in English; it/test descriptions in Russian — see .cursor/rules/testing.mdc
+  - Testing: describe/test.describe in English; it/test descriptions in Russian — see .cursor/skills/testing/SKILL.md
 
   ## Verification commands (root)
   - pnpm lint — Biome check across packages (lint + format)
@@ -54,11 +54,13 @@ context: |
   - pnpm test:e2e — e2e-тесты Playwright для web
   - pnpm format — Biome auto-fix (format + lint + organize imports)
   - pnpm build — full build via Turbo
+  - pnpm verify — параллельно lint, typecheck, syncpack:list, build, test (concurrently), затем test:e2e
   - pnpm storybook — dev Storybook (@ui web components)
   - pnpm build-storybook — static Storybook build to apps/ui-storybook/dist
   - pnpm chromatic — visual regression: build Storybook + upload to Chromatic (requires CHROMATIC_PROJECT_TOKEN)
+  - CI: .github/workflows/ci.yml — full verify on PR and push to main
   - CI: .github/workflows/chromatic.yml — Chromatic on PR and push to main (paths filter on @ui stories and ui-storybook)
-  - Pre-commit runs: build, lint, typecheck, syncpack:list
+  - Pre-commit runs: lint + typecheck (concurrently via husky)
 
   ## Spec organization
   - Domains under openspec/specs/ by feature area (e.g. app-shell)
@@ -92,6 +94,7 @@ operations:
   apply:
     guidance:
       - "Run pnpm lint and pnpm typecheck for touched packages before marking tasks done"
+      - "For test-related tasks, follow .cursor/skills/testing/SKILL.md"
       - "UI changes in packages/ui require both web and mobile implementations unless spec says otherwise"
       - "Follow .cursor/rules/ — do not introduce styling outside packages/ui"
       - "Minimize scope: match the approved artifacts, do not expand beyond tasks.md"

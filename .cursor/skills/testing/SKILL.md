@@ -1,6 +1,6 @@
 ---
-description: Стек тестирования, размещение, scope и именование (блоки на английском, описания на русском)
-alwaysApply: true
+name: testing
+description: Стек тестирования (vitest, playwright, MSW, Storybook), размещение тестов в __tests__/, именование и scope. Use when writing tests, implementing OpenSpec test tasks, or running pnpm test / pnpm test:e2e.
 ---
 
 # Тестирование
