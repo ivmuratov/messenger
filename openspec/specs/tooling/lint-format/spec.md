@@ -24,8 +24,9 @@
 #### Scenario: Pre-commit hook
 
 - **WHEN** разработчик создаёт коммит
-- **THEN** Husky pre-commit запускает `pnpm lint` (Biome) без отдельной проверки форматирования
+- **THEN** Husky pre-commit MUST запускать `pnpm lint` и `pnpm typecheck` параллельно через `pnpm exec concurrently --kill-others-on-fail`
 - **AND** pre-commit MUST NOT вызывать ESLint или Prettier
+- **AND** pre-commit MUST NOT вызывать `pnpm build` или `pnpm syncpack:list`
 
 ### Requirement: Сохранение ключевых правил качества кода
 

@@ -12,19 +12,24 @@
 - **code-style.mdc** — стиль функций, экспорты, обработчики событий
 - **naming-conventions.mdc** — имена файлов, `constants.ts` / `types.ts`, каталоги `utils/` и `hooks/`
 - **styling-rules.mdc** — стилизация в `packages/ui` (Vanilla Extract для web, StyleSheet для mobile)
-- **testing.mdc** — стек, размещение, scope и именование тестов
-- **commits.mdc** — формат Conventional Commits: обязательный scope, длина header, примеры
+
+### `skills/`
+
+On-demand скиллы (подключаются по задаче):
+
+- **testing** — стек, размещение, scope и именование тестов (vitest, playwright, `__tests__/`)
+- **prepare-pr** — ветка от main, Conventional Commits, push, PR через GitHub MCP (git ops только явно)
+- **openspec-*** — workflow OpenSpec (propose, apply, archive и др.)
 
 ### `agents/`
 
 Промпты специализированных субагентов:
 
 - **researcher** — исследование кодовой базы, поиск паттернов и связей
-- **reviewer** — код-ревью, проверка архитектуры и качества
 
-### `commands/` и `skills/` (OpenSpec)
+### `commands/` (OpenSpec)
 
-Slash-команды (`/opsx-*`) и скиллы OpenSpec — на английском. См. `commands/` и `skills/openspec-*/`.
+Slash-команды (`/opsx-*`) — на английском. См. `commands/` и `skills/openspec-*/`.
 
 ## Локальные настройки
 

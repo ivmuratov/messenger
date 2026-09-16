@@ -1,5 +1,9 @@
+branch="$(git rev-parse --abbrev-ref HEAD)"
+if [ "$branch" = "main" ] || [ "$branch" = "master" ]; then
+  echo "Commits to $branch are not allowed. Create a feature branch first."
+  exit 1
+fi
+
 pnpm exec concurrently --kill-others-on-fail \
-  "pnpm build" \
   "pnpm lint" \
-  "pnpm typecheck" \
-  "pnpm syncpack:list"
+  "pnpm typecheck"
