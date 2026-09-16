@@ -18,6 +18,7 @@
 On-demand скиллы (подключаются по задаче):
 
 - **testing** — стек, размещение, scope и именование тестов (vitest, playwright, `__tests__/`)
+- **review-quality** — read-only review diff: perf, React render, a11y, light security (после apply)
 - **prepare-pr** — ветка от main, Conventional Commits, push, PR через GitHub MCP (git ops только явно)
 - **openspec-*** — workflow OpenSpec (propose, apply, archive и др.)
 
@@ -26,6 +27,9 @@ On-demand скиллы (подключаются по задаче):
 Промпты специализированных субагентов:
 
 - **researcher** — исследование кодовой базы, поиск паттернов и связей
+- **quality-reviewer** — read-only review diff на perf, render, a11y и базовую security; **не** architecture/imports/naming (это зона rules + Biome)
+
+**Review skills:** `review-quality` (локальный subagent `quality-reviewer`) vs встроенный `security-review` — для auth/crypto и глубокого security audit используй `/review-security`; quality-reviewer дополняет, не заменяет.
 
 ### `commands/` (OpenSpec)
 

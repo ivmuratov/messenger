@@ -4,6 +4,13 @@ Storybook-каталог web-компонентов `@ui` и visual regression �
 
 Stories colocated в `packages/ui/src/**/web/*.stories.tsx`; static build — `dist/`.
 
+## Addons
+
+- **Accessibility** (`@storybook/addon-a11y`) — панель Accessibility с axe-core audit при просмотре story
+- **Themes** (`@storybook/addon-themes`) — toolbar light/dark, синхронизирован с `ThemeProvider` (`data-theme` + React context). Default theme — `light` (Chromatic baseline)
+
+Dark-варианты — через named story exports с `globals.theme = 'dark'`, не через toolbar в CI.
+
 ## Команды
 
 Из корня монорепы:

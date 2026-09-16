@@ -8,7 +8,7 @@ const uiSrcPath = path.resolve(dirname, "../../../packages/ui/src");
 
 const config: StorybookConfig = {
   stories: ["../../../packages/ui/src/**/*.stories.tsx"],
-  addons: ["@storybook/addon-docs"],
+  addons: ["@storybook/addon-docs", "@storybook/addon-a11y", "@storybook/addon-themes"],
   framework: {
     name: "@storybook/react-vite",
     options: {},
