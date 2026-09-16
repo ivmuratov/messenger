@@ -91,6 +91,7 @@ Desktop.ini
 *.temp
 .tmp/
 .temp/
+*.log
 
 # Storybook
 storybook-static/

@@ -43,6 +43,7 @@ const config: RcFile = {
         "@storybook/react",
         "@storybook/addon-docs",
         "@storybook/builder-vite",
+        "chromatic",
       ],
       packages: ["**"],
       policy: "sameRange",
