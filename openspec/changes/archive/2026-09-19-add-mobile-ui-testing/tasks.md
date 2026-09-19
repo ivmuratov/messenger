@@ -14,7 +14,7 @@
 - [x] 3.1 Path filter `packages/ui/src/**/mobile/**` в `chromatic.yml`
 - [x] 3.2 Ненулевой exit code при непринятых changes (без `--exit-zero-on-changes`)
 - [x] 3.3 README: два конфига, два Chromatic project, RN-web границы
-- [ ] 3.4 Два GitHub secrets и успешный CI run с `dist-web` + `dist-mobile` — verify: `CHROMATIC_PROJECT_TOKEN_MOBILE` настроен в repo
+- [x] 3.4 Два GitHub secrets и успешный CI run с `dist-web` + `dist-mobile` — verify: `CHROMATIC_PROJECT_TOKEN_MOBILE` настроен в repo
 
 ## 4. Документация и OpenSpec
 
