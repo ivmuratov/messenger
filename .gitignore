@@ -13,6 +13,8 @@ blob-report/
 
 # Production
 dist/
+dist-web/
+dist-mobile/
 dist-native/
 dist-types/
 out/

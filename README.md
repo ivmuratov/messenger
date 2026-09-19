@@ -21,9 +21,9 @@ pnpm install
 | `pnpm typecheck`                           | Проверка типов                                        |
 | `pnpm test`                                | Unit-тесты (Vitest)                                   |
 | `pnpm test:e2e`                            | E2e-тесты web (Playwright)                            |
-| `pnpm storybook`                           | Storybook-каталог web-компонентов `@ui`               |
-| `pnpm build-storybook`                     | Статическая сборка Storybook в `apps/ui-storybook/dist` |
-| `pnpm chromatic`                           | Visual regression по Storybook stories (`apps/ui-storybook`) |
+| `pnpm storybook`                           | Storybook web (`:6006`); mobile — `pnpm --filter ui-storybook dev:mobile` |
+| `pnpm build-storybook`                     | Статическая сборка web + mobile (`dist-web`, `dist-mobile`) |
+| `pnpm chromatic`                           | Visual regression web + mobile (`apps/ui-storybook`) |
 | `pnpm syncpack:list` / `pnpm syncpack:fix` | Синхронизация версий пакетов                          |
 | `pnpm clean`                               | Очистка dist                                          |
 

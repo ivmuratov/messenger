@@ -7,11 +7,13 @@ on:
     paths:
       - "packages/ui/**/*.stories.tsx"
       - "packages/ui/src/**/web/**"
+      - "packages/ui/src/**/mobile/**"
       - "apps/ui-storybook/**"
   pull_request:
     paths:
       - "packages/ui/**/*.stories.tsx"
       - "packages/ui/src/**/web/**"
+      - "packages/ui/src/**/mobile/**"
       - "apps/ui-storybook/**"
 
 jobs:
@@ -35,11 +37,20 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Build Storybook
-        run: pnpm build-storybook
+      - name: Build Storybook (web)
+        run: pnpm --filter ui-storybook build:web
 
-      - name: Run Chromatic
+      - name: Run Chromatic (web)
         working-directory: apps/ui-storybook
         env:
           CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-        run: pnpm exec chromatic --storybook-build-dir=dist
+        run: pnpm exec chromatic --storybook-build-dir=dist-web
+
+      - name: Build Storybook (mobile)
+        run: pnpm --filter ui-storybook build:mobile
+
+      - name: Run Chromatic (mobile)
+        working-directory: apps/ui-storybook
+        env:
+          CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN_MOBILE }}
+        run: pnpm exec chromatic --storybook-build-dir=dist-mobile

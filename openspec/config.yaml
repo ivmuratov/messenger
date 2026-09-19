@@ -12,7 +12,7 @@ context: |
   - packages/core — business logic, Zustand stores, TanStack Query (modules/{domain}/ + shared/)
   - apps/web — Vite 7 + TanStack Router + React 19 (src/app, src/modules, src/shared)
   - apps/mobile — Expo 54 + React Native 0.81 + React Navigation (src/app, src/modules, src/shared)
-  - apps/ui-storybook — Storybook 10.6.0, визуальный каталог web-компонентов @ui
+  - apps/ui-storybook — Storybook 10.6.0; два конфига (`.storybook-web/`, `.storybook-mobile/`) для web и mobile @ui
   - Tooling: pnpm workspaces + Turborepo, Node >= 22.21.1, pnpm >= 10
 
   ## Package boundaries (strict)
@@ -55,9 +55,9 @@ context: |
   - pnpm format — Biome auto-fix (format + lint + organize imports)
   - pnpm build — full build via Turbo
   - pnpm verify — параллельно lint, typecheck, syncpack:list, build, test (concurrently), затем test:e2e
-  - pnpm storybook — dev Storybook (@ui web components)
-  - pnpm build-storybook — static Storybook build to apps/ui-storybook/dist
-  - pnpm chromatic — visual regression: build Storybook + upload to Chromatic (requires CHROMATIC_PROJECT_TOKEN)
+  - pnpm storybook — dev web Storybook (:6006); mobile RN-web — pnpm --filter ui-storybook dev:mobile (:6007)
+  - pnpm build-storybook — static builds dist-web + dist-mobile
+  - pnpm chromatic — web + mobile Chromatic (CHROMATIC_PROJECT_TOKEN и CHROMATIC_PROJECT_TOKEN_MOBILE)
   - CI: .github/workflows/ci.yml — full verify on PR and push to main
   - CI: .github/workflows/chromatic.yml — Chromatic on PR and push to main (paths filter on @ui stories and ui-storybook)
   - Pre-commit runs: lint + typecheck (concurrently via husky)

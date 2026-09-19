@@ -11,18 +11,19 @@ description: Стек тестирования (vitest, playwright, MSW, Storybo
 - **@testing-library/react** — React hooks через `renderHook`
 - **msw** — мокирование API (в `@core`)
 - **@playwright/test** — e2e-тесты web-приложения (`apps/web/e2e/`)
-- **Storybook** (`apps/ui-storybook`) — визуальный каталог web-компонентов `@ui`
-- **Chromatic** — visual regression по Storybook stories; CI на PR/push в `main`, локально `pnpm chromatic`
+- **Storybook** (`apps/ui-storybook`) — визуальный каталог web- и mobile-компонентов `@ui` (mobile через RN-web в браузере); два конфига `.storybook-web/` и `.storybook-mobile/`
+- **Chromatic** — visual regression по двум static build (web + mobile RN-web); CI на PR/push в `main`, локально `pnpm chromatic` (оба project); одна платформа — `pnpm --filter ui-storybook chromatic:web` / `chromatic:mobile`
 
 ## Storybook vs Chromatic vs Vitest
 
-- **Storybook** — просмотр состояний и вариантов web-компонентов; stories в `packages/ui/src/**/web/*.stories.tsx`, runner в `apps/ui-storybook`
-- **Storybook addons** (`apps/ui-storybook/.storybook/`):
+- **Storybook** — просмотр состояний web (`Components/*`, `pnpm storybook`) и mobile (`Mobile/*`, `pnpm --filter ui-storybook dev:mobile`); stories colocated в `packages/ui`; runner только в `apps/ui-storybook`. Mobile: RN-web + stubs в `.storybook-mobile/stubs/`; без `parameters.platform` в stories
+- **Storybook addons** (в каждом конфиге `.storybook-web/` и `.storybook-mobile/`):
   - `@storybook/addon-a11y` — панель **Accessibility** (axe-core) при просмотре story; `parameters.a11y.test: 'todo'` в preview (advisory, без CI fail)
-  - `@storybook/addon-themes` — toolbar **light/dark**, синхронизирован с `ThemeProvider`; default `initialGlobals.theme = 'light'` для Chromatic baseline
-- **Chromatic** — pixel comparison snapshots stories; baselines в облаке Chromatic; не заменяет unit-тесты hooks и utils
+  - `@storybook/addon-themes` — toolbar **light/dark**, синхронизирован с web или mobile `ThemeProvider`; default `initialGlobals.theme = 'light'` для Chromatic baseline
+- **Chromatic** — pixel comparison snapshots stories; baselines в облаке Chromatic; проверяет layout/tokens в RN-web, **не** жесты/worklets/native-анимации на устройстве; не заменяет unit-тесты hooks и utils
 - **Vitest** — unit-тесты hooks, utils, stores, API; component tests (`render(<Component />)`) по-прежнему вне scope
-- **Типы stories:** `@storybook/react` devDep в `@ui`, отдельный `tsconfig.stories.json` (не попадает в `dist-types`)
+- **Mobile e2e** — вне текущего scope (нет Maestro/EAS в этом стеке)
+- **Типы stories:** `@storybook/react` devDep в `@ui`, отдельный `tsconfig.stories.json` для web и mobile stories (не попадает в `dist-types`)
 
 ## Что тестировать
 

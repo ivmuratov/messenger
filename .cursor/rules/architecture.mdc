@@ -11,7 +11,7 @@ alwaysApply: true
 - `packages/core` — Общая бизнес-логика, состояние, API
 - `apps/web` — Веб-приложение (Vite + TanStack Router)
 - `apps/mobile` — Мобильное приложение (Expo + React Native)
-- `apps/ui-storybook` — Storybook-каталог web-компонентов `@ui`
+- `apps/ui-storybook` — Storybook-каталог web- и mobile-компонентов `@ui` (два конфига в одном пакете)
 
 ## Зависимости пакетов
 
@@ -128,7 +128,7 @@ Feature-модуль — тот же принцип, что в `@core`, плюс
 
 ## apps/ui-storybook
 
-- Конфиг Storybook — в `apps/ui-storybook/.storybook/`
+- Конфиг Storybook — в `apps/ui-storybook/.storybook-web/` и `.storybook-mobile/` (два runner-конфига в одном пакете)
 - Stories colocated в `packages/ui/src/**/web/*.stories.tsx`
 - Runner и addons Storybook только здесь; в `@ui` допустим `@storybook/react` devDep для типов CSF
 - Потребляет только `@ui`

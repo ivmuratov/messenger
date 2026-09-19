@@ -12,7 +12,7 @@
     "format": "turbo run format",
     "clean": "turbo run clean",
     "clean:all": "turbo run clean && rm -rf node_modules pnpm-lock.yaml",
-    "storybook": "pnpm --filter ui-storybook dev",
+    "storybook": "pnpm --filter ui-storybook dev:web",
     "build-storybook": "pnpm --filter ui-storybook build",
     "chromatic": "pnpm --filter ui-storybook chromatic",
     "syncpack:fix": "syncpack fix-mismatches",
