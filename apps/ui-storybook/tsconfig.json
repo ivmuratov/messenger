@@ -5,6 +5,6 @@
     "jsx": "react-jsx",
     "noEmit": true
   },
-  "include": [".storybook/**/*"],
+  "include": [".storybook-web/**/*", ".storybook-mobile/**/*"],
   "exclude": ["node_modules", "dist"]
 }

@@ -7,7 +7,7 @@ const dirname = path.dirname(fileURLToPath(import.meta.url));
 const uiSrcPath = path.resolve(dirname, "../../../packages/ui/src");
 
 const config: StorybookConfig = {
-  stories: ["../../../packages/ui/src/**/*.stories.tsx"],
+  stories: ["../../../packages/ui/src/**/web/*.stories.tsx"],
   addons: ["@storybook/addon-docs", "@storybook/addon-a11y", "@storybook/addon-themes"],
   framework: {
     name: "@storybook/react-vite",

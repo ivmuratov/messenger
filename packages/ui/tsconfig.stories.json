@@ -5,8 +5,9 @@
     "noEmit": true,
     "paths": {
       "@/*": ["./src/*"]
-    }
+    },
+    "types": ["react-native"]
   },
-  "include": ["src/**/*.stories.tsx"],
+  "include": ["src/**/web/*.stories.tsx", "src/**/mobile/*.stories.tsx"],
   "exclude": ["node_modules", "dist-types"]
 }

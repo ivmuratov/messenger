@@ -4,13 +4,19 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "storybook dev -p 6006",
-    "build": "storybook build -o dist",
-    "lint": "biome check .storybook",
+    "dev": "pnpm exec concurrently --kill-others-on-fail \"pnpm dev:web\" \"pnpm dev:mobile\"",
+    "dev:web": "storybook dev -c .storybook-web -p 6006",
+    "dev:mobile": "storybook dev -c .storybook-mobile -p 6007",
+    "build": "pnpm exec concurrently --kill-others-on-fail \"pnpm build:web\" \"pnpm build:mobile\"",
+    "build:web": "storybook build -c .storybook-web -o dist-web",
+    "build:mobile": "storybook build -c .storybook-mobile -o dist-mobile",
+    "lint": "biome check .storybook-web .storybook-mobile",
     "typecheck": "tsc --noEmit",
-    "format": "biome check --write .storybook",
-    "clean": "rm -rf dist node_modules",
-    "chromatic": "chromatic --build-script-name=build --exit-zero-on-changes"
+    "format": "biome check --write .storybook-web .storybook-mobile",
+    "clean": "rm -rf dist dist-web dist-mobile node_modules",
+    "chromatic": "pnpm exec concurrently --kill-others-on-fail \"pnpm chromatic:web\" \"pnpm chromatic:mobile\"",
+    "chromatic:web": "chromatic --build-script-name=build:web --storybook-build-dir=dist-web",
+    "chromatic:mobile": "chromatic --build-script-name=build:mobile --storybook-build-dir=dist-mobile --project-token=${CHROMATIC_PROJECT_TOKEN_MOBILE}"
   },
   "dependencies": {
     "@ui": "workspace:*",
@@ -19,8 +25,11 @@
     "@vanilla-extract/sprinkles": "1.6.5",
     "clsx": "2.1.1",
     "lucide-react": "0.575.0",
+    "lucide-react-native": "0.575.0",
     "react": "19.1.0",
-    "react-dom": "19.1.0"
+    "react-dom": "19.1.0",
+    "react-native": "0.81.5",
+    "react-native-web": "0.21.2"
   },
   "devDependencies": {
     "chromatic": "18.9.0",
