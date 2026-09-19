@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "hooks": {
+    "sessionStart": [
+      {
+        "command": "node .cursor/hooks/limitSubagents.mjs"
+      }
+    ],
+    "sessionEnd": [
+      {
+        "command": "node .cursor/hooks/limitSubagents.mjs"
+      }
+    ],
+    "subagentStart": [
+      {
+        "command": "node .cursor/hooks/limitSubagents.mjs"
+      }
+    ]
+  }
+}
