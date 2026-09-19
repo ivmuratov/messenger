@@ -22,6 +22,15 @@ On-demand скиллы (подключаются по задаче):
 - **prepare-pr** — ветка от main, Conventional Commits, push, PR через GitHub MCP (git ops только явно)
 - **openspec-*** — workflow OpenSpec (propose, apply, archive и др.)
 
+### `hooks/`
+
+Программные ограничения agent loop ([Cursor Hooks](https://cursor.com/docs/agent/hooks)):
+
+- **`hooks.json`** — `sessionStart` / `sessionEnd` / `subagentStart`
+- **`hooks/limitSubagents.mjs`** — не больше **5** запусков subagent на одну беседу (страховка от рекурсии skills → subagent → skill)
+
+После изменения hooks перезапусти Cursor или проверь вкладку Hooks в настройках.
+
 ### `agents/`
 
 Промпты специализированных субагентов:

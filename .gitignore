@@ -57,6 +57,9 @@ ios/
 !.cursor/agents/
 !.cursor/commands/
 !.cursor/skills/
+!.cursor/hooks.json
+!.cursor/hooks/
+.cursor/hooks/state/subagent-limits.json
 .cursor/mcp.json
 .cursor/history/
 .cursor/tmp/

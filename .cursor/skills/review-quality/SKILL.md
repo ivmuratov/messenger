@@ -1,12 +1,23 @@
 ---
 name: review-quality
 description: Review diff через subagent quality-reviewer (perf, render, a11y, light security). Use when the user asks for quality review after code changes or /opsx-apply.
+disable-model-invocation: true
 ---
 # Review Quality
 
-Используй этот skill, когда пользователь просит quality review после изменений кода или `/opsx-apply`.
+Используй этот skill, когда **главный (root) агент** выполняет quality review после изменений кода или по явному запросу пользователя (`/review-quality`, «сделай quality review»).
 
-Запусти ровно один subagent `quality-reviewer` с параметрами:
+## Только для root-агента
+
+- Если ты **уже** subagent `quality-reviewer` — **не** используй этот skill. Выполни review по `.cursor/agents/quality-reviewer.md`.
+- **Не** перечитывай этот skill внутри subagent и **не** запускай вложенный `quality-reviewer`.
+
+## Лимит subagent
+
+- За одну беседу — **не больше 5** запусков subagent суммарно (включая retry). Проектный hook `.cursor/hooks/limitSubagents.mjs` может отклонить лишние.
+- Для quality review нужен **ровно один** запуск `quality-reviewer` (плюс максимум **один** retry при ошибке — см. ниже).
+
+Запусти subagent `quality-reviewer` с параметрами:
 
 - `run_in_background: false`, если явно не попросили запуск в фоне
 - `description: "Quality Review"`
@@ -27,11 +38,16 @@ Custom Instructions: <только если пользователь дал ос
 
 По умолчанию — `branch changes`. Для только uncommitted/local изменений — `uncommitted changes`.
 
-Если subagent завершился с ошибкой до выдачи findings, прочитай текст ошибки.
+## Retry (только root)
 
-- Если ошибка из-за неверного вызова subagent — исправь invocation и сразу повтори один раз.
-- При любой другой ошибке subagent — повтори один раз с тем же форматом промпта.
-- Если после повтора та же ошибка — остановись. Кратко сообщи пользователю, что review не завершился, и укажи ошибку или blocker.
+Если **единственный** прямой дочерний subagent завершился с ошибкой **до** выдачи findings (verdict/findings), прочитай текст ошибки.
+
+- Если ошибка из-за неверного вызова subagent — исправь invocation и **один** retry.
+- Если ошибка «лимит subagent» / `decision: deny` от hook — **не** retry. Сообщи пользователю и остановись.
+- При любой другой ошибке subagent — **один** retry с тем же форматом промпта.
+- **Не** запускай второй subagent параллельно с первым. **Не** retry, если subagent вернул текст про вложенный subagent или «использую skill review-quality» — это рекурсия, не ошибка diff.
+
+Если после одного retry та же ошибка — остановись. Кратко сообщи пользователю, что review не завершился, и укажи ошибку или blocker.
 
 После завершения subagent резюмируй результат:
 
