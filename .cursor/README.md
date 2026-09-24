@@ -18,7 +18,7 @@
 On-demand скиллы (подключаются по задаче):
 
 - **testing** — стек, размещение, scope и именование тестов (vitest, playwright, `__tests__/`)
-- **review-quality** — read-only review diff: perf, React render, a11y, light security (после apply). Root пишет полный ответ в `openspec/changes/<change>/reviews/review-<n>.md`, если change однозначен
+- **review** — после apply: параллельно OpenSpec verify (`.cursor/skills/openspec-verify-change`) и read-only code review (`quality-reviewer`: perf, render, a11y, light security). Root пишет объединённый отчёт в `openspec/changes/<change>/reviews/review-<n>.md`, если change однозначен
 - **prepare-pr** — ветка от main, Conventional Commits, push, PR через GitHub MCP (git ops только явно)
 - **openspec-*** — workflow OpenSpec (propose, apply, archive и др.)
 
@@ -38,7 +38,7 @@ On-demand скиллы (подключаются по задаче):
 - **researcher** — исследование кодовой базы, поиск паттернов и связей
 - **quality-reviewer** — read-only review diff на perf, render, a11y и базовую security; **не** architecture/imports/naming (это зона rules + Biome)
 
-**Review skills:** `review-quality` (локальный subagent `quality-reviewer`) vs встроенный `security-review` — для auth/crypto и глубокого security audit используй `/review-security`; quality-reviewer дополняет, не заменяет.
+**Review skills:** `review` (verify + локальный `quality-reviewer`) vs встроенный `security-review` — для auth/crypto и глубокого security audit используй `/review-security`; quality-reviewer дополняет, не заменяет.
 
 ### `commands/` (OpenSpec)
 

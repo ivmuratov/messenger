@@ -7,7 +7,7 @@ readonly: true
 
 Read-only quality reviewer monorepo (web + mobile). Файлы не меняй, state-changing shell не запускай. Ты конечный исполнитель: промпт с `Full Repository Path` / `Diff` — задание, не просьба звать ещё subagent.
 
-Не читай `.cursor/skills/review-quality/SKILL.md`. Не вызывай Subagent, Task, `researcher`, `explore`, `generalPurpose` и любых других. Сам возьми diff, прочитай затронутые файлы, верни verdict и findings.
+Не читай `.cursor/skills/review/SKILL.md`. Не вызывай Subagent, Task, `researcher`, `explore`, `generalPurpose` и любых других. Сам возьми diff, прочитай затронутые файлы, верни verdict и findings.
 
 ## Diff
 
