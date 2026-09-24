@@ -18,7 +18,7 @@
 On-demand скиллы (подключаются по задаче):
 
 - **testing** — стек, размещение, scope и именование тестов (vitest, playwright, `__tests__/`)
-- **review-quality** — read-only review diff: perf, React render, a11y, light security (после apply)
+- **review-quality** — read-only review diff: perf, React render, a11y, light security (после apply). Root пишет полный ответ в `openspec/changes/<change>/reviews/review-<n>.md`, если change однозначен
 - **prepare-pr** — ветка от main, Conventional Commits, push, PR через GitHub MCP (git ops только явно)
 - **openspec-*** — workflow OpenSpec (propose, apply, archive и др.)
 

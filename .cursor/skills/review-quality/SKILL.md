@@ -5,56 +5,61 @@ disable-model-invocation: true
 ---
 # Review Quality
 
-Используй этот skill, когда **главный (root) агент** выполняет quality review после изменений кода или по явному запросу пользователя (`/review-quality`, «сделай quality review»).
+Skill только для **root**. Если ты уже subagent `quality-reviewer` — не читай этот skill и не запускай вложенный `quality-reviewer`. Review делай по `.cursor/agents/quality-reviewer.md`.
 
-## Только для root-агента
+## Запуск
 
-- Если ты **уже** subagent `quality-reviewer` — **не** используй этот skill. Выполни review по `.cursor/agents/quality-reviewer.md`.
-- **Не** перечитывай этот skill внутри subagent и **не** запускай вложенный `quality-reviewer`.
+Один `quality-reviewer` за review: `run_in_background: false` (фон — только если попросили), `description: "Quality Review"`. На беседу не больше 5 subagent суммарно, включая retry; лишние режет `.cursor/hooks/limitSubagents.mjs`.
 
-## Лимит subagent
-
-- За одну беседу — **не больше 5** запусков subagent суммарно (включая retry). Проектный hook `.cursor/hooks/limitSubagents.mjs` может отклонить лишние.
-- Для quality review нужен **ровно один** запуск `quality-reviewer` (плюс максимум **один** retry при ошибке — см. ниже).
-
-Запусти subagent `quality-reviewer` с параметрами:
-
-- `run_in_background: false`, если явно не попросили запуск в фоне
-- `description: "Quality Review"`
-- `subagent_type: "quality-reviewer"`
-
-Subagent сам вычисляет локальный diff по пути репозитория — **не** вычисляй diff сам перед запуском. Путь репозитория — активный workspace или корень репозитория с кодом, который нужно проверить.
-
-По умолчанию subagent определяет базовую ветку репозитория (например, `main`) при вычислении `branch changes`. В большинстве случаев **не** указывай `Base Branch`. Указывай только если текущую ветку или PR нужно сравнить с конкретной веткой, отличной от default base branch.
-
-Используй точно такой формат промпта:
+Diff считает subagent, root его не готовит. Путь — workspace или корень репозитория. `Base Branch` не указывай: subagent берёт default (обычно `main`). Указывай только если сравнивать нужно не с default base.
 
 ```text
 Full Repository Path: <absolute repository path>
-Diff: <one of: "branch changes", "uncommitted changes">
-Base Branch: <только если branch changes сравниваются с известной конкретной base branch>
-Custom Instructions: <только если пользователь дал особые инструкции для review>
+Diff: <"branch changes" | "uncommitted changes">
+Base Branch: <только если base не default>
+Custom Instructions: <только если пользователь дал инструкции>
 ```
 
-По умолчанию — `branch changes`. Для только uncommitted/local изменений — `uncommitted changes`.
+По умолчанию `branch changes`: коммиты ветки плюс staged и unstaged относительно base. `uncommitted changes` — только если просят проверить исключительно незакоммиченное относительно `HEAD`.
 
-## Retry (только root)
+## Retry
 
-Если **единственный** прямой дочерний subagent завершился с ошибкой **до** выдачи findings (verdict/findings), прочитай текст ошибки.
+Если единственный дочерний subagent упал до verdict/findings:
 
-- Если ошибка из-за неверного вызова subagent — исправь invocation и **один** retry.
-- Если ошибка «лимит subagent» / `decision: deny` от hook — **не** retry. Сообщи пользователю и остановись.
-- При любой другой ошибке subagent — **один** retry с тем же форматом промпта.
-- **Не** запускай второй subagent параллельно с первым. **Не** retry, если subagent вернул текст про вложенный subagent или «использую skill review-quality» — это рекурсия, не ошибка diff.
+- неверный вызов — исправь и один retry
+- лимит или `decision: deny` — не retry, сообщи и остановись
+- другая ошибка — один retry с тем же промптом
+- текст про вложенный subagent или «использую skill review-quality» — это рекурсия, не retry
 
-Если после одного retry та же ошибка — остановись. Кратко сообщи пользователю, что review не завершился, и укажи ошибку или blocker.
+Второй subagent параллельно не запускай. Та же ошибка после retry — остановись и назови blocker.
 
-После завершения subagent резюмируй результат:
+## Ответ в чате
 
-- Если diff не найден или пуст — одной фразой сообщи, что review нечего проверять.
-- Если issues нет — однострочный статус с verdict **PASS** или **PASS WITH NOTES**.
-- Если есть issues — компактная markdown-таблица: одна строка на finding, сортировка по severity (сначала highest), колонки **Severity**, **Location**, **Finding**.
+Пустой diff — одна фраза, что проверять нечего. Verdict не выдумывай, файл не создавай.
 
-Не исправляй findings и не перезапускай review, пока пользователь явно не попросит.
+Иначе назови verdict из ответа (`PASS`, `PASS WITH NOTES` или `NEEDS WORK`). Без findings — одна строка. С findings — verdict и таблица: строка на finding, порядок `critical` → `warning` → `note`, колонки **Severity**, **Location**, **Finding**. Если файл записан, добавь путь.
 
-Для auth, crypto или глубоко security-sensitive изменений дополнительно рекомендуй `/review-security` — quality-reviewer его **не** заменяет.
+Findings не исправляй и review не перезапускай, пока пользователь явно не попросит. Для auth, crypto и глубокой security рекомендуй `/review-security`.
+
+## Файл
+
+Пишет root после ответа. Subagent файлы не создаёт. Change — первое совпадение:
+
+1. Пользователь назвал change, и `openspec/changes/<name>` есть (не в `archive/`).
+2. Имя текущей ветки совпадает с каталогом активного change.
+3. Ветка `main` или `master`, и активный change ровно один.
+
+Иначе только чат. Единственный change на другой feature-ветке не бери.
+
+Путь: `openspec/changes/<change>/reviews/review-<n>.md`. `<n>` — max + 1, пропуски не заполняй; файлов нет → `review-1.md`. Шапка, затем полный ответ subagent:
+
+```markdown
+# Review <n>
+
+- Change: <change>
+- Date: <YYYY-MM-DD>
+- Diff: <branch changes | uncommitted changes>
+- Verdict: <PASS | PASS WITH NOTES | NEEDS WORK>
+
+<полный ответ subagent>
+```

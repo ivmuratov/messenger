@@ -41,11 +41,31 @@ Review MUST покрывать: уязвимости безопасности в
 
 Репозиторий MUST предоставлять skill `.cursor/skills/review-quality/SKILL.md`, описывающий запуск subagent `quality-reviewer` по образцу review-bugbot (Task tool, diff branch changes по умолчанию). Skill MUST указывать формат вывода: verdict (PASS / PASS WITH NOTES / NEEDS WORK) и таблица Severity | Location | Finding.
 
-#### Scenario: Формат вывода
+#### Scenario: Verdict PASS
 
-- **WHEN** subagent завершил review без blocking findings
-- **THEN** skill workflow MUST резюмировать one-line status с verdict PASS или PASS WITH NOTES
-- **AND** при findings MUST вывести markdown-таблицу, отсортированную по severity
+- **WHEN** subagent завершил review и findings нет
+- **THEN** verdict MUST быть PASS
+- **AND** skill workflow MUST резюмировать one-line status с этим verdict
+
+#### Scenario: Verdict PASS WITH NOTES
+
+- **WHEN** findings только severity `note`
+- **THEN** verdict MUST быть PASS WITH NOTES
+- **AND** skill workflow MUST вывести эти findings таблицей вместе с verdict
+
+#### Scenario: Verdict NEEDS WORK
+
+- **WHEN** есть хотя бы один finding severity `warning` или `critical`
+- **THEN** verdict MUST быть NEEDS WORK
+- **AND** skill workflow MUST вывести markdown-таблицу, отсортированную по severity, вместе с verdict
+
+#### Scenario: Запись review в change
+
+- **WHEN** review завершился с verdict и change определён: пользователь назвал существующий каталог в `openspec/changes/` вне `archive/`, либо имя текущей ветки совпадает с каталогом change, либо ветка `main`/`master` и активный change ровно один
+- **THEN** root-агент MUST записать полный ответ subagent в `openspec/changes/<change>/reviews/review-<n>.md` с шапкой change, date, diff и verdict
+- **AND** `<n>` MUST быть на один больше максимального существующего номера; пропуски MUST NOT заполняться
+- **AND** subagent MUST NOT создавать этот файл
+- **AND** если change не определён или diff пуст — файл MUST NOT создаваться, результат остаётся в чате
 
 ### Requirement: Документация cursor agents
 
