@@ -12,9 +12,9 @@
 
 #### Scenario: Запуск через skill
 
-- **WHEN** пользователь или родительский агент вызывает skill review-quality после изменений кода
-- **THEN** MUST быть запущен subagent `quality-reviewer` с путём репозитория и типом diff
-- **AND** subagent MUST вернуть verdict и таблицу findings
+- **WHEN** пользователь или родительский агент вызывает skill review после изменений кода
+- **THEN** MUST быть запущены параллельно subagent verify (по `.cursor/skills/openspec-verify-change/SKILL.md`) и subagent `quality-reviewer` с путём репозитория и типом diff
+- **AND** quality-reviewer MUST вернуть verdict и таблицу findings
 
 #### Scenario: Read-only поведение
 
@@ -37,9 +37,9 @@ Review MUST покрывать: уязвимости безопасности в
 - **WHEN** diff добавляет inline object/function в props hot-path list component
 - **THEN** quality-reviewer MAY сообщить finding с severity и recommendation по memoization
 
-### Requirement: Skill review-quality
+### Requirement: Skill review
 
-Репозиторий MUST предоставлять skill `.cursor/skills/review-quality/SKILL.md`, описывающий запуск subagent `quality-reviewer` по образцу review-bugbot (Task tool, diff branch changes по умолчанию). Skill MUST указывать формат вывода: verdict (PASS / PASS WITH NOTES / NEEDS WORK) и таблица Severity | Location | Finding.
+Репозиторий MUST предоставлять skill `.cursor/skills/review/SKILL.md`, описывающий параллельный запуск OpenSpec verify (subagent выполняет `.cursor/skills/openspec-verify-change/SKILL.md`) и subagent `quality-reviewer` (diff branch changes по умолчанию). Skill MUST задавать объединённый файл review по формату Verification Report из openspec-verify-change (Summary scorecard с строкой Code Quality, Issues by Priority, Final Assessment) и формат quality: verdict (PASS / PASS WITH NOTES / NEEDS WORK) и таблица Severity | Location | Finding.
 
 #### Scenario: Verdict PASS
 
@@ -62,16 +62,16 @@ Review MUST покрывать: уязвимости безопасности в
 #### Scenario: Запись review в change
 
 - **WHEN** review завершился с verdict и change определён: пользователь назвал существующий каталог в `openspec/changes/` вне `archive/`, либо имя текущей ветки совпадает с каталогом change, либо ветка `main`/`master` и активный change ровно один
-- **THEN** root-агент MUST записать полный ответ subagent в `openspec/changes/<change>/reviews/review-<n>.md` с шапкой change, date, diff и verdict
+- **THEN** root-агент MUST записать объединённый Verification Report в `openspec/changes/<change>/reviews/review-<n>.md` с шапкой change, date, diff, Summary (включая Code Quality), Issues by Priority и Final Assessment; полные ответы subagent — в секциях Detail
 - **AND** `<n>` MUST быть на один больше максимального существующего номера; пропуски MUST NOT заполняться
 - **AND** subagent MUST NOT создавать этот файл
 - **AND** если change не определён или diff пуст — файл MUST NOT создаваться, результат остаётся в чате
 
 ### Requirement: Документация cursor agents
 
-`.cursor/README.md` MUST описывать subagent `quality-reviewer` и skill `review-quality`. Skill MUST NOT дублировать встроенный `security-review`; для auth/crypto changes MUST рекомендовать `/review-security` дополнительно.
+`.cursor/README.md` MUST описывать subagent `quality-reviewer` и skill `review`. Skill MUST NOT дублировать встроенный `security-review`; для auth/crypto changes MUST рекомендовать `/review-security` дополнительно.
 
 #### Scenario: README agents section
 
 - **WHEN** разработчик читает `.cursor/README.md`
-- **THEN** MUST найти описание `quality-reviewer` и когда использовать `review-quality` vs `review-security`
+- **THEN** MUST найти описание `quality-reviewer` и когда использовать `review` vs `review-security`
