@@ -1,68 +1,52 @@
 ---
 name: prepare-pr
-description: Prepare branch, commit, push, and open a PR — feature branch from main, Conventional Commits, commitlint validation, GitHub MCP. Use when the user asks to prepare a PR, commit changes, push a branch, or open a pull request.
+description: Готовит feature-ветку от main, коммит в формате Conventional Commits с проверкой commitlint, push и pull request через GitHub MCP (если MCP недоступен — gh). Использовать, когда пользователь просит подготовить PR, закоммитить изменения, запушить ветку или открыть pull request.
 disable-model-invocation: true
 ---
 
 # Prepare PR
 
-Подготовка ветки, коммита, push и создание pull request через GitHub MCP.
+Тесты, lint и quality review сами не запускать. Если в этом ходе их не было — написать об этом в ответе.
 
 ## Guardrails
 
 - NEVER update git config
-- NEVER run destructive git commands (`push --force`, `reset --hard`, etc.) unless the user explicitly requests them
-- NEVER skip hooks (`--no-verify`, `--no-gpg-sign`, etc.) unless the user explicitly requests it
-- NEVER force-push to `main`/`master`; warn the user if they request it
+- NEVER run destructive git commands (`push --force`, `reset --hard`, etc.) unless the user explicitly requests them. NEVER force-push to `main`/`master` — warn if asked
+- NEVER skip hooks (`--no-verify`, `--no-gpg-sign`) unless the user explicitly requests it
 - NEVER commit or push directly to `main`/`master`
-- NEVER use `git add -A` or `git add .` — stage only explicitly named files
-- Avoid `git commit --amend` unless the user explicitly requests it and HEAD was not pushed
-- NEVER create duplicate PR — проверить открытый PR для текущей ветки перед `create_pull_request`
+- NEVER `git add -A` or `git add .` — stage only named files
+- NEVER create a duplicate PR — сначала проверить открытый PR текущей ветки
+- `git commit --amend` только если одновременно: пользователь явно просит, HEAD создан в этой беседе, коммит не запушен. Hook отклонил коммит → новый коммит, не amend
 
 ## Шаги
 
-### 1. Проверить ветку
+### 1. Ветка
+
+`git branch --show-current`. На `main`/`master` создать ветку и перейти: имя каталога `openspec/changes/<name>` (не `archive/`); несколько активных и неясно, какой про дифф → спросить; иначе kebab-case от scope/subject. `git checkout -b <branch-name>`. Уже на feature-ветке — новую не создавать.
+
+### 2. Сверка с `origin/main`
 
 ```bash
-git branch --show-current
-```
-
-- На `main` или `master` → создать feature-ветку:
-  - приоритет: имя OpenSpec change (если есть)
-  - иначе: kebab-case от scope/subject изменений
-  - `git checkout -b <branch-name>`
-- На feature-ветке → не создавать новую ветку
-
-### 2. Проанализировать изменения
-
-Параллельно:
-
-```bash
+git fetch origin main
 git status
 git diff
-git log -5 --oneline
-git log main...HEAD --oneline
-git diff main...HEAD
+git log origin/main...HEAD --oneline
+git diff origin/main...HEAD
 ```
 
-### 3. Stage
+Fetch не удался → локальная `main` и написать об этом в ответе.
 
-Добавить только релевантные файлы по имени:
+- Чисто и `origin/main...HEAD` пуст → стоп, нечего отправлять
+- Чисто и коммиты есть → сразу push и PR
+- Есть изменения → один коммит, затем push и PR
 
-```bash
-git add path/to/file1 path/to/file2
-```
+Посторонние файлы не стейджить и перечислить в ответе. Секреты (`.env`, credentials, ключи, токены) не коммитить; если просят — предупредить и не добавлять.
 
-Не коммитить секреты (`.env`, credentials). Предупредить, если пользователь просит их закоммитить.
+### 3. Stage и commit
 
-### 4. Commit (Conventional Commits)
+Только если есть незакоммиченные изменения. Файлы по имени: `git add path/to/file1 path/to/file2`.
 
-Формат: `<type>(<scope>): <subject>`
-
-- **scope обязателен** — всегда в скобках сразу после type
-- **subject** — одна короткая фраза, imperative, lowercase, без точки в конце
-- **header ≤ 72 символов**
-- Подробности — только в body (пустая строка после header)
+`<type>(<scope>): <subject>` — scope ровно один; subject imperative, lowercase, без точки; header ≤ 72; body после пустой строки. Несколько пакетов → scope основного, остальные области в body.
 
 | Scope    | Когда |
 | -------- | ----- |
@@ -75,13 +59,7 @@ git add path/to/file1 path/to/file2
 
 Type: `feat` | `fix` | `docs` | `style` | `refactor` | `test` | `chore` | `ci` | `build` | `perf` | `revert`
 
-Проверить сообщение:
-
-```bash
-echo "type(scope): subject" | pnpm exec commitlint
-```
-
-Коммит:
+В commitlint — точное сообщение, включая body: `printf '%s\n' 'type(scope): subject' '' 'body line' | pnpm exec commitlint`
 
 ```bash
 git commit -m "$(cat <<'EOF'
@@ -89,23 +67,16 @@ type(scope): subject
 
 EOF
 )"
+git status
 ```
 
-### 5. Push
+### 4. Push
 
-```bash
-git push -u origin HEAD
-```
+`git push -u origin HEAD`. Отклонён → остановиться и сообщить. Не повторять и не делать force-push.
 
-### 6. Create pull request (GitHub MCP)
+### 5. Pull request
 
-Использовать namespace `project-0-messenger-github`. Сначала `GetDynamicTools` для схемы инструментов.
-
-1. Определить `owner`/`repo` из `git remote get-url origin`
-2. Текущая ветка: `git branch --show-current`
-3. Проверить существующий PR: `list_pull_requests` с `state: open`, `head: <owner>:<branch>` (или head filter по ветке)
-4. Если PR уже есть → вернуть `html_url`, не создавать новый
-5. Сформировать title (из последнего commit header или summary изменений) и body:
+Title — смысл всей ветки относительно `origin/main` (один коммит → его header). Test plan — по фактическим изменениям.
 
 ```markdown
 ## Summary
@@ -115,16 +86,27 @@ git push -u origin HEAD
 - [ ] ...
 ```
 
-6. `create_pull_request`: `base: main`, `head: <branch>`, `title`, `body`
-7. Вернуть URL PR пользователю
+Namespace `project-0-messenger-github`, сначала `GetDynamicTools`. `error` или упавший вызов → сразу `gh`, без `mcp_auth` и без починки сервера. `needsAuth` → один `mcp_auth` и повтор; снова недоступен → `gh`.
 
-Fallback: если MCP недоступен — `gh pr create --title "..." --body "$(cat <<'EOF' ... EOF)"` после push.
+MCP: `owner`/`repo` из `git remote get-url origin`, ветка из `git branch --show-current`. Открытый PR — `list_pull_requests` (`state: open`, `head: <owner>:<branch>`). Есть → вернуть `html_url`. Нет → `create_pull_request` (`base: main`, `head`, `title`, `body`).
+
+Иначе тот же title и body:
+
+```bash
+gh pr list --head "<branch>" --state open --json url
+gh pr create --base main --head "<branch>" --title "..." --body "$(cat <<'EOF'
+...
+EOF
+)"
+```
+
+Вернуть URL PR.
 
 ## Примеры
 
 ✅ `feat(root): add storybook catalog for ui web components`
-✅ `chore(root): migrate from eslint and prettier to biome`
 ✅ `test(ui): add useThemeSwitcher hook tests`
 
 ❌ `feat: add storybook...` — нет scope
 ❌ `feat(storybook): ...` — scope не из enum
+❌ `feat(ui,web): ...` — больше одного scope
