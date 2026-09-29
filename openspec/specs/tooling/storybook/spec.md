@@ -141,6 +141,22 @@ MUST существовать mobile story для каждого визуаль�
 - **WHEN** добавляется новая mobile story со стабильным статическим состоянием
 - **THEN** mobile Chromatic project MUST включать её в visual regression наравне с web project для web stories
 
+### Requirement: Page story демонстрирует шапку с несколькими детьми
+
+Web- и mobile-story для `Page` MUST рендерить `Page.Header` с не менее чем двумя sibling-элементами (например, текстовая метка и управление), чтобы зафиксировать compound-структуру и раскладку шапки после внутреннего использования `Flex`.
+
+#### Scenario: Web Page header с двумя элементами
+
+- **WHEN** открывается web story `Components/Page`
+- **THEN** в `Page.Header` MUST быть видны минимум два соседних элемента
+- **AND** MUST использоваться `Page.Body` с содержимым (compound полностью)
+
+#### Scenario: Mobile Page header с двумя элементами
+
+- **WHEN** открывается mobile story `Mobile/Page`
+- **THEN** в `Page.Header` MUST быть видны минимум два соседних элемента
+- **AND** MUST использоваться `Page.Body` с содержимым
+
 ### Requirement: Preview и ThemeProvider без story-level platform marker
 
 Web runner MUST оборачивать stories в web `ThemeProvider` из `@ui` (default export) с `@storybook/addon-themes` и VE global styles. Mobile runner MUST оборачивать stories в mobile `ThemeProvider` из `@ui` (entry при Vite condition `react-native`) с синхронизацией light/dark через themes addon (`globals.theme`). Story meta MUST NOT использовать `parameters.platform` или эквивалентные маркеры для выбора provider. Runner MUST NOT импортировать модули напрямую из `packages/ui/src/**`.

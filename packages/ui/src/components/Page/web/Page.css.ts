@@ -7,7 +7,6 @@ import { pageBodyStylesToken, pageHeaderStylesToken } from "../tokens";
 
 export const pageHeaderStyles = style({
   ...pageHeaderStylesToken,
-  display: "flex",
   position: "sticky",
   top: 0,
   zIndex: zIndexToken.header,

@@ -16,6 +16,7 @@ export const Default: Story = {
   render: () => (
     <Page>
       <Page.Header>
+        <Text>Action</Text>
         <Text>Page header</Text>
       </Page.Header>
       <Page.Body>

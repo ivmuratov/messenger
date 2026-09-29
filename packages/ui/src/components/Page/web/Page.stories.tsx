@@ -14,7 +14,10 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   render: () => (
     <Page>
-      <Page.Header>Page header</Page.Header>
+      <Page.Header>
+        <button type="button">Action</button>
+        <span>Page header</span>
+      </Page.Header>
       <Page.Body>Page body content</Page.Body>
     </Page>
   ),

@@ -7,8 +7,6 @@ export const pageHeaderStylesToken = {
   paddingBottom: spacingToken.sm,
   borderBottomWidth: borderWidthToken.xs,
   borderBottomStyle: "solid",
-  flexDirection: "row",
-  alignItems: "center",
   minHeight: 56,
 } as const;
 

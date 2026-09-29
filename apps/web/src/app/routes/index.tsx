@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { DrawerLayout, Flex, Page, ThemeSwitcher } from "@ui";
+import { DrawerLayout, Flex, Page, ThemeSwitcher, Typography } from "@ui";
 import { useState } from "react";
 
 export const Route = createFileRoute("/")({
@@ -18,26 +18,28 @@ function HomePage() {
       <DrawerLayout.Aside>
         {Array.from({ length: 100 }).map((_, index) => (
           <Flex direction="row" key={index}>
-            <h1>Hello</h1>
-            <h1>Sidebar</h1>
-            <h1>Hello</h1>
-            <h1>Sidebar</h1>
-            <h1>Hello</h1>
-            <h1>Sidebar</h1>
+            <Typography>Hello</Typography>
+            <Typography>Sidebar</Typography>
+            <Typography>Hello</Typography>
+            <Typography>Sidebar</Typography>
+            <Typography>Hello</Typography>
+            <Typography>Sidebar</Typography>
           </Flex>
         ))}
       </DrawerLayout.Aside>
       <DrawerLayout.Main>
         <Page>
           <Page.Header>
-            <button onClick={handleToggleDrawer}>Toggle Drawer</button>
+            <button type="button" onClick={handleToggleDrawer}>
+              Toggle Drawer
+            </button>
             <ThemeSwitcher />
           </Page.Header>
           <Page.Body>
             {Array.from({ length: 100 }).map((_, index) => (
               <Flex key={index}>
-                <h1>Hello</h1>
-                <h1>Web App!</h1>
+                <Typography>Hello</Typography>
+                <Typography>Web App!</Typography>
               </Flex>
             ))}
           </Page.Body>

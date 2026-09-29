@@ -1,6 +1,7 @@
 import { type ReactNode } from "react";
 import { ScrollView, View } from "react-native";
 
+import { Flex } from "@/components/Flex/mobile";
 import { useThemedNativeStyles } from "@/shared/hooks";
 
 import { type PageBodyBaseProps, type PageHeaderBaseProps, type PageRootBaseProps } from "../types";
@@ -11,6 +12,7 @@ const PageHeader = ({ children }: PageHeaderBaseProps): ReactNode => {
 
   return (
     <View
+      accessibilityRole="header"
       style={[
         pageStyles.header,
         {
@@ -19,7 +21,9 @@ const PageHeader = ({ children }: PageHeaderBaseProps): ReactNode => {
         },
       ]}
     >
-      {children}
+      <Flex alignItems="center" direction="row" gap="sm">
+        {children}
+      </Flex>
     </View>
   );
 };
@@ -28,7 +32,10 @@ const PageBody = ({ children }: PageBodyBaseProps): ReactNode => {
   const { background } = useThemedNativeStyles();
 
   return (
-    <ScrollView style={[pageStyles.body, { backgroundColor: background.primary }]}>
+    <ScrollView
+      accessibilityLabel="Page content"
+      style={[pageStyles.body, { backgroundColor: background.primary }]}
+    >
       {children}
     </ScrollView>
   );
