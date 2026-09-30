@@ -1,10 +1,10 @@
 ---
-name: review
-description: Параллельный post-apply review — OpenSpec verify + quality-reviewer (perf, render, a11y). Use after opsx-apply, ручных доработок или когда пользователь просит review.
+name: opsx-review
+description: Параллельный post-apply review — OpenSpec verify + quality-reviewer (perf, render, a11y). Use after opsx-apply, ручных доработок, или когда пользователь просит opsx-review, /opsx-review, spec+code review после change.
 disable-model-invocation: true
 ---
 
-# Review
+# Opsx review
 
 Skill только для **root**. Если ты subagent `quality-reviewer` или исполнитель verify — не читай этот skill и не запускай вложенные subagent. Verify делай по `.cursor/skills/openspec-verify-change/SKILL.md`; code review — по `.cursor/agents/quality-reviewer.md`.
 
@@ -31,7 +31,7 @@ Custom Instructions: <только если пользователь дал ин
 
 Если change уже определён для записи файла (см. ниже) — передай имя в `Change`. Иначе `infer per skill`.
 
-Ответ MUST содержать полный **Verification Report** как в skill: Summary scorecard, Issues by Priority (CRITICAL / WARNING / SUGGESTION), Final Assessment.
+Ответ MUST содержать блоки **CRITICAL**, **WARNING**, **SUGGESTION** (как в verify skill) и перечень просмотренных файлов/артефактов, если verify их фиксировал.
 
 ### 2. Quality review
 
@@ -53,7 +53,7 @@ Custom Instructions: <только если пользователь дал ин
 - неверный вызов — исправь и **один** retry только для упавшего
 - лимит или `decision: deny` — не retry, сообщи и остановись
 - другая ошибка — один retry с тем же промптом для упавшего
-- текст про вложенный subagent или «использую skill review» — рекурсия, не retry
+- текст про вложенный subagent или «использую skill opsx-review» — рекурсия, не retry
 
 Успешный subagent не перезапускай. Та же ошибка после retry — остановись и назови blocker.
 
@@ -71,68 +71,67 @@ Change — первое совпадение:
 
 Оба subagent ещё не завершились — дождись обоих.
 
-Verify не удался, quality OK — кратко blocker verify; quality verdict и таблицу findings всё равно выведи.
+Если один subagent упал — кратко blocker; второй выведи **только** в сжатом формате ниже (без таблиц и итогов).
 
-Quality не удался, verify OK — blocker quality; scorecard и Final Assessment verify выведи.
+Иначе выведи **три** блока (как в файле `review-<n>.md`, без дублирования лишнего):
 
-Пустой diff у quality — одна фраза, что code review нечего; verify всё равно резюмируй.
+1. **Файлы** — отсортированный список путей
+2. **Spec review** — CRITICAL / WARNING / SUGGESTION из verify
+3. **Code review** — CRITICAL / WARNING / SUGGESTION из quality-reviewer (`critical` / `warning` / `note` → те же уровни; пункт: `path:line — finding`)
 
-Иначе:
-
-1. **OpenSpec** — Final Assessment из ответа verify (не выдумывай).
-2. **Code quality** — verdict (`PASS`, `PASS WITH NOTES`, `NEEDS WORK`). Без findings — одна строка. С findings — таблица: `critical` → `warning` → `note`, колонки **Severity**, **Location**, **Finding**.
+Пустой подблок — строка «—». Verdict, scorecard, Final Assessment в чат **не** выводи.
 
 Findings не исправляй и review не перезапускай, пока пользователь явно не попросит. Для auth, crypto и глубокой security рекомендуй `/review-security`.
 
 ## Файл
 
-Пишет root после обоих ответов. Subagent файлы не создаёт. Только если change определён для записи (см. выше) **и** verify вернул Verification Report.
+Пишет root после обоих ответов. Subagent файлы не создаёт. Только если change определён для записи (см. выше) **и** verify subagent успешно завершился.
 
 Путь: `openspec/changes/<change>/reviews/review-<n>.md`. `<n>` — max + 1; пропуски не заполняй; файлов нет → `review-1.md`.
 
-Собери **один** markdown по образцу вывода `openspec-verify-change` (таблица Summary, группы CRITICAL / WARNING / SUGGESTION, один блок **Final Assessment**). Не используй старый формат с `Verdict:` только в шапке.
+**Только три секции.** Без шапки, таблиц, scorecard, verdict, Final Assessment, Detail и выводов.
 
 ```markdown
-# Review <n>
+## Файлы
 
-- Change: <change>
-- Date: <YYYY-MM-DD>
-- Diff: <branch changes | uncommitted changes>
+- <path>
+- …
 
-## Verification Report: <change-name>
+## Spec review
 
-### Summary
+### CRITICAL
 
-| Dimension    | Status |
-| ------------ | ------ |
-| Completeness | <из verify Summary> |
-| Correctness  | <из verify Summary> |
-| Coherence    | <из verify Summary> |
-| Code Quality | <PASS \| PASS WITH NOTES \| NEEDS WORK — кратко, на русском> |
+- …
 
-### Issues by Priority
+### WARNING
 
-Скопируй из ответа verify блоки **CRITICAL**, **WARNING**, **SUGGESTION** (формулировки и рекомендации не перефразируй). Дополни findings quality-reviewer:
+- …
 
-- severity `critical` → в **CRITICAL** (префикс «Code quality:», Location из таблицы)
-- severity `warning` → в **WARNING**
-- severity `note` → в **SUGGESTION**
+### SUGGESTION
 
-Если у quality нет findings — не добавляй пустых пунктов.
+- …
 
-### Final Assessment
+## Code review
 
-Один абзац на русском: итог verify (готовность к archive, skipped checks, счётчики) **и** code quality verdict. Если verify уже дал Final Assessment — объедини с quality без противоречий; при конфликте приоритета — CRITICAL quality или verify блокирует «ready for archive».
+### CRITICAL
 
----
+- …
 
-## Detail: OpenSpec Verification
+### WARNING
 
-<полный markdown-ответ verify subagent без изменений>
+- …
 
-## Detail: Code Quality
+### SUGGESTION
 
-<полный markdown-ответ quality-reviewer без изменений>
+- …
 ```
 
-Если verify не выполнился — файл не создавай. Если diff пуст и quality только «нечего проверять», но verify успешен — файл создай по verify + строка Code Quality «Нечего проверять (пустой diff)».
+**Файлы:** объедини уникальные пути из diff quality-reviewer (без `openspec/changes/**/reviews/**`) и файлы, которые verify явно проверял (код, delta specs, tasks). Сортировка по пути.
+
+**Spec review:** скопируй пункты verify в **CRITICAL** / **WARNING** / **SUGGESTION** без перефразирования.
+
+**Code review:** findings quality-reviewer — `critical` → **CRITICAL**, `warning` → **WARNING**, `note` → **SUGGESTION**; формат пункта `path:line — finding`. Не смешивай с spec review.
+
+Пустой подблок — одна строка `—`. Не добавляй пустые bullet «для галочки».
+
+Если verify не выполнился — файл не создавай. Если diff пуст и quality только «нечего проверять», но verify успешен — файл создай; **Code review** во всех подблоках `—`.
