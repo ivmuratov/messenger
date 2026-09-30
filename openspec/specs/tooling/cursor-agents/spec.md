@@ -12,7 +12,7 @@
 
 #### Scenario: Запуск через skill
 
-- **WHEN** пользователь или родительский агент вызывает skill review после изменений кода
+- **WHEN** пользователь или родительский агент вызывает skill opsx-review после изменений кода
 - **THEN** MUST быть запущены параллельно subagent verify (по `.cursor/skills/openspec-verify-change/SKILL.md`) и subagent `quality-reviewer` с путём репозитория и типом diff
 - **AND** quality-reviewer MUST вернуть verdict и таблицу findings
 
@@ -37,41 +37,30 @@ Review MUST покрывать: уязвимости безопасности в
 - **WHEN** diff добавляет inline object/function в props hot-path list component
 - **THEN** quality-reviewer MAY сообщить finding с severity и recommendation по memoization
 
-### Requirement: Skill review
+### Requirement: Skill opsx-review
 
-Репозиторий MUST предоставлять skill `.cursor/skills/review/SKILL.md`, описывающий параллельный запуск OpenSpec verify (subagent выполняет `.cursor/skills/openspec-verify-change/SKILL.md`) и subagent `quality-reviewer` (diff branch changes по умолчанию). Skill MUST задавать объединённый файл review по формату Verification Report из openspec-verify-change (Summary scorecard с строкой Code Quality, Issues by Priority, Final Assessment) и формат quality: verdict (PASS / PASS WITH NOTES / NEEDS WORK) и таблица Severity | Location | Finding.
+Репозиторий MUST предоставлять skill `.cursor/skills/opsx-review/SKILL.md`, описывающий параллельный запуск OpenSpec verify (subagent выполняет `.cursor/skills/openspec-verify-change/SKILL.md`) и subagent `quality-reviewer` (diff branch changes по умолчанию). Skill MUST задавать сжатый файл `review-<n>.md` из трёх секций: список просмотренных файлов; **Spec review** (подблоки CRITICAL, WARNING, SUGGESTION из verify); **Code review** (те же подблоки из findings quality-reviewer). Файл MUST NOT содержать таблицы, scorecard, verdict, Final Assessment и полные дампы ответов subagent. Subagent quality-reviewer по-прежнему MUST возвращать verdict и таблицу findings в ответ root.
 
-#### Scenario: Verdict PASS
+#### Scenario: Verdict quality-reviewer
 
-- **WHEN** subagent завершил review и findings нет
-- **THEN** verdict MUST быть PASS
-- **AND** skill workflow MUST резюмировать one-line status с этим verdict
-
-#### Scenario: Verdict PASS WITH NOTES
-
-- **WHEN** findings только severity `note`
-- **THEN** verdict MUST быть PASS WITH NOTES
-- **AND** skill workflow MUST вывести эти findings таблицей вместе с verdict
-
-#### Scenario: Verdict NEEDS WORK
-
-- **WHEN** есть хотя бы один finding severity `warning` или `critical`
-- **THEN** verdict MUST быть NEEDS WORK
-- **AND** skill workflow MUST вывести markdown-таблицу, отсортированную по severity, вместе с verdict
+- **WHEN** subagent quality-reviewer завершил review
+- **THEN** MUST вернуть verdict (PASS / PASS WITH NOTES / NEEDS WORK) и таблицу findings root-агенту
+- **AND** root MUST маппить findings в секцию Code review файла без таблиц
 
 #### Scenario: Запись review в change
 
-- **WHEN** review завершился с verdict и change определён: пользователь назвал существующий каталог в `openspec/changes/` вне `archive/`, либо имя текущей ветки совпадает с каталогом change, либо ветка `main`/`master` и активный change ровно один
-- **THEN** root-агент MUST записать объединённый Verification Report в `openspec/changes/<change>/reviews/review-<n>.md` с шапкой change, date, diff, Summary (включая Code Quality), Issues by Priority и Final Assessment; полные ответы subagent — в секциях Detail
+- **WHEN** opsx-review завершился и change определён: пользователь назвал существующий каталог в `openspec/changes/` вне `archive/`, либо имя текущей ветки совпадает с каталогом change, либо ветка `main`/`master` и активный change ровно один
+- **AND** verify subagent успешно завершился
+- **THEN** root-агент MUST записать `openspec/changes/<change>/reviews/review-<n>.md` только с секциями **Файлы**, **Spec review**, **Code review**
 - **AND** `<n>` MUST быть на один больше максимального существующего номера; пропуски MUST NOT заполняться
 - **AND** subagent MUST NOT создавать этот файл
-- **AND** если change не определён или diff пуст — файл MUST NOT создаваться, результат остаётся в чате
+- **AND** если change не определён или verify не выполнился — файл MUST NOT создаваться
 
 ### Requirement: Документация cursor agents
 
-`.cursor/README.md` MUST описывать subagent `quality-reviewer` и skill `review`. Skill MUST NOT дублировать встроенный `security-review`; для auth/crypto changes MUST рекомендовать `/review-security` дополнительно.
+`.cursor/README.md` MUST описывать subagent `quality-reviewer` и skill `opsx-review`. Skill MUST NOT дублировать встроенные Cursor `review` / `code-review` и `security-review`; для auth/crypto changes MUST рекомендовать `/review-security` дополнительно.
 
 #### Scenario: README agents section
 
 - **WHEN** разработчик читает `.cursor/README.md`
-- **THEN** MUST найти описание `quality-reviewer` и когда использовать `review` vs `review-security`
+- **THEN** MUST найти описание `quality-reviewer` и когда использовать `opsx-review` vs встроенный review и `review-security`
